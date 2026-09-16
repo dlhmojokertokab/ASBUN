@@ -134,6 +134,7 @@ function getCorsHeaders(request) {
   const allowedOrigins = new Set([
     "http://localhost:5500",
     "http://127.0.0.1:5500",
+    "https://dlhmojokertokab.github.io",
   ]);
 
   const headers = {
