@@ -1,0 +1,2075 @@
+﻿<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <title>ASBUN — Workdesk Asistensi</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f4f8f5;
+      --card: #ffffff;
+      --text: #1f2d24;
+      --muted: #6b786f;
+      --line: #dce8df;
+
+      --green: #2f6f4e;
+      --green-dark: #23563c;
+      --green-soft: #e8f3ec;
+
+      --blue-soft: #edf5ff;
+      --blue: #356da8;
+
+      --amber-soft: #fff7e8;
+      --amber: #9a6418;
+
+      --gray-soft: #f1f3f2;
+      --gray: #66706a;
+
+      --shadow:
+        0 16px 40px
+        rgba(31,45,36,.07);
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        "Segoe UI",
+        sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(
+          circle at top left,
+          #edf7f0 0,
+          transparent 34%
+        ),
+        var(--bg);
+    }
+
+    button {
+      font: inherit;
+      border: 0;
+      cursor: pointer;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background:
+        rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+    }
+
+    .header-inner {
+      width: min(1380px,100%);
+      min-height: 74px;
+      margin: auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--green);
+      color: white;
+      font-weight: 900;
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 18px;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+    }
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: right;
+    }
+
+    .user strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .user span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--green-soft);
+      color: var(--green-dark);
+      font-weight: 900;
+    }
+
+    main {
+      width: min(1380px,100%);
+      margin: auto;
+      padding: 28px 24px 42px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 6px 0 8px;
+      font-size: clamp(26px,3vw,36px);
+      letter-spacing: -.04em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0 15px;
+      border-radius: 11px;
+      font-weight: 800;
+    }
+
+    .secondary {
+      background: #edf3ef;
+      color: var(--text);
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns:
+        minmax(0, 1.7fr)
+        minmax(340px, .8fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      overflow: hidden;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel-head {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .panel-head strong {
+      font-size: 15px;
+    }
+
+    .panel-head span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .pdf-wrap {
+      min-height: 760px;
+      background: #eef2ef;
+      position: relative;
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 760px;
+      border: 0;
+      background: white;
+    }
+
+    .pdf-message {
+      min-height: 760px;
+      display: grid;
+      place-items: center;
+      padding: 30px;
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .details {
+      padding: 18px;
+    }
+
+    .status-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .badge {
+      display: inline-flex;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .wait {
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+
+    .revision {
+      background: var(--amber-soft);
+      color: var(--amber);
+    }
+
+    .final {
+      background: var(--green-soft);
+      color: var(--green-dark);
+    }
+
+    .done {
+      background: var(--gray-soft);
+      color: var(--gray);
+    }
+
+    .detail-card {
+      padding: 15px 0;
+      border-bottom: 1px solid #edf2ee;
+    }
+
+    .detail-card:last-child {
+      border-bottom: 0;
+    }
+
+    .label {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .value {
+      display: block;
+      font-size: 14px;
+      font-weight: 800;
+      overflow-wrap: anywhere;
+    }
+
+    .value.subtle {
+      font-weight: 600;
+    }
+
+    .decision-panel {
+      margin: 18px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fbfdfb;
+    }
+
+    .decision-panel h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+
+    .decision-panel p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .decision-field {
+      margin-top: 16px;
+    }
+
+    .decision-field label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .decision-field textarea {
+      width: 100%;
+      min-height: 120px;
+      resize: vertical;
+      padding: 12px 13px;
+      border: 1px solid #ccd9cf;
+      border-radius: 12px;
+      outline: none;
+      font: inherit;
+      color: var(--text);
+      background: white;
+    }
+
+    .decision-field textarea:focus {
+      border-color: var(--green);
+      box-shadow:
+        0 0 0 4px
+        rgba(47,111,78,.09);
+    }
+
+    .decision-actions {
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .revision-btn {
+      min-height: 42px;
+      padding: 0 15px;
+      border-radius: 11px;
+      background: var(--amber-soft);
+      color: var(--amber);
+      font-weight: 900;
+    }
+
+    .revision-btn:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    .final-btn {
+      min-height: 42px;
+      padding: 0 15px;
+      border-radius: 11px;
+      background: var(--green);
+      color: white;
+      font-weight: 900;
+    }
+
+    .final-btn:hover {
+      background: var(--green-dark);
+    }
+
+    .final-btn:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    .final-actions {
+      display: none;
+      margin-top: 16px;
+    }
+
+    .final-actions.show {
+      display: block;
+    }
+
+    .final-action-buttons {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .download-btn,
+    .complete-btn {
+      min-height: 44px;
+      padding: 0 15px;
+      border-radius: 11px;
+      font-weight: 900;
+    }
+
+    .download-btn {
+      background: var(--green-soft);
+      color: var(--green-dark);
+    }
+
+    .complete-btn {
+      background: #b42318;
+      color: white;
+    }
+
+    .complete-btn:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+    }
+
+    .final-hint {
+      margin-top: 10px !important;
+      font-size: 11px !important;
+    }
+
+    .complete-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: none;
+      place-items: center;
+      padding: 20px;
+      background: rgba(20,30,24,.52);
+      backdrop-filter: blur(5px);
+    }
+
+    .complete-overlay.show {
+      display: grid;
+    }
+
+    .complete-box {
+      width: min(440px,100%);
+      padding: 24px;
+      border-radius: 22px;
+      background: white;
+      box-shadow: 0 24px 70px rgba(20,30,24,.24);
+    }
+
+    .complete-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+      border-radius: 15px;
+      background: #fef1f0;
+      color: #b42318;
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .complete-box h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .complete-box p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .complete-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .complete-cancel,
+    .complete-ok {
+      min-height: 42px;
+      padding: 0 16px;
+      border-radius: 11px;
+      font-weight: 900;
+    }
+
+    .complete-cancel {
+      background: #edf3ef;
+      color: var(--text);
+    }
+
+    .complete-ok {
+      background: #b42318;
+      color: white;
+    }
+
+    .decision-message {
+      display: none;
+      margin-top: 12px;
+      padding: 11px 12px;
+      border-radius: 11px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .decision-message.error {
+      display: block;
+      background: #fef1f0;
+      color: #b42318;
+      min-height: auto;
+      place-items: unset;
+      text-align: left;
+      padding: 11px 12px;
+    }
+
+    .decision-message.success {
+      display: block;
+      background: var(--green-soft);
+      color: var(--green-dark);
+    }
+
+    .confirm-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      place-items: center;
+      padding: 20px;
+      background: rgba(20, 30, 24, .48);
+      backdrop-filter: blur(5px);
+    }
+
+    .confirm-overlay.show {
+      display: grid;
+    }
+
+    .confirm-box {
+      width: min(430px, 100%);
+      padding: 24px;
+      border-radius: 22px;
+      background: white;
+      box-shadow: 0 24px 70px rgba(20,30,24,.22);
+      animation: confirmIn .18s ease-out;
+    }
+
+    @keyframes confirmIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px) scale(.98);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .confirm-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+      border-radius: 15px;
+      background: var(--green-soft);
+      color: var(--green-dark);
+      font-size: 23px;
+      font-weight: 900;
+    }
+
+    .confirm-box h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .confirm-box p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .confirm-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .confirm-cancel,
+    .confirm-ok {
+      min-height: 42px;
+      padding: 0 16px;
+      border-radius: 11px;
+      font-weight: 900;
+    }
+
+    .confirm-cancel {
+      background: #edf3ef;
+      color: var(--text);
+    }
+
+    .confirm-ok {
+      background: var(--green);
+      color: white;
+    }
+
+    .loading,
+    .error {
+      min-height: 300px;
+      display: grid;
+      place-items: center;
+      padding: 30px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .error {
+      color: #b42318;
+    }
+
+    footer {
+      padding: 0 24px 28px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media(max-width:980px) {
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+
+      iframe,
+      .pdf-message {
+        min-height: 620px;
+        height: 620px;
+      }
+    }
+
+    @media(max-width:640px) {
+      .header-inner,
+      main {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .brand small,
+      .user > div:first-child {
+        display: none;
+      }
+
+      .topbar {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      iframe,
+      .pdf-message {
+        min-height: 520px;
+        height: 520px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-mark">A</div>
+
+      <div>
+        <strong>ASBUN</strong>
+        <small>Asistensi Berkas Usaha dan Perizinan</small>
+      </div>
+    </div>
+
+    <div class="user">
+      <div>
+        <strong id="adminName">Admin</strong>
+        <span id="adminUsername"></span>
+      </div>
+
+      <div class="avatar" id="avatar">A</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="topbar">
+    <div>
+      <div class="eyebrow">Workdesk Asistensi</div>
+
+      <h1 id="submissionTitle">
+        Memuat pengajuan...
+      </h1>
+
+      <p class="subtitle" id="companySubtitle">
+        -
+      </p>
+    </div>
+
+    <div class="actions">
+      <button class="btn secondary" id="queueButton">
+        Antrean
+      </button>
+
+      <button class="btn secondary" id="dashboardButton">
+        Dashboard
+      </button>
+    </div>
+  </div>
+
+  <div id="loadingState" class="loading">
+    Memuat workdesk...
+  </div>
+
+  <section
+    class="workspace"
+    id="workspace"
+    style="display:none"
+  >
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <strong>Preview PDF Aktif</strong>
+          <span id="pdfFileName"></span>
+        </div>
+      </div>
+
+      <div class="pdf-wrap" id="pdfWrap">
+        <div class="pdf-message">
+          Memuat PDF...
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <div class="panel-head">
+        <div>
+          <strong>Detail Pengajuan</strong>
+          <span>Data pengajuan aktif</span>
+        </div>
+      </div>
+
+      <div class="details">
+        <div class="status-line">
+          <span
+            class="badge"
+            id="statusBadge"
+          >
+            -
+          </span>
+        </div>
+
+        <div class="detail-card">
+          <span class="label">Perusahaan</span>
+          <span class="value" id="companyName">-</span>
+        </div>
+
+        <div class="detail-card">
+          <span class="label">PIC</span>
+          <span class="value" id="picName">-</span>
+          <span class="value subtle" id="picEmail">-</span>
+        </div>
+
+        <div class="detail-card">
+          <span class="label">Versi Aktif</span>
+          <span class="value" id="activeVersion">-</span>
+        </div>
+
+        <div class="detail-card">
+          <span class="label">Nama File Aktif</span>
+          <span class="value subtle" id="activeFileName">-</span>
+        </div>
+
+        <div class="detail-card">
+          <span class="label">Dibuat</span>
+          <span class="value subtle" id="createdAt">-</span>
+        </div>
+
+        <div class="detail-card">
+          <span class="label">Terakhir Diperbarui</span>
+          <span class="value subtle" id="updatedAt">-</span>
+        </div>
+      </div>
+
+      <div
+        class="decision-panel"
+        id="decisionPanel"
+      >
+        <h3>Keputusan Asistensi</h3>
+
+        <p id="decisionDescription">
+          Memuat status keputusan...
+        </p>
+
+        <div
+          id="needsRevisionForm"
+          style="display:none"
+        >
+          <div class="decision-field">
+            <label for="revisionNote">
+              Catatan Perbaikan
+            </label>
+
+            <textarea
+              id="revisionNote"
+              placeholder="Tuliskan bagian yang perlu diperbaiki oleh pelaku usaha..."
+            ></textarea>
+          </div>
+
+          <div class="decision-actions">
+            <button
+              class="revision-btn"
+              id="needsRevisionButton"
+              type="button"
+            >
+              Tandai Perlu Perbaikan
+            </button>
+
+            <button
+              class="final-btn"
+              id="finalButton"
+              type="button"
+            >
+              Tetapkan FINAL
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="final-actions"
+          id="finalActions"
+        >
+          <p>
+            Unduh dan simpan berkas FINAL terlebih dahulu.
+            Setelah itu berkas transit dapat diselesaikan dan dihapus.
+          </p>
+
+          <div class="final-action-buttons">
+            <button
+              class="download-btn"
+              id="downloadFinalButton"
+              type="button"
+            >
+              Download PDF Final
+            </button>
+
+            <button
+              class="complete-btn"
+              id="completeButton"
+              type="button"
+              disabled
+            >
+              Selesaikan & Hapus Berkas
+            </button>
+          </div>
+
+          <p
+            class="final-hint"
+            id="finalDownloadHint"
+          >
+            Tombol penyelesaian aktif setelah PDF berhasil diunduh.
+          </p>
+        </div>
+
+        <div
+          class="decision-message"
+          id="decisionMessage"
+        ></div>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<footer>
+  ASBUN · Dinas Lingkungan Hidup Kabupaten Mojokerto
+</footer>
+
+<div
+  class="confirm-overlay"
+  id="finalConfirmOverlay"
+>
+  <div class="confirm-box">
+    <div class="confirm-icon">✓</div>
+
+    <h3>Tetapkan sebagai FINAL?</h3>
+
+    <p id="finalConfirmText">
+      Setelah ditetapkan FINAL, proses revisi berakhir dan pelaku usaha tidak dapat mengunggah perbaikan lagi.
+    </p>
+
+    <div class="confirm-actions">
+      <button
+        class="confirm-cancel"
+        id="finalConfirmCancel"
+        type="button"
+      >
+        Batal
+      </button>
+
+      <button
+        class="confirm-ok"
+        id="finalConfirmOk"
+        type="button"
+      >
+        Ya, Tetapkan FINAL
+      </button>
+    </div>
+  </div>
+</div>
+
+<div
+  class="complete-overlay"
+  id="completeConfirmOverlay"
+>
+  <div class="complete-box">
+    <div class="complete-icon">!</div>
+
+    <h3>Selesaikan pengajuan?</h3>
+
+    <p id="completeConfirmText">
+      Berkas FINAL akan dihapus dari penyimpanan transit dan pengajuan akan ditandai SELESAI.
+    </p>
+
+    <div class="complete-actions">
+      <button
+        class="complete-cancel"
+        id="completeConfirmCancel"
+        type="button"
+      >
+        Batal
+      </button>
+
+      <button
+        class="complete-ok"
+        id="completeConfirmOk"
+        type="button"
+      >
+        Ya, Selesaikan
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const API_BASE =
+    "http://127.0.0.1:8788";
+
+  const SESSION_KEY =
+    "asbun_admin_session";
+
+  let pdfObjectUrl = null;
+
+  function loadSession() {
+    const raw =
+      sessionStorage.getItem(
+        SESSION_KEY
+      );
+
+    if (!raw) {
+      return null;
+    }
+
+    try {
+      return JSON.parse(raw);
+    } catch {
+      sessionStorage.removeItem(
+        SESSION_KEY
+      );
+
+      return null;
+    }
+  }
+
+  function getSubmissionNumber() {
+    const params =
+      new URLSearchParams(
+        location.search
+      );
+
+    return (
+      params.get("n") ||
+      ""
+    ).trim();
+  }
+
+  function formatDate(value) {
+    if (!value) {
+      return "-";
+    }
+
+    const date =
+      new Date(value);
+
+    if (
+      Number.isNaN(
+        date.getTime()
+      )
+    ) {
+      return value;
+    }
+
+    return date.toLocaleString(
+      "id-ID",
+      {
+        dateStyle: "medium",
+        timeStyle: "short",
+      }
+    );
+  }
+
+  function statusLabel(status) {
+    return {
+      MENUNGGU_ASISTENSI:
+        "Menunggu Asistensi",
+
+      PERLU_PERBAIKAN:
+        "Perlu Perbaikan",
+
+      FINAL:
+        "Final",
+
+      SELESAI:
+        "Selesai",
+    }[status] || status || "-";
+  }
+
+  function statusClass(status) {
+    return {
+      MENUNGGU_ASISTENSI:
+        "wait",
+
+      PERLU_PERBAIKAN:
+        "revision",
+
+      FINAL:
+        "final",
+
+      SELESAI:
+        "done",
+    }[status] || "done";
+  }
+
+  function renderAdmin(admin) {
+    const name =
+      admin.displayName ||
+      admin.username ||
+      "Admin";
+
+    document.getElementById(
+      "adminName"
+    ).textContent =
+      name;
+
+    document.getElementById(
+      "adminUsername"
+    ).textContent =
+      admin.username || "";
+
+    document.getElementById(
+      "avatar"
+    ).textContent =
+      name.charAt(0).toUpperCase();
+  }
+
+  function renderSubmission(submission) {
+    document.getElementById(
+      "submissionTitle"
+    ).textContent =
+      submission.submissionNumber;
+
+    document.getElementById(
+      "companySubtitle"
+    ).textContent =
+      submission.companyName;
+
+    document.getElementById(
+      "companyName"
+    ).textContent =
+      submission.companyName;
+
+    document.getElementById(
+      "picName"
+    ).textContent =
+      submission.picName;
+
+    document.getElementById(
+      "picEmail"
+    ).textContent =
+      submission.picEmail;
+
+    document.getElementById(
+      "activeVersion"
+    ).textContent =
+      "V" +
+      submission.activeVersion;
+
+    document.getElementById(
+      "activeFileName"
+    ).textContent =
+      submission.activeFileName || "-";
+
+    document.getElementById(
+      "pdfFileName"
+    ).textContent =
+      submission.activeFileName || "";
+
+    document.getElementById(
+      "createdAt"
+    ).textContent =
+      formatDate(
+        submission.createdAt
+      );
+
+    document.getElementById(
+      "updatedAt"
+    ).textContent =
+      formatDate(
+        submission.updatedAt
+      );
+
+    const badge =
+      document.getElementById(
+        "statusBadge"
+      );
+
+    badge.textContent =
+      statusLabel(
+        submission.status
+      );
+
+    badge.className =
+      "badge " +
+      statusClass(
+        submission.status
+      );
+  }
+
+  function renderDecision(
+    submission
+  ) {
+    const description =
+      document.getElementById(
+        "decisionDescription"
+      );
+
+    const form =
+      document.getElementById(
+        "needsRevisionForm"
+      );
+
+    const message =
+      document.getElementById(
+        "decisionMessage"
+      );
+
+    form.style.display =
+      "none";
+
+    const finalActions =
+      document.getElementById(
+        "finalActions"
+      );
+
+    finalActions.classList.remove(
+      "show"
+    );
+
+    message.className =
+      "decision-message";
+
+    message.textContent =
+      "";
+
+    if (
+      submission.status ===
+      "MENUNGGU_ASISTENSI"
+    ) {
+      description.textContent =
+        "Berkas sedang menunggu hasil asistensi. Berikan catatan perbaikan jika masih ada yang harus direvisi, atau tetapkan FINAL jika dokumen sudah dapat diterima.";
+
+      form.style.display =
+        "block";
+
+      return;
+    }
+
+    if (
+      submission.status ===
+      "PERLU_PERBAIKAN"
+    ) {
+      description.textContent =
+        "Catatan perbaikan sudah dikirim. Menunggu pelaku usaha mengunggah versi revisi.";
+
+      return;
+    }
+
+    if (
+      submission.status ===
+      "FINAL"
+    ) {
+      description.textContent =
+        "Pengajuan sudah ditetapkan FINAL. Unduh berkas final, kemudian selesaikan proses untuk menghapus berkas transit.";
+
+      finalActions.classList.add(
+        "show"
+      );
+
+      return;
+    }
+
+    if (
+      submission.status ===
+      "SELESAI"
+    ) {
+      description.textContent =
+        "Proses pengajuan sudah selesai.";
+
+      return;
+    }
+
+    description.textContent =
+      "Status pengajuan tidak dikenali.";
+  }
+
+  async function loadPdf(
+    submissionNumber,
+    token,
+    fileAvailable
+  ) {
+    const pdfWrap =
+      document.getElementById(
+        "pdfWrap"
+      );
+
+    if (!fileAvailable) {
+      pdfWrap.innerHTML = `
+        <div class="pdf-message">
+          Berkas aktif sudah tidak tersedia.
+        </div>
+      `;
+
+      return;
+    }
+
+    try {
+      const response =
+        await fetch(
+          API_BASE +
+          "/admin/submissions/" +
+          encodeURIComponent(
+            submissionNumber
+          ) +
+          "/file",
+          {
+            headers: {
+              Authorization:
+                "Bearer " +
+                token,
+            },
+          }
+        );
+
+      if (!response.ok) {
+        let message =
+          "Gagal membuka PDF.";
+
+        try {
+          const data =
+            await response.json();
+
+          message =
+            data.error ||
+            message;
+        } catch {
+        }
+
+        throw new Error(
+          message
+        );
+      }
+
+      const blob =
+        await response.blob();
+
+      pdfObjectUrl =
+        URL.createObjectURL(
+          blob
+        );
+
+      pdfWrap.innerHTML = `
+        <iframe
+          title="Preview PDF"
+          src="${pdfObjectUrl}"
+        ></iframe>
+      `;
+    } catch (error) {
+      pdfWrap.innerHTML = `
+        <div class="pdf-message">
+          ${error.message ||
+          "Gagal membuka PDF."}
+        </div>
+      `;
+    }
+  }
+
+  async function boot() {
+    const session =
+      loadSession();
+
+    if (
+      !session ||
+      !session.token
+    ) {
+      location.href =
+        "admin.html";
+
+      return;
+    }
+
+    const submissionNumber =
+      getSubmissionNumber();
+
+    if (!submissionNumber) {
+      location.href =
+        "admin-queue.html";
+
+      return;
+    }
+
+    try {
+      const response =
+        await fetch(
+          API_BASE +
+          "/admin/submissions/" +
+          encodeURIComponent(
+            submissionNumber
+          ),
+          {
+            headers: {
+              Authorization:
+                "Bearer " +
+                session.token,
+            },
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if (!response.ok) {
+        if (
+          response.status === 401 ||
+          response.status === 403
+        ) {
+          sessionStorage.removeItem(
+            SESSION_KEY
+          );
+
+          location.href =
+            "admin.html";
+
+          return;
+        }
+
+        throw new Error(
+          data.error ||
+          "Gagal memuat workdesk."
+        );
+      }
+
+      renderAdmin(
+        data.admin
+      );
+
+      renderSubmission(
+        data.submission
+      );
+
+      renderDecision(
+        data.submission
+      );
+
+      document.getElementById(
+        "loadingState"
+      ).style.display =
+        "none";
+
+      document.getElementById(
+        "workspace"
+      ).style.display =
+        "grid";
+
+      await loadPdf(
+        data.submission.submissionNumber,
+        session.token,
+        data.submission.fileAvailable
+      );
+
+    } catch (error) {
+      const loading =
+        document.getElementById(
+          "loadingState"
+        );
+
+      loading.className =
+        "error";
+
+      loading.textContent =
+        error.message ||
+        "Gagal memuat workdesk.";
+    }
+  }
+
+  document.getElementById(
+    "needsRevisionButton"
+  ).addEventListener(
+    "click",
+    async () => {
+      const session =
+        loadSession();
+
+      const submissionNumber =
+        getSubmissionNumber();
+
+      const note =
+        document.getElementById(
+          "revisionNote"
+        ).value.trim();
+
+      const button =
+        document.getElementById(
+          "needsRevisionButton"
+        );
+
+      const message =
+        document.getElementById(
+          "decisionMessage"
+        );
+
+      message.className =
+        "decision-message";
+
+      message.textContent =
+        "";
+
+      if (!note) {
+        message.className =
+          "decision-message error";
+
+        message.textContent =
+          "Catatan perbaikan wajib diisi.";
+
+        return;
+      }
+
+      if (!session?.token) {
+        location.href =
+          "admin.html";
+
+        return;
+      }
+
+      button.disabled =
+        true;
+
+      button.textContent =
+        "Menyimpan...";
+
+      try {
+        const response =
+          await fetch(
+            API_BASE +
+            "/admin/submissions/" +
+            encodeURIComponent(
+              submissionNumber
+            ) +
+            "/needs-revision",
+            {
+              method: "POST",
+
+              headers: {
+                Authorization:
+                  "Bearer " +
+                  session.token,
+
+                "Content-Type":
+                  "application/json",
+              },
+
+              body:
+                JSON.stringify({
+                  note,
+                }),
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            data.error ||
+            "Gagal menyimpan keputusan."
+          );
+        }
+
+        message.className =
+          "decision-message success";
+
+        message.textContent =
+          data.submission?.emailSent
+            ? "Catatan perbaikan berhasil disimpan dan email PIC berhasil dikirim."
+            : "Catatan perbaikan berhasil disimpan, tetapi email PIC belum berhasil dikirim.";
+
+        setTimeout(
+          () => {
+            location.reload();
+          },
+          900
+        );
+
+      } catch (error) {
+        message.className =
+          "decision-message error";
+
+        message.textContent =
+          error.message ||
+          "Gagal menyimpan keputusan.";
+      }
+      finally {
+        button.disabled =
+          false;
+
+        button.textContent =
+          "Tandai Perlu Perbaikan";
+      }
+    }
+  );
+
+  function confirmFinal(
+    submissionNumber
+  ) {
+    return new Promise(
+      (resolve) => {
+        const overlay =
+          document.getElementById(
+            "finalConfirmOverlay"
+          );
+
+        const text =
+          document.getElementById(
+            "finalConfirmText"
+          );
+
+        const ok =
+          document.getElementById(
+            "finalConfirmOk"
+          );
+
+        const cancel =
+          document.getElementById(
+            "finalConfirmCancel"
+          );
+
+        text.textContent =
+          submissionNumber +
+          " akan ditetapkan FINAL. Setelah itu proses revisi berakhir dan pelaku usaha hanya akan menerima pemberitahuan bahwa asistensi telah selesai.";
+
+        function finish(value) {
+          overlay.classList.remove(
+            "show"
+          );
+
+          ok.onclick = null;
+          cancel.onclick = null;
+
+          resolve(value);
+        }
+
+        ok.onclick =
+          () => finish(true);
+
+        cancel.onclick =
+          () => finish(false);
+
+        overlay.classList.add(
+          "show"
+        );
+      }
+    );
+  }
+
+  function confirmComplete(
+    submissionNumber
+  ) {
+    return new Promise(
+      (resolve) => {
+        const overlay =
+          document.getElementById(
+            "completeConfirmOverlay"
+          );
+
+        const text =
+          document.getElementById(
+            "completeConfirmText"
+          );
+
+        const ok =
+          document.getElementById(
+            "completeConfirmOk"
+          );
+
+        const cancel =
+          document.getElementById(
+            "completeConfirmCancel"
+          );
+
+        text.textContent =
+          submissionNumber +
+          " akan ditandai SELESAI. PDF FINAL di penyimpanan transit akan dihapus permanen dari Google Drive ASBUN.";
+
+        function finish(value) {
+          overlay.classList.remove(
+            "show"
+          );
+
+          ok.onclick = null;
+          cancel.onclick = null;
+
+          resolve(value);
+        }
+
+        ok.onclick =
+          () => finish(true);
+
+        cancel.onclick =
+          () => finish(false);
+
+        overlay.classList.add(
+          "show"
+        );
+      }
+    );
+  }
+
+
+  document.getElementById(
+    "downloadFinalButton"
+  ).addEventListener(
+    "click",
+    async () => {
+      const session =
+        loadSession();
+
+      const submissionNumber =
+        getSubmissionNumber();
+
+      const button =
+        document.getElementById(
+          "downloadFinalButton"
+        );
+
+      const completeButton =
+        document.getElementById(
+          "completeButton"
+        );
+
+      const hint =
+        document.getElementById(
+          "finalDownloadHint"
+        );
+
+      if (!session?.token) {
+        location.href =
+          "admin.html";
+
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent =
+        "Mengunduh...";
+
+      try {
+        const response =
+          await fetch(
+            API_BASE +
+            "/admin/submissions/" +
+            encodeURIComponent(
+              submissionNumber
+            ) +
+            "/file",
+            {
+              headers: {
+                Authorization:
+                  "Bearer " +
+                  session.token,
+              },
+            }
+          );
+
+        if (!response.ok) {
+          throw new Error(
+            "PDF FINAL gagal diunduh."
+          );
+        }
+
+        const blob =
+          await response.blob();
+
+        const objectUrl =
+          URL.createObjectURL(
+            blob
+          );
+
+        const link =
+          document.createElement(
+            "a"
+          );
+
+        link.href =
+          objectUrl;
+
+        link.download =
+          submissionNumber +
+          "_FINAL.pdf";
+
+        document.body.appendChild(
+          link
+        );
+
+        link.click();
+        link.remove();
+
+        setTimeout(
+          () => {
+            URL.revokeObjectURL(
+              objectUrl
+            );
+          },
+          1000
+        );
+
+        completeButton.disabled =
+          false;
+
+        hint.textContent =
+          "PDF FINAL sudah diunduh. Pengajuan sekarang dapat diselesaikan.";
+      }
+      catch (error) {
+        hint.textContent =
+          error.message ||
+          "Download PDF FINAL gagal.";
+      }
+      finally {
+        button.disabled =
+          false;
+
+        button.textContent =
+          "Download PDF Final";
+      }
+    }
+  );
+
+
+  document.getElementById(
+    "completeButton"
+  ).addEventListener(
+    "click",
+    async () => {
+      const session =
+        loadSession();
+
+      const submissionNumber =
+        getSubmissionNumber();
+
+      const button =
+        document.getElementById(
+          "completeButton"
+        );
+
+      const downloadButton =
+        document.getElementById(
+          "downloadFinalButton"
+        );
+
+      const message =
+        document.getElementById(
+          "decisionMessage"
+        );
+
+      if (!session?.token) {
+        location.href =
+          "admin.html";
+
+        return;
+      }
+
+      const confirmed =
+        await confirmComplete(
+          submissionNumber
+        );
+
+      if (!confirmed) {
+        return;
+      }
+
+      button.disabled = true;
+      downloadButton.disabled = true;
+
+      button.textContent =
+        "Menyelesaikan...";
+
+      try {
+        const response =
+          await fetch(
+            API_BASE +
+            "/admin/submissions/" +
+            encodeURIComponent(
+              submissionNumber
+            ) +
+            "/complete",
+            {
+              method: "POST",
+
+              headers: {
+                Authorization:
+                  "Bearer " +
+                  session.token,
+
+                "Content-Type":
+                  "application/json",
+              },
+
+              body:
+                JSON.stringify({}),
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            data.error ||
+            "Gagal menyelesaikan pengajuan."
+          );
+        }
+
+        message.className =
+          "decision-message success";
+
+        message.textContent =
+          "Pengajuan selesai dan berkas transit berhasil dihapus.";
+
+        setTimeout(
+          () => {
+            location.reload();
+          },
+          1000
+        );
+      }
+      catch (error) {
+        message.className =
+          "decision-message error";
+
+        message.textContent =
+          error.message ||
+          "Gagal menyelesaikan pengajuan.";
+
+        button.disabled =
+          false;
+
+        downloadButton.disabled =
+          false;
+
+        button.textContent =
+          "Selesaikan & Hapus Berkas";
+      }
+    }
+  );
+
+
+  document.getElementById(
+    "finalButton"
+  ).addEventListener(
+    "click",
+    async () => {
+      const session =
+        loadSession();
+
+      const submissionNumber =
+        getSubmissionNumber();
+
+      const button =
+        document.getElementById(
+          "finalButton"
+        );
+
+      const revisionButton =
+        document.getElementById(
+          "needsRevisionButton"
+        );
+
+      const message =
+        document.getElementById(
+          "decisionMessage"
+        );
+
+      if (!session?.token) {
+        location.href =
+          "admin.html";
+
+        return;
+      }
+
+      const confirmed =
+        await confirmFinal(
+          submissionNumber
+        );
+
+      if (!confirmed) {
+        return;
+      }
+
+      message.className =
+        "decision-message";
+
+      message.textContent =
+        "";
+
+      button.disabled = true;
+      revisionButton.disabled = true;
+
+      button.textContent =
+        "Menetapkan FINAL...";
+
+      try {
+        const response =
+          await fetch(
+            API_BASE +
+            "/admin/submissions/" +
+            encodeURIComponent(
+              submissionNumber
+            ) +
+            "/final",
+            {
+              method: "POST",
+
+              headers: {
+                Authorization:
+                  "Bearer " +
+                  session.token,
+
+                "Content-Type":
+                  "application/json",
+              },
+
+              body:
+                JSON.stringify({}),
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            data.error ||
+            "Gagal menetapkan FINAL."
+          );
+        }
+
+        message.className =
+          "decision-message success";
+
+        message.textContent =
+          data.submission?.emailSent
+            ? "Pengajuan berhasil ditetapkan FINAL dan pemberitahuan berhasil dikirim ke PIC."
+            : "Pengajuan berhasil ditetapkan FINAL, tetapi email pemberitahuan belum berhasil dikirim.";
+
+        setTimeout(
+          () => {
+            location.reload();
+          },
+          1000
+        );
+      }
+      catch (error) {
+        message.className =
+          "decision-message error";
+
+        message.textContent =
+          error.message ||
+          "Gagal menetapkan FINAL.";
+
+        button.disabled = false;
+        revisionButton.disabled = false;
+
+        button.textContent =
+          "Tetapkan FINAL";
+      }
+    }
+  );
+
+  document.getElementById(
+    "queueButton"
+  ).addEventListener(
+    "click",
+    () => {
+      location.href =
+        "admin-queue.html";
+    }
+  );
+
+  document.getElementById(
+    "dashboardButton"
+  ).addEventListener(
+    "click",
+    () => {
+      location.href =
+        "admin.html";
+    }
+  );
+
+  window.addEventListener(
+    "beforeunload",
+    () => {
+      if (pdfObjectUrl) {
+        URL.revokeObjectURL(
+          pdfObjectUrl
+        );
+      }
+    }
+  );
+
+  boot();
+</script>
+</body>
+</html>

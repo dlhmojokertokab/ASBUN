@@ -1,0 +1,1783 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>ASBUN — Asistensi Berkas Usaha dan Perizinan</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f5f7f8;
+      --card: #ffffff;
+      --text: #1f2933;
+      --muted: #667784;
+      --border: #dfe6ea;
+
+      --primary: #176b5b;
+      --primary-dark: #105347;
+      --primary-soft: #eaf5f2;
+
+      --warning: #a66300;
+      --warning-soft: #fff4df;
+
+      --success: #277447;
+      --success-soft: #eaf6ee;
+
+      --danger: #a83c3c;
+      --danger-soft: #fff0f0;
+
+      --blue: #296ca8;
+      --blue-soft: #edf5fc;
+
+      --shadow:
+        0 14px 40px rgba(37, 61, 72, 0.08);
+
+      --radius: 22px;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      color: var(--text);
+      background:
+        radial-gradient(
+          circle at top left,
+          #e8f5f1 0,
+          transparent 34%
+        ),
+        var(--bg);
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .app {
+      width: min(100%, 920px);
+      margin: auto;
+      padding: 26px 18px 56px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .brand-mark {
+      width: 52px;
+      height: 52px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 17px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #176b5b,
+          #2d8d78
+        );
+
+      color: white;
+
+      font-size: 24px;
+      font-weight: 800;
+
+      box-shadow:
+        0 12px 26px rgba(23, 107, 91, .22);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .brand p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .card {
+      background: var(--card);
+
+      border:
+        1px solid rgba(203, 215, 221, .75);
+
+      border-radius: var(--radius);
+
+      box-shadow: var(--shadow);
+
+      padding: 24px;
+    }
+
+    .card + .card {
+      margin-top: 18px;
+    }
+
+    .hero {
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+
+      color: var(--primary);
+
+      font-size: 13px;
+      font-weight: 800;
+
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.2;
+    }
+
+    .lead {
+      margin:
+        10px 0 0;
+
+      color: var(--muted);
+
+      line-height: 1.65;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="file"] {
+      width: 100%;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 14px;
+
+      background: white;
+
+      padding:
+        13px 14px;
+
+      color: var(--text);
+
+      outline: none;
+
+      transition:
+        border .2s ease,
+        box-shadow .2s ease;
+    }
+
+    input:focus {
+      border-color: #6aa99c;
+
+      box-shadow:
+        0 0 0 4px rgba(23, 107, 91, .09);
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+
+      margin-top: 20px;
+    }
+
+    .btn {
+      min-height: 46px;
+
+      border: 0;
+      border-radius: 14px;
+
+      padding:
+        11px 17px;
+
+      font-weight: 800;
+
+      transition:
+        transform .12s ease,
+        opacity .15s ease,
+        background .15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn:disabled {
+      cursor: not-allowed;
+      opacity: .55;
+      transform: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    .btn-light {
+      background: #eef2f4;
+      color: #344652;
+    }
+
+    .status-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+
+      border-radius: 999px;
+
+      padding:
+        8px 11px;
+
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .status-menunggu {
+      color: var(--blue);
+      background: var(--blue-soft);
+    }
+
+    .status-revisi {
+      color: var(--warning);
+      background: var(--warning-soft);
+    }
+
+    .status-final {
+      color: var(--success);
+      background: var(--success-soft);
+    }
+
+    .status-selesai {
+      color: #58636b;
+      background: #edf0f2;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 12px;
+
+      margin-top: 18px;
+    }
+
+    .summary-item {
+      border:
+        1px solid var(--border);
+
+      border-radius: 16px;
+
+      padding:
+        14px;
+
+      background: #fbfcfc;
+    }
+
+    .summary-label {
+      display: block;
+
+      margin-bottom: 5px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .summary-value {
+      font-weight: 800;
+      overflow-wrap: anywhere;
+    }
+
+    .notice {
+      margin-top: 16px;
+
+      border-radius: 16px;
+
+      padding:
+        14px 16px;
+
+      line-height: 1.55;
+    }
+
+    .notice-info {
+      background: var(--blue-soft);
+      color: #245b86;
+    }
+
+    .notice-warning {
+      background: var(--warning-soft);
+      color: #805100;
+    }
+
+    .notice-success {
+      background: var(--success-soft);
+      color: #27623f;
+    }
+
+    .notice-danger {
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+
+    .notes {
+      display: grid;
+      gap: 12px;
+
+      margin-top: 16px;
+    }
+
+    .note {
+      border:
+        1px solid #ead6ac;
+
+      background:
+        #fffbf3;
+
+      border-radius: 16px;
+
+      padding:
+        15px;
+    }
+
+    .note-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+
+      margin-bottom: 8px;
+
+      color: #8b6428;
+
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .note-text {
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+
+    .result-box {
+      display: none;
+
+      margin-top: 18px;
+
+      border-radius: 16px;
+
+      padding:
+        16px;
+    }
+
+    .result-box.show {
+      display: block;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 48px 20px;
+      color: var(--muted);
+    }
+
+    .spinner {
+      width: 34px;
+      height: 34px;
+
+      margin:
+        0 auto 14px;
+
+      border:
+        4px solid #dce8e4;
+
+      border-top-color:
+        var(--primary);
+
+      border-radius: 50%;
+
+      animation:
+        spin .8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform:
+          rotate(360deg);
+      }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    footer {
+      margin-top: 24px;
+
+      color: #82909a;
+
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    @media (
+      max-width: 680px
+    ) {
+      .app {
+        padding:
+          20px 14px 42px;
+      }
+
+      .card {
+        padding: 19px;
+        border-radius: 19px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      .grid,
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="app">
+
+    <header class="brand">
+
+      <div class="brand-mark">
+        A
+      </div>
+
+      <div>
+        <h1>ASBUN</h1>
+
+        <p>
+          Asistensi Berkas Usaha dan Perizinan
+        </p>
+      </div>
+
+    </header>
+
+
+    <!-- ==================================================
+         LOADING
+    ================================================== -->
+
+    <section
+      id="loadingView"
+      class="card loading hidden"
+    >
+      <div class="spinner"></div>
+
+      <div>
+        Memuat data pengajuan...
+      </div>
+    </section>
+
+
+    <!-- ==================================================
+         PUBLIC SUBMISSION
+    ================================================== -->
+
+    <section
+      id="publicView"
+      class="hidden"
+    >
+
+      <div class="card hero">
+
+        <p class="eyebrow">
+          Pengajuan Baru
+        </p>
+
+        <h2>
+          Kirim proposal untuk asistensi TALING
+        </h2>
+
+        <p class="lead">
+          Isi data perusahaan dan PIC,
+          kemudian unggah proposal dalam format PDF.
+          Setelah diterima, ASBUN akan memberikan
+          nomor pengajuan.
+        </p>
+
+      </div>
+
+
+      <form
+        id="submissionForm"
+        class="card"
+      >
+
+        <div class="grid">
+
+          <div class="field full">
+
+            <label for="companyName">
+              Nama Perusahaan / Usaha
+            </label>
+
+            <input
+              id="companyName"
+              name="companyName"
+              type="text"
+              autocomplete="organization"
+              required
+              placeholder="Contoh: PT. ABC Sejahtera"
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="picName">
+              Nama PIC
+            </label>
+
+            <input
+              id="picName"
+              name="picName"
+              type="text"
+              autocomplete="name"
+              required
+              placeholder="Nama penanggung jawab"
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="picEmail">
+              Email PIC
+            </label>
+
+            <input
+              id="picEmail"
+              name="picEmail"
+              type="email"
+              autocomplete="email"
+              required
+              placeholder="nama@email.com"
+            >
+
+          </div>
+
+
+          <div class="field full">
+
+            <label for="proposal">
+              Proposal PDF
+            </label>
+
+            <input
+              id="proposal"
+              name="proposal"
+              type="file"
+              accept="application/pdf,.pdf"
+              required
+            >
+
+            <div class="hint">
+              Gunakan file PDF yang akan diasistensi.
+              ASBUN hanya menyimpan file aktif selama
+              proses berlangsung.
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="actions">
+
+          <button
+            id="submitButton"
+            class="btn btn-primary"
+            type="submit"
+          >
+            Kirim Pengajuan
+          </button>
+
+        </div>
+
+
+        <div
+          id="submissionResult"
+          class="result-box"
+        ></div>
+
+      </form>
+
+    </section>
+
+
+    <!-- ==================================================
+         PRIVATE PORTAL
+    ================================================== -->
+
+    <section
+      id="privateView"
+      class="hidden"
+    >
+
+      <div class="card hero">
+
+        <p class="eyebrow">
+          Portal Pengajuan
+        </p>
+
+        <div class="status-wrap">
+
+          <h2 id="privateNumber">
+            -
+          </h2>
+
+          <span
+            id="statusBadge"
+            class="status-badge"
+          >
+            -
+          </span>
+
+        </div>
+
+        <p
+          id="statusDescription"
+          class="lead"
+        ></p>
+
+
+        <div class="summary-grid">
+
+          <div class="summary-item">
+
+            <span class="summary-label">
+              Perusahaan
+            </span>
+
+            <div
+              id="privateCompany"
+              class="summary-value"
+            >
+              -
+            </div>
+
+          </div>
+
+
+          <div class="summary-item">
+
+            <span class="summary-label">
+              PIC
+            </span>
+
+            <div
+              id="privatePic"
+              class="summary-value"
+            >
+              -
+            </div>
+
+          </div>
+
+
+          <div class="summary-item">
+
+            <span class="summary-label">
+              Versi Aktif
+            </span>
+
+            <div
+              id="privateVersion"
+              class="summary-value"
+            >
+              -
+            </div>
+
+          </div>
+
+
+          <div class="summary-item">
+
+            <span class="summary-label">
+              File Aktif
+            </span>
+
+            <div
+              id="privateFileName"
+              class="summary-value"
+            >
+              -
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="actions">
+
+          <button
+            id="viewPdfButton"
+            class="btn btn-secondary"
+            type="button"
+          >
+            Lihat PDF Aktif
+          </button>
+
+          <button
+            id="refreshButton"
+            class="btn btn-light"
+            type="button"
+          >
+            Refresh Status
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <section
+        id="notesCard"
+        class="card hidden"
+      >
+
+        <p class="eyebrow">
+          Catatan Asistensi
+        </p>
+
+        <h2 style="font-size:21px">
+          Perbaikan yang perlu diperhatikan
+        </h2>
+
+        <div
+          id="notesList"
+          class="notes"
+        ></div>
+
+      </section>
+
+
+      <section
+        id="revisionCard"
+        class="card hidden"
+      >
+
+        <p class="eyebrow">
+          Upload Perbaikan
+        </p>
+
+        <h2 style="font-size:21px">
+          Kirim versi terbaru
+        </h2>
+
+        <p class="lead">
+          Setelah versi baru berhasil tersimpan,
+          file versi sebelumnya akan dihapus otomatis.
+          Histori versinya tetap tercatat di ASBUN.
+        </p>
+
+
+        <form id="revisionForm">
+
+          <div
+            class="field"
+            style="margin-top:18px"
+          >
+
+            <label for="revisionProposal">
+              Proposal PDF terbaru
+            </label>
+
+            <input
+              id="revisionProposal"
+              type="file"
+              accept="application/pdf,.pdf"
+              required
+            >
+
+          </div>
+
+
+          <div class="actions">
+
+            <button
+              id="revisionButton"
+              class="btn btn-primary"
+              type="submit"
+            >
+              Upload Versi Perbaikan
+            </button>
+
+          </div>
+
+
+          <div
+            id="revisionResult"
+            class="result-box"
+          ></div>
+
+        </form>
+
+      </section>
+
+    </section>
+
+
+    <!-- ==================================================
+         ERROR
+    ================================================== -->
+
+    <section
+      id="errorView"
+      class="card hidden"
+    >
+
+      <p class="eyebrow">
+        ASBUN
+      </p>
+
+      <h2>
+        Pengajuan tidak dapat dibuka
+      </h2>
+
+      <div
+        id="errorMessage"
+        class="notice notice-danger"
+      >
+        Terjadi kesalahan.
+      </div>
+
+    </section>
+
+
+    <footer>
+      ASBUN — Asistensi Berkas Usaha dan Perizinan<br>
+      Bidang TALING
+    </footer>
+
+  </main>
+
+
+  <script>
+
+    // ==============================================
+    // LOCAL DEVELOPMENT
+    // Nanti diganti Worker production saat deploy.
+    // ==============================================
+
+    const API_BASE =
+      "http://127.0.0.1:8788";
+
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const privateToken =
+      params.get("t");
+
+
+    const loadingView =
+      document.getElementById(
+        "loadingView"
+      );
+
+    const publicView =
+      document.getElementById(
+        "publicView"
+      );
+
+    const privateView =
+      document.getElementById(
+        "privateView"
+      );
+
+    const errorView =
+      document.getElementById(
+        "errorView"
+      );
+
+
+    function showOnly(view) {
+
+      [
+        loadingView,
+        publicView,
+        privateView,
+        errorView
+      ].forEach(
+        item =>
+          item.classList.add(
+            "hidden"
+          )
+      );
+
+      view.classList.remove(
+        "hidden"
+      );
+    }
+
+
+    function escapeHtml(value) {
+
+      return String(
+        value ?? ""
+      )
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+    }
+
+
+    function formatDate(value) {
+
+      if (!value) {
+        return "-";
+      }
+
+      try {
+
+        return new Intl.DateTimeFormat(
+          "id-ID",
+          {
+            dateStyle:
+              "medium",
+
+            timeStyle:
+              "short"
+          }
+        ).format(
+          new Date(value)
+        );
+
+      } catch {
+
+        return value;
+      }
+    }
+
+
+    function getStatusMeta(status) {
+
+      const map = {
+
+        MENUNGGU_ASISTENSI: {
+          label:
+            "Menunggu Asistensi",
+
+          className:
+            "status-menunggu",
+
+          description:
+            "Proposal sedang menunggu proses asistensi TALING."
+        },
+
+        PERLU_PERBAIKAN: {
+          label:
+            "Perlu Perbaikan",
+
+          className:
+            "status-revisi",
+
+          description:
+            "Proposal memerlukan perbaikan. Periksa catatan asistensi dan unggah versi terbaru."
+        },
+
+        FINAL: {
+          label:
+            "Final",
+
+          className:
+            "status-final",
+
+          description:
+            "Proses asistensi telah selesai dan dokumen Anda telah diterima oleh TALING. Silakan menunggu proses selanjutnya."
+        },
+
+        SELESAI: {
+          label:
+            "Selesai",
+
+          className:
+            "status-selesai",
+
+          description:
+            "Proses pengajuan telah selesai dan berkas fisik sudah dihapus dari storage ASBUN."
+        }
+
+      };
+
+
+      return map[status] || {
+        label:
+          status || "Tidak diketahui",
+
+        className:
+          "status-menunggu",
+
+        description:
+          "Status pengajuan tidak dikenali."
+      };
+    }
+
+
+    function showError(message) {
+
+      document.getElementById(
+        "errorMessage"
+      ).textContent =
+        message;
+
+      showOnly(
+        errorView
+      );
+    }
+
+
+    // ==============================================
+    // PUBLIC SUBMISSION
+    // ==============================================
+
+    const submissionForm =
+      document.getElementById(
+        "submissionForm"
+      );
+
+    const submitButton =
+      document.getElementById(
+        "submitButton"
+      );
+
+    const submissionResult =
+      document.getElementById(
+        "submissionResult"
+      );
+
+
+    submissionForm.addEventListener(
+      "submit",
+      async event => {
+
+        event.preventDefault();
+
+
+        const proposal =
+          document.getElementById(
+            "proposal"
+          ).files[0];
+
+
+        if (!proposal) {
+          return;
+        }
+
+
+        submitButton.disabled =
+          true;
+
+        submitButton.textContent =
+          "Mengirim...";
+
+
+        submissionResult.className =
+          "result-box";
+
+        submissionResult.textContent =
+          "";
+
+
+        try {
+
+          const form =
+            new FormData();
+
+
+          form.append(
+            "companyName",
+            document.getElementById(
+              "companyName"
+            ).value
+          );
+
+
+          form.append(
+            "picName",
+            document.getElementById(
+              "picName"
+            ).value
+          );
+
+
+          form.append(
+            "picEmail",
+            document.getElementById(
+              "picEmail"
+            ).value
+          );
+
+
+          form.append(
+            "proposal",
+            proposal
+          );
+
+
+          const response =
+            await fetch(
+              API_BASE +
+              "/submissions",
+              {
+                method:
+                  "POST",
+
+                body:
+                  form
+              }
+            );
+
+
+          const data =
+            await response.json();
+
+
+          if (
+            !response.ok ||
+            !data.ok
+          ) {
+
+            throw new Error(
+              data.error ||
+              "Pengajuan gagal dikirim"
+            );
+          }
+
+
+          const result =
+            data.submission;
+
+
+          submissionResult.className =
+            "result-box show notice notice-success";
+
+
+          submissionResult.innerHTML =
+            `
+              <strong>Pengajuan berhasil diterima.</strong>
+              <br><br>
+
+              Nomor Pengajuan:
+              <strong>
+                ${escapeHtml(
+                  result.submissionNumber
+                )}
+              </strong>
+
+              <br>
+
+              Status:
+              <strong>
+                Menunggu Asistensi
+              </strong>
+
+              <br><br>
+
+              Nomor pengajuan juga telah dikirim
+              ke email PIC.
+
+              Private link baru akan dikirim apabila
+              pengajuan memerlukan perbaikan atau
+              telah FINAL.
+            `;
+
+
+          submissionForm.reset();
+
+        } catch (error) {
+
+          submissionResult.className =
+            "result-box show notice notice-danger";
+
+
+          submissionResult.textContent =
+            error.message;
+
+        } finally {
+
+          submitButton.disabled =
+            false;
+
+          submitButton.textContent =
+            "Kirim Pengajuan";
+        }
+      }
+    );
+
+
+    // ==============================================
+    // PRIVATE VIEW
+    // ==============================================
+
+    async function loadPrivateSubmission() {
+
+      showOnly(
+        loadingView
+      );
+
+
+      try {
+
+        const response =
+          await fetch(
+            API_BASE +
+            "/private/submission?t=" +
+            encodeURIComponent(
+              privateToken
+            )
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !response.ok ||
+          !data.ok
+        ) {
+
+          throw new Error(
+            data.error ||
+            "Pengajuan tidak dapat dibuka"
+          );
+        }
+
+
+        renderPrivateSubmission(
+          data.submission
+        );
+
+
+        showOnly(
+          privateView
+        );
+
+      } catch (error) {
+
+        showError(
+          error.message
+        );
+      }
+    }
+
+
+    function renderPrivateSubmission(
+      submission
+    ) {
+
+      const meta =
+        getStatusMeta(
+          submission.status
+        );
+
+
+      document.getElementById(
+        "privateNumber"
+      ).textContent =
+        submission.submissionNumber;
+
+
+      const badge =
+        document.getElementById(
+          "statusBadge"
+        );
+
+
+      badge.textContent =
+        meta.label;
+
+
+      badge.className =
+        "status-badge " +
+        meta.className;
+
+
+      document.getElementById(
+        "statusDescription"
+      ).textContent =
+        meta.description;
+
+
+      document.getElementById(
+        "privateCompany"
+      ).textContent =
+        submission.companyName;
+
+
+      document.getElementById(
+        "privatePic"
+      ).textContent =
+        submission.picName;
+
+
+      document.getElementById(
+        "privateVersion"
+      ).textContent =
+        "V" +
+        submission.activeVersion;
+
+
+      document.getElementById(
+        "privateFileName"
+      ).textContent =
+        submission.activeFileName ||
+        "Berkas sudah tidak tersedia";
+
+
+      const pdfButton =
+        document.getElementById(
+          "viewPdfButton"
+        );
+
+
+      pdfButton.classList.toggle(
+        "hidden",
+        !submission.fileAvailable
+      );
+
+
+      const privateActions =
+        pdfButton.closest(
+          ".actions"
+        );
+
+
+      privateActions.classList.toggle(
+        "hidden",
+        submission.status === "FINAL" ||
+        submission.status === "SELESAI"
+      );
+
+
+      const notesCard =
+        document.getElementById(
+          "notesCard"
+        );
+
+
+      const notesList =
+        document.getElementById(
+          "notesList"
+        );
+
+
+      notesList.innerHTML =
+        "";
+
+
+      if (
+        Array.isArray(
+          submission.notes
+        ) &&
+        submission.notes.length &&
+        submission.status === "PERLU_PERBAIKAN"
+      ) {
+
+        notesCard.classList.remove(
+          "hidden"
+        );
+
+
+        submission.notes
+          .slice()
+          .reverse()
+          .forEach(
+            note => {
+
+              const item =
+                document.createElement(
+                  "div"
+                );
+
+
+              item.className =
+                "note";
+
+
+              item.innerHTML =
+                `
+                  <div class="note-top">
+
+                    <span>
+                      V${escapeHtml(
+                        note.versionNumber
+                      )}
+                      ·
+                      ${escapeHtml(
+                        note.createdBy
+                      )}
+                    </span>
+
+                    <span>
+                      ${escapeHtml(
+                        formatDate(
+                          note.createdAt
+                        )
+                      )}
+                    </span>
+
+                  </div>
+
+                  <div class="note-text">
+                    ${escapeHtml(
+                      note.note
+                    )}
+                  </div>
+                `;
+
+
+              notesList.appendChild(
+                item
+              );
+            }
+          );
+
+      } else {
+
+        notesCard.classList.add(
+          "hidden"
+        );
+      }
+
+
+      const revisionCard =
+        document.getElementById(
+          "revisionCard"
+        );
+
+
+      revisionCard.classList.toggle(
+        "hidden",
+        !submission.canUploadRevision
+      );
+    }
+
+
+    document.getElementById(
+      "viewPdfButton"
+    ).addEventListener(
+      "click",
+      () => {
+
+        const url =
+          API_BASE +
+          "/private/file?t=" +
+          encodeURIComponent(
+            privateToken
+          );
+
+
+        window.open(
+          url,
+          "_blank",
+          "noopener,noreferrer"
+        );
+      }
+    );
+
+
+    document.getElementById(
+      "refreshButton"
+    ).addEventListener(
+      "click",
+      loadPrivateSubmission
+    );
+
+
+    // ==============================================
+    // REVISION UPLOAD
+    // ==============================================
+
+    const revisionForm =
+      document.getElementById(
+        "revisionForm"
+      );
+
+    const revisionButton =
+      document.getElementById(
+        "revisionButton"
+      );
+
+    const revisionResult =
+      document.getElementById(
+        "revisionResult"
+      );
+
+
+    revisionForm.addEventListener(
+      "submit",
+      async event => {
+
+        event.preventDefault();
+
+
+        const file =
+          document.getElementById(
+            "revisionProposal"
+          ).files[0];
+
+
+        if (!file) {
+          return;
+        }
+
+
+        revisionButton.disabled =
+          true;
+
+        revisionButton.textContent =
+          "Mengunggah...";
+
+
+        revisionResult.className =
+          "result-box";
+
+
+        try {
+
+          const form =
+            new FormData();
+
+
+          form.append(
+            "token",
+            privateToken
+          );
+
+
+          form.append(
+            "proposal",
+            file
+          );
+
+
+          const response =
+            await fetch(
+              API_BASE +
+              "/private/revision",
+              {
+                method:
+                  "POST",
+
+                body:
+                  form
+              }
+            );
+
+
+          const data =
+            await response.json();
+
+
+          if (
+            !response.ok ||
+            !data.ok
+          ) {
+
+            throw new Error(
+              data.error ||
+              "Versi perbaikan gagal diunggah"
+            );
+          }
+
+
+          revisionResult.className =
+            "result-box show notice notice-success";
+
+
+          revisionResult.innerHTML =
+            `
+              <strong>
+                Versi perbaikan berhasil diunggah.
+              </strong>
+
+              <br><br>
+
+              Versi aktif sekarang:
+              <strong>
+                V${escapeHtml(
+                  data.submission.activeVersion
+                )}
+              </strong>
+
+              <br>
+
+              Status kembali menjadi
+              <strong>
+                Menunggu Asistensi
+              </strong>.
+            `;
+
+
+          revisionForm.reset();
+
+
+          setTimeout(
+            () => {
+              loadPrivateSubmission();
+            },
+            1200
+          );
+
+        } catch (error) {
+
+          revisionResult.className =
+            "result-box show notice notice-danger";
+
+
+          revisionResult.textContent =
+            error.message;
+
+        } finally {
+
+          revisionButton.disabled =
+            false;
+
+          revisionButton.textContent =
+            "Upload Versi Perbaikan";
+        }
+      }
+    );
+
+
+    // ==============================================
+    // BOOT
+    // ==============================================
+
+    if (privateToken) {
+
+      loadPrivateSubmission();
+
+    } else {
+
+      showOnly(
+        publicView
+      );
+    }
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,681 @@
+﻿<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ASBUN — Antrean Pengajuan</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      --bg: #f4f8f5;
+      --card: #fff;
+      --text: #1f2d24;
+      --muted: #6b786f;
+      --line: #dce8df;
+      --green: #2f6f4e;
+      --green-dark: #23563c;
+      --green-soft: #e8f3ec;
+      --blue-soft: #edf5ff;
+      --blue: #356da8;
+      --amber-soft: #fff7e8;
+      --amber: #9a6418;
+      --gray-soft: #f1f3f2;
+      --gray: #66706a;
+      --shadow: 0 16px 40px rgba(31,45,36,.07);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, #edf7f0 0, transparent 34%),
+        var(--bg);
+    }
+
+    button, input, select { font: inherit; }
+
+    button {
+      border: 0;
+      cursor: pointer;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+    }
+
+    .header-inner {
+      width: min(1180px,100%);
+      min-height: 74px;
+      margin: auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--green);
+      color: white;
+      font-weight: 900;
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 18px;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+    }
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: right;
+    }
+
+    .user strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .user span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--green-soft);
+      color: var(--green-dark);
+      font-weight: 900;
+    }
+
+    main {
+      width: min(1180px,100%);
+      margin: auto;
+      padding: 34px 24px 50px;
+    }
+
+    .top {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 6px 0 8px;
+      font-size: clamp(28px,4vw,40px);
+      letter-spacing: -.04em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 12px;
+      font-weight: 800;
+    }
+
+    .primary {
+      background: var(--green);
+      color: white;
+    }
+
+    .primary:hover { background: var(--green-dark); }
+
+    .secondary {
+      background: #edf3ef;
+      color: var(--text);
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: minmax(240px,1fr) 230px auto;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding: 16px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    input, select {
+      width: 100%;
+      min-height: 46px;
+      padding: 0 13px;
+      border: 1px solid #ccd9cf;
+      border-radius: 12px;
+      outline: none;
+      background: white;
+      color: var(--text);
+    }
+
+    input:focus, select:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 4px rgba(47,111,78,.09);
+    }
+
+    .count {
+      min-height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border-radius: 12px;
+      background: var(--green-soft);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .panel {
+      overflow: hidden;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .table-wrap { overflow-x: auto; }
+
+    table {
+      width: 100%;
+      min-width: 950px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 16px 18px;
+      border-bottom: 1px solid #edf2ee;
+      text-align: left;
+      vertical-align: middle;
+      font-size: 13px;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    tbody tr:hover { background: #fafcfb; }
+    tbody tr:last-child td { border-bottom: 0; }
+
+    .number {
+      font-weight: 900;
+    }
+
+    .company, .email, .date {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .badge {
+      display: inline-flex;
+      padding: 6px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .wait {
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+
+    .revision {
+      background: var(--amber-soft);
+      color: var(--amber);
+    }
+
+    .final {
+      background: var(--green-soft);
+      color: var(--green-dark);
+    }
+
+    .done {
+      background: var(--gray-soft);
+      color: var(--gray);
+    }
+
+    .open {
+      min-height: 38px;
+      padding: 0 13px;
+      border-radius: 10px;
+      background: var(--green-soft);
+      color: var(--green-dark);
+      font-weight: 800;
+    }
+
+    .empty, .loading {
+      padding: 50px 20px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 0 24px 28px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media(max-width:700px) {
+      .header-inner, main {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .brand small, .user > div:first-child {
+        display: none;
+      }
+
+      .top {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .actions {
+        justify-content: flex-start;
+      }
+
+      .filters {
+        grid-template-columns: 1fr;
+      }
+
+      .count {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-mark">A</div>
+      <div>
+        <strong>ASBUN</strong>
+        <small>Asistensi Berkas Usaha dan Perizinan</small>
+      </div>
+    </div>
+
+    <div class="user">
+      <div>
+        <strong id="adminName">Admin</strong>
+        <span id="adminUsername"></span>
+      </div>
+      <div class="avatar" id="avatar">A</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="top">
+    <div>
+      <div class="eyebrow">Workdesk TALING</div>
+      <h1>Antrean Pengajuan</h1>
+      <p class="subtitle">
+        Cari dan buka pengajuan yang akan diproses.
+      </p>
+    </div>
+
+    <div class="actions">
+      <button class="btn secondary" id="backButton">
+        Dashboard
+      </button>
+      <button class="btn secondary" id="logoutButton">
+        Keluar
+      </button>
+    </div>
+  </div>
+
+  <div class="filters">
+    <input
+      id="searchInput"
+      type="search"
+      placeholder="Cari nomor, perusahaan, PIC, atau email..."
+    >
+
+    <select id="statusFilter">
+      <option value="">Semua Status</option>
+      <option value="MENUNGGU_ASISTENSI">Menunggu Asistensi</option>
+      <option value="PERLU_PERBAIKAN">Perlu Perbaikan</option>
+      <option value="FINAL">Final</option>
+      <option value="SELESAI">Selesai</option>
+    </select>
+
+    <div class="count" id="resultCount">
+      0 Pengajuan
+    </div>
+  </div>
+
+  <section class="panel">
+    <div id="queueContent" class="loading">
+      Memuat antrean...
+    </div>
+  </section>
+</main>
+
+<footer>
+  ASBUN · Dinas Lingkungan Hidup Kabupaten Mojokerto
+</footer>
+
+<script>
+  const API_BASE = "http://127.0.0.1:8788";
+  const SESSION_KEY = "asbun_admin_session";
+
+  const searchInput =
+    document.getElementById("searchInput");
+
+  const statusFilter =
+    document.getElementById("statusFilter");
+
+  const queueContent =
+    document.getElementById("queueContent");
+
+  const resultCount =
+    document.getElementById("resultCount");
+
+  let searchTimer = null;
+
+  function loadSession() {
+    const raw = sessionStorage.getItem(SESSION_KEY);
+
+    if (!raw) return null;
+
+    try {
+      return JSON.parse(raw);
+    } catch {
+      sessionStorage.removeItem(SESSION_KEY);
+      return null;
+    }
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? "")
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#039;");
+  }
+
+  function formatDate(value) {
+    if (!value) return "-";
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+      return value;
+    }
+
+    return date.toLocaleString("id-ID", {
+      dateStyle: "medium",
+      timeStyle: "short"
+    });
+  }
+
+  function statusLabel(status) {
+    return {
+      MENUNGGU_ASISTENSI: "Menunggu Asistensi",
+      PERLU_PERBAIKAN: "Perlu Perbaikan",
+      FINAL: "Final",
+      SELESAI: "Selesai"
+    }[status] || status || "-";
+  }
+
+  function statusClass(status) {
+    return {
+      MENUNGGU_ASISTENSI: "wait",
+      PERLU_PERBAIKAN: "revision",
+      FINAL: "final",
+      SELESAI: "done"
+    }[status] || "done";
+  }
+
+  function renderAdmin(admin) {
+    const name =
+      admin.displayName ||
+      admin.username ||
+      "Admin";
+
+    document.getElementById("adminName").textContent =
+      name;
+
+    document.getElementById("adminUsername").textContent =
+      admin.username || "";
+
+    document.getElementById("avatar").textContent =
+      name.charAt(0).toUpperCase();
+  }
+
+  function renderQueue(items) {
+    resultCount.textContent =
+      `${items.length} Pengajuan`;
+
+    if (!items.length) {
+      queueContent.className = "empty";
+      queueContent.innerHTML =
+        "Tidak ada pengajuan yang cocok.";
+      return;
+    }
+
+    const rows = items.map(item => `
+      <tr>
+        <td>
+          <div class="number">
+            ${escapeHtml(item.submissionNumber)}
+          </div>
+          <div class="company">
+            ${escapeHtml(item.companyName)}
+          </div>
+        </td>
+
+        <td>
+          <strong>${escapeHtml(item.picName)}</strong>
+          <div class="email">
+            ${escapeHtml(item.picEmail)}
+          </div>
+        </td>
+
+        <td>
+          V${escapeHtml(item.activeVersion || 0)}
+        </td>
+
+        <td>
+          <span class="badge ${statusClass(item.status)}">
+            ${escapeHtml(statusLabel(item.status))}
+          </span>
+        </td>
+
+        <td>
+          ${escapeHtml(formatDate(
+            item.updatedAt || item.createdAt
+          ))}
+        </td>
+
+        <td>
+          <button
+            class="open"
+            data-number="${escapeHtml(item.submissionNumber)}"
+          >
+            Buka Asistensi
+          </button>
+        </td>
+      </tr>
+    `).join("");
+
+    queueContent.className = "table-wrap";
+
+    queueContent.innerHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>Pengajuan</th>
+            <th>PIC</th>
+            <th>Versi</th>
+            <th>Status</th>
+            <th>Terakhir</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    `;
+
+    document.querySelectorAll(".open")
+      .forEach(button => {
+        button.addEventListener("click", () => {
+          const number =
+            button.dataset.number;
+
+          location.href =
+            "admin-assist.html?n=" +
+            encodeURIComponent(number);
+        });
+      });
+  }
+
+  async function fetchQueue() {
+    const session = loadSession();
+
+    if (!session?.token) {
+      location.href = "admin.html";
+      return;
+    }
+
+    queueContent.className = "loading";
+    queueContent.textContent = "Memuat antrean...";
+
+    const params = new URLSearchParams();
+
+    const q = searchInput.value.trim();
+    const status = statusFilter.value;
+
+    if (q) params.set("q", q);
+    if (status) params.set("status", status);
+
+    try {
+      const response = await fetch(
+        API_BASE +
+        "/admin/submissions?" +
+        params.toString(),
+        {
+          headers: {
+            Authorization:
+              "Bearer " + session.token
+          }
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (
+          response.status === 401 ||
+          response.status === 403
+        ) {
+          sessionStorage.removeItem(SESSION_KEY);
+          location.href = "admin.html";
+          return;
+        }
+
+        throw new Error(
+          data.error ||
+          "Gagal memuat antrean"
+        );
+      }
+
+      renderAdmin(data.admin);
+      renderQueue(data.items || []);
+
+    } catch (error) {
+      queueContent.className = "empty";
+      queueContent.textContent =
+        error.message ||
+        "Gagal memuat antrean.";
+    }
+  }
+
+  searchInput.addEventListener("input", () => {
+    clearTimeout(searchTimer);
+
+    searchTimer = setTimeout(
+      fetchQueue,
+      350
+    );
+  });
+
+  statusFilter.addEventListener(
+    "change",
+    fetchQueue
+  );
+
+  document.getElementById("backButton")
+    .addEventListener("click", () => {
+      location.href = "admin.html";
+    });
+
+  document.getElementById("logoutButton")
+    .addEventListener("click", () => {
+      sessionStorage.removeItem(SESSION_KEY);
+      location.href = "admin.html";
+    });
+
+  fetchQueue();
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+﻿# ==============================
+# SECRETS — JANGAN PERNAH COMMIT
+# ==============================
+worker/.dev.vars
+worker/.dev.vars.*
+.env
+.env.*
+!.env.example
+
+# ==============================
+# NODE / CLOUDFLARE
+# ==============================
+node_modules/
+worker/node_modules/
+.wrangler/
+worker/.wrangler/
+
+# ==============================
+# TEMP / TEST
+# ==============================
+*.tmp
+*.log
+*.syntax-check.*
+ASBUN_ADMIN_PREVIEW_TEST.pdf
+
+# ==============================
+# BACKUP / PATCH FILES
+# ==============================
+*.BEFORE_*
+worker/src/index.*_OK_*.js
+worker/src/index.BASELINE_OK_*.js
+worker/patch-*.mjs
+worker/fix-admin-hash.mjs
+
+# ==============================
+# OS / EDITOR
+# ==============================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ==============================
+# ONE-OFF DEVELOPMENT SCRIPTS
+# ==============================
+worker/cleanup-*.mjs
+worker/test-*.mjs
+worker/fingerprint-node.mjs
+worker/fix-asbun-schema.mjs
+worker/get-google-refresh-token.mjs
+worker/setup-config.mjs
+worker/setup-db-headers.mjs
+worker/setup-first-admin.mjs
+
+worker/src/*-temp.js
