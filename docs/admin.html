@@ -624,7 +624,469 @@
         font-size: 30px;
       }
     }
-  </style>
+  
+/* ASBUN_LOGIN_POLISH_START */
+
+/* Background hanya aktif ketika form login sedang terlihat */
+body.asbun-login-polish {
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(42, 122, 87, .12),
+      transparent 31%
+    ),
+    radial-gradient(
+      circle at 86% 82%,
+      rgba(147, 187, 159, .16),
+      transparent 34%
+    ),
+    linear-gradient(
+      145deg,
+      #f7fbf8 0%,
+      #edf5ef 52%,
+      #f7faf7 100%
+    );
+  isolation: isolate;
+}
+
+body.asbun-login-polish #asbunLoginBackdrop {
+  opacity: 1;
+}
+
+#asbunLoginBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+
+/* ==============================
+   ORGANIC BLOBS
+   ============================== */
+
+.asbun-login-blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(10px);
+}
+
+.asbun-login-blob.one {
+  width: 480px;
+  height: 480px;
+  left: -190px;
+  top: -150px;
+  background:
+    rgba(66, 137, 99, .08);
+}
+
+.asbun-login-blob.two {
+  width: 520px;
+  height: 520px;
+  right: -220px;
+  bottom: -210px;
+  background:
+    rgba(98, 157, 119, .08);
+}
+
+/* ==============================
+   LEAF DECORATIONS
+   ============================== */
+
+.asbun-leaf-cluster {
+  position: absolute;
+  width: 300px;
+  height: 330px;
+  opacity: .17;
+}
+
+.asbun-leaf-cluster.left {
+  left: 4%;
+  bottom: 3%;
+  transform:
+    rotate(-13deg)
+    scale(.95);
+}
+
+.asbun-leaf-cluster.right {
+  right: 4%;
+  top: 14%;
+  transform:
+    rotate(16deg)
+    scale(.82);
+  opacity: .13;
+}
+
+.asbun-leaf-stem {
+  position: absolute;
+  left: 145px;
+  top: 35px;
+  width: 5px;
+  height: 270px;
+  border-radius: 99px;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(30, 103, 68, .85),
+      rgba(81, 145, 99, .35)
+    );
+  transform: rotate(7deg);
+}
+
+.asbun-leaf {
+  position: absolute;
+  width: 95px;
+  height: 48px;
+  border-radius:
+    100% 0 100% 0;
+  background:
+    linear-gradient(
+      135deg,
+      #2d8058,
+      #78aa83
+    );
+}
+
+.asbun-leaf:nth-child(2) {
+  left: 58px;
+  top: 62px;
+  transform: rotate(23deg);
+}
+
+.asbun-leaf:nth-child(3) {
+  left: 145px;
+  top: 98px;
+  transform:
+    rotate(108deg)
+    scale(.9);
+}
+
+.asbun-leaf:nth-child(4) {
+  left: 43px;
+  top: 145px;
+  transform:
+    rotate(15deg)
+    scale(.83);
+}
+
+.asbun-leaf:nth-child(5) {
+  left: 151px;
+  top: 181px;
+  transform:
+    rotate(112deg)
+    scale(.78);
+}
+
+.asbun-leaf:nth-child(6) {
+  left: 70px;
+  top: 230px;
+  transform:
+    rotate(24deg)
+    scale(.68);
+}
+
+/* ==============================
+   DOCUMENT DECORATIONS
+   ============================== */
+
+.asbun-doc {
+  position: absolute;
+  width: 185px;
+  height: 235px;
+  border:
+    1px solid
+    rgba(50, 105, 76, .11);
+  border-radius: 22px;
+  background:
+    rgba(255, 255, 255, .52);
+  box-shadow:
+    0 22px 60px
+    rgba(38, 76, 56, .07);
+  backdrop-filter:
+    blur(4px);
+}
+
+.asbun-doc::before {
+  content: "";
+  position: absolute;
+  left: 25px;
+  right: 25px;
+  top: 55px;
+  height: 3px;
+  border-radius: 99px;
+  background:
+    rgba(51, 110, 79, .16);
+  box-shadow:
+    0 22px 0 rgba(51, 110, 79, .11),
+    0 44px 0 rgba(51, 110, 79, .11),
+    0 66px 0 rgba(51, 110, 79, .11),
+    0 88px 0 rgba(51, 110, 79, .08);
+}
+
+.asbun-doc::after {
+  content: "PDF";
+  position: absolute;
+  top: 19px;
+  left: 24px;
+  padding: 5px 9px;
+  border-radius: 8px;
+  background:
+    rgba(42, 122, 87, .10);
+  color:
+    rgba(28, 101, 68, .65);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.asbun-doc.one {
+  left: 13%;
+  top: 18%;
+  transform:
+    rotate(-9deg)
+    scale(.93);
+  opacity: .7;
+}
+
+.asbun-doc.two {
+  right: 13%;
+  bottom: 11%;
+  transform:
+    rotate(10deg)
+    scale(.82);
+  opacity: .55;
+}
+
+/* check mark kecil pada dokumen kanan */
+.asbun-doc-check {
+  position: absolute;
+  right: 14%;
+  bottom: 25%;
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: 17px;
+  background:
+    rgba(46, 126, 84, .10);
+  border:
+    1px solid
+    rgba(46, 126, 84, .12);
+  color:
+    rgba(37, 111, 74, .55);
+  font-size: 25px;
+  font-weight: 1000;
+  transform: rotate(-7deg);
+}
+
+/* ==============================
+   LOGIN CARD POLISH
+   ============================== */
+
+body.asbun-login-polish form:has(
+  input[type="password"]
+) {
+  position: relative;
+  z-index: 2;
+}
+
+/*
+  Tidak mengubah struktur card login.
+  Hanya kasih sedikit efek supaya menyatu
+  dengan background baru.
+*/
+body.asbun-login-polish
+form:has(input[type="password"]) {
+  animation:
+    asbunLoginEnter
+    .42s ease both;
+}
+
+@keyframes asbunLoginEnter {
+  from {
+    opacity: 0;
+    transform:
+      translateY(10px)
+      scale(.992);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+/* ==============================
+   PASSWORD TOGGLE
+   ============================== */
+
+.asbun-password-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.asbun-password-wrap > input {
+  width: 100%;
+  padding-right: 112px !important;
+  box-sizing: border-box;
+}
+
+.asbun-toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 11px;
+  transform:
+    translateY(-50%);
+
+  min-width: 78px;
+  height: 34px;
+  padding:
+    0 10px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  border:
+    1px solid
+    rgba(42, 122, 87, .13);
+  border-radius: 9px;
+
+  background:
+    rgba(235, 246, 239, .96);
+  color:
+    #226b4b;
+
+  font: inherit;
+  font-size: 11px;
+  font-weight: 900;
+
+  cursor: pointer;
+  transition:
+    background .18s ease,
+    transform .18s ease,
+    box-shadow .18s ease;
+}
+
+.asbun-toggle-password:hover {
+  background:
+    #e1f1e7;
+  box-shadow:
+    0 4px 12px
+    rgba(36, 95, 65, .08);
+}
+
+.asbun-toggle-password:active {
+  transform:
+    translateY(-50%)
+    scale(.97);
+}
+
+.asbun-toggle-eye {
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+}
+
+/* ==============================
+   MOBILE
+   ============================== */
+
+@media (
+  max-width: 760px
+) {
+  .asbun-doc.one {
+    left: -55px;
+    top: 16%;
+    transform:
+      rotate(-10deg)
+      scale(.65);
+  }
+
+  .asbun-doc.two {
+    right: -58px;
+    bottom: 7%;
+    transform:
+      rotate(11deg)
+      scale(.58);
+  }
+
+  .asbun-leaf-cluster.left {
+    left: -105px;
+    bottom: -40px;
+    transform:
+      rotate(-12deg)
+      scale(.70);
+  }
+
+  .asbun-leaf-cluster.right {
+    right: -115px;
+    top: 14%;
+    transform:
+      rotate(18deg)
+      scale(.64);
+  }
+
+  .asbun-doc-check {
+    display: none;
+  }
+}
+
+/* ASBUN_LOGIN_POLISH_END */
+</style>
+
+<!-- ASBUN_BRAND_ASSETS_START -->
+<link
+  rel="icon"
+  href="assets/brand/favicon.ico"
+  sizes="any"
+/>
+
+<link
+  rel="icon"
+  type="image/png"
+  sizes="32x32"
+  href="assets/brand/favicon-32x32.png"
+/>
+
+<link
+  rel="icon"
+  type="image/png"
+  sizes="16x16"
+  href="assets/brand/favicon-16x16.png"
+/>
+
+<link
+  rel="apple-touch-icon"
+  sizes="180x180"
+  href="assets/brand/apple-touch-icon.png"
+/>
+
+<link
+  rel="manifest"
+  href="assets/brand/site.webmanifest"
+/>
+
+<meta
+  name="theme-color"
+  content="#166c4c"
+/>
+
+<style>
+  .asbun-brand-icon-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+  }
+</style>
+<!-- ASBUN_BRAND_ASSETS_END -->
 </head>
 
 <body>
@@ -1465,5 +1927,391 @@
 
     boot();
   </script>
+
+<script>
+/* ASBUN_LOGIN_POLISH_JS_START */
+
+(() => {
+  const EYE_OPEN = `
+    <svg
+      class="asbun-toggle-eye"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <circle
+        cx="12"
+        cy="12"
+        r="2.7"
+        stroke="currentColor"
+        stroke-width="1.8"
+      />
+    </svg>
+  `;
+
+  const EYE_CLOSED = `
+    <svg
+      class="asbun-toggle-eye"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M3 3l18 18"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+      />
+      <path
+        d="M10.6 6.1A9.8 9.8 0 0 1 12 6c6 0 9.5 6 9.5 6a15 15 0 0 1-2.7 3.4M6.2 6.2C3.8 8 2.5 12 2.5 12s3.5 6 9.5 6a9.2 9.2 0 0 0 3.2-.6"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  `;
+
+
+  function createBackdrop() {
+    if (
+      document.getElementById(
+        "asbunLoginBackdrop"
+      )
+    ) {
+      return;
+    }
+
+    const backdrop =
+      document.createElement(
+        "div"
+      );
+
+    backdrop.id =
+      "asbunLoginBackdrop";
+
+    backdrop.innerHTML = `
+      <div class="asbun-login-blob one"></div>
+      <div class="asbun-login-blob two"></div>
+
+      <div class="asbun-leaf-cluster left">
+        <div class="asbun-leaf-stem"></div>
+        <div class="asbun-leaf"></div>
+        <div class="asbun-leaf"></div>
+        <div class="asbun-leaf"></div>
+        <div class="asbun-leaf"></div>
+        <div class="asbun-leaf"></div>
+      </div>
+
+      <div class="asbun-leaf-cluster right">
+        <div class="asbun-leaf-stem"></div>
+        <div class="asbun-leaf"></div>
+        <div class="asbun-leaf"></div>
+        <div class="asbun-leaf"></div>
+        <div class="asbun-leaf"></div>
+        <div class="asbun-leaf"></div>
+      </div>
+
+      <div class="asbun-doc one"></div>
+      <div class="asbun-doc two"></div>
+
+      <div class="asbun-doc-check">
+        ✓
+      </div>
+    `;
+
+    document.body.prepend(
+      backdrop
+    );
+  }
+
+
+  function findPasswordInput() {
+    return document.querySelector(
+      'input[type="password"], input[data-asbun-password="true"]'
+    );
+  }
+
+
+  function installPasswordToggle() {
+    const password =
+      findPasswordInput();
+
+    if (!password) {
+      return;
+    }
+
+    password.setAttribute(
+      "data-asbun-password",
+      "true"
+    );
+
+    if (
+      password.closest(
+        ".asbun-password-wrap"
+      )
+    ) {
+      return;
+    }
+
+    const wrapper =
+      document.createElement(
+        "div"
+      );
+
+    wrapper.className =
+      "asbun-password-wrap";
+
+    password.parentNode.insertBefore(
+      wrapper,
+      password
+    );
+
+    wrapper.appendChild(
+      password
+    );
+
+    const button =
+      document.createElement(
+        "button"
+      );
+
+    button.type =
+      "button";
+
+    button.className =
+      "asbun-toggle-password";
+
+    button.setAttribute(
+      "aria-label",
+      "Lihat password"
+    );
+
+    button.setAttribute(
+      "aria-pressed",
+      "false"
+    );
+
+    button.innerHTML =
+      EYE_OPEN +
+      "<span>Lihat</span>";
+
+    wrapper.appendChild(
+      button
+    );
+
+    button.addEventListener(
+      "click",
+      () => {
+        const hidden =
+          password.type ===
+          "password";
+
+        password.type =
+          hidden
+            ? "text"
+            : "password";
+
+        button.setAttribute(
+          "aria-pressed",
+          hidden
+            ? "true"
+            : "false"
+        );
+
+        button.setAttribute(
+          "aria-label",
+          hidden
+            ? "Sembunyikan password"
+            : "Lihat password"
+        );
+
+        button.innerHTML =
+          (
+            hidden
+              ? EYE_CLOSED
+              : EYE_OPEN
+          ) +
+          (
+            hidden
+              ? "<span>Sembunyi</span>"
+              : "<span>Lihat</span>"
+          );
+
+        password.focus({
+          preventScroll: true
+        });
+      }
+    );
+  }
+
+
+  function loginIsVisible() {
+    const password =
+      findPasswordInput();
+
+    if (!password) {
+      return false;
+    }
+
+    const rect =
+      password.getBoundingClientRect();
+
+    const style =
+      getComputedStyle(
+        password
+      );
+
+    return (
+      rect.width > 0 &&
+      rect.height > 0 &&
+      style.display !== "none" &&
+      style.visibility !== "hidden"
+    );
+  }
+
+
+  function syncLoginBackground() {
+    document.body.classList.toggle(
+      "asbun-login-polish",
+      loginIsVisible()
+    );
+  }
+
+
+  function bootLoginPolish() {
+    createBackdrop();
+    installPasswordToggle();
+    syncLoginBackground();
+
+    const observer =
+      new MutationObserver(
+        () => {
+          installPasswordToggle();
+          syncLoginBackground();
+        }
+      );
+
+    observer.observe(
+      document.body,
+      {
+        subtree: true,
+        childList: true,
+        attributes: true,
+        attributeFilter: [
+          "style",
+          "class",
+          "hidden"
+        ]
+      }
+    );
+
+    window.addEventListener(
+      "resize",
+      syncLoginBackground
+    );
+  }
+
+
+  if (
+    document.readyState ===
+    "loading"
+  ) {
+    document.addEventListener(
+      "DOMContentLoaded",
+      bootLoginPolish
+    );
+  }
+  else {
+    bootLoginPolish();
+  }
+})();
+
+/* ASBUN_LOGIN_POLISH_JS_END */
+</script>
+
+<script>
+/* ASBUN_BRAND_ICON_START */
+
+(() => {
+  function installAsbunBrandIcon() {
+    const candidates =
+      document.querySelectorAll(
+        "[class]"
+      );
+
+    for (
+      const element
+      of candidates
+    ) {
+      const classes =
+        typeof element.className ===
+        "string"
+          ? element.className
+          : "";
+
+      if (
+        !/(brand|logo|mark)/i.test(
+          classes
+        )
+      ) {
+        continue;
+      }
+
+      if (
+        element.children.length !== 0
+      ) {
+        continue;
+      }
+
+      if (
+        element.textContent.trim()
+          .toUpperCase() !== "A"
+      ) {
+        continue;
+      }
+
+      const image =
+        document.createElement(
+          "img"
+        );
+
+      image.src =
+        "assets/brand/asbun-icon.png";
+
+      image.alt =
+        "ASBUN";
+
+      image.className =
+        "asbun-brand-icon-img";
+
+      element.textContent = "";
+      element.appendChild(image);
+    }
+  }
+
+  if (
+    document.readyState ===
+    "loading"
+  ) {
+    document.addEventListener(
+      "DOMContentLoaded",
+      installAsbunBrandIcon
+    );
+  }
+  else {
+    installAsbunBrandIcon();
+  }
+})();
+
+/* ASBUN_BRAND_ICON_END */
+</script>
 </body>
 </html>
