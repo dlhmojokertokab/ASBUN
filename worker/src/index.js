@@ -2471,6 +2471,963 @@ async function completeSubmission(
 }
 
 
+
+/* ASBUN_ANNOTATIONS_API_START */
+
+function compactAnnotationStrokes(
+  strokes
+) {
+  if (!Array.isArray(strokes)) {
+    throw httpError(
+      400,
+      "Format coretan tidak valid"
+    );
+  }
+
+  if (strokes.length > 250) {
+    throw httpError(
+      413,
+      "Coretan pada satu halaman terlalu banyak"
+    );
+  }
+
+
+  const allowedTools =
+    new Set([
+      "pen",
+      "highlight",
+      "eraser",
+    ]);
+
+
+  return strokes.map(
+    stroke => {
+      const tool =
+        allowedTools.has(
+          stroke?.tool
+        )
+          ? stroke.tool
+          : "pen";
+
+
+      const sourcePoints =
+        Array.isArray(
+          stroke?.points
+        )
+          ? stroke.points
+          : [];
+
+
+      if (
+        sourcePoints.length >
+        3000
+      ) {
+        throw httpError(
+          413,
+          "Satu coretan memiliki terlalu banyak titik"
+        );
+      }
+
+
+      const points =
+        sourcePoints
+          .map(
+            point => {
+              const x =
+                Number(
+                  point?.x
+                );
+
+              const y =
+                Number(
+                  point?.y
+                );
+
+
+              if (
+                !Number.isFinite(x) ||
+                !Number.isFinite(y)
+              ) {
+                return null;
+              }
+
+
+              const safeX =
+                Math.max(
+                  0,
+                  Math.min(
+                    1,
+                    x
+                  )
+                );
+
+
+              const safeY =
+                Math.max(
+                  0,
+                  Math.min(
+                    1,
+                    y
+                  )
+                );
+
+
+              return [
+                Number(
+                  safeX.toFixed(5)
+                ),
+
+                Number(
+                  safeY.toFixed(5)
+                ),
+              ];
+            }
+          )
+          .filter(Boolean);
+
+
+      const defaults = {
+        pen: {
+          color:
+            "#df3f38",
+
+          alpha:
+            .95,
+
+          width:
+            .0052,
+        },
+
+        highlight: {
+          color:
+            "#ffd43b",
+
+          alpha:
+            .34,
+
+          width:
+            .026,
+        },
+
+        eraser: {
+          color:
+            "#000000",
+
+          alpha:
+            1,
+
+          width:
+            .032,
+        },
+      };
+
+
+      const style =
+        defaults[tool];
+
+
+      return {
+        t:
+          tool,
+
+        c:
+          cleanText(
+            stroke?.color
+          ) ||
+          style.color,
+
+        a:
+          Number.isFinite(
+            Number(
+              stroke?.alpha
+            )
+          )
+            ? Number(
+                stroke.alpha
+              )
+            : style.alpha,
+
+        w:
+          Number.isFinite(
+            Number(
+              stroke?.width
+            )
+          )
+            ? Number(
+                stroke.width
+              )
+            : style.width,
+
+        p:
+          points,
+      };
+    }
+  );
+}
+
+
+function expandAnnotationStrokes(
+  value
+) {
+  let raw =
+    value;
+
+
+  if (
+    typeof raw ===
+    "string"
+  ) {
+    try {
+      raw =
+        JSON.parse(
+          raw
+        );
+    }
+    catch {
+      return [];
+    }
+  }
+
+
+  if (!Array.isArray(raw)) {
+    return [];
+  }
+
+
+  return raw.map(
+    stroke => {
+      /*
+        Bisa membaca bentuk compact
+        maupun bentuk object lama.
+      */
+      const tool =
+        stroke?.t ||
+        stroke?.tool ||
+        "pen";
+
+
+      const rawPoints =
+        stroke?.p ||
+        stroke?.points ||
+        [];
+
+
+      return {
+        id:
+          stroke?.id ||
+          newId(
+            "STROKE"
+          ),
+
+        tool,
+
+        color:
+          stroke?.c ||
+          stroke?.color ||
+          (
+            tool === "highlight"
+              ? "#ffd43b"
+              : tool === "eraser"
+                ? "#000000"
+                : "#df3f38"
+          ),
+
+        alpha:
+          Number(
+            stroke?.a ??
+            stroke?.alpha ??
+            (
+              tool === "highlight"
+                ? .34
+                : tool === "eraser"
+                  ? 1
+                  : .95
+            )
+          ),
+
+        width:
+          Number(
+            stroke?.w ??
+            stroke?.width ??
+            (
+              tool === "highlight"
+                ? .026
+                : tool === "eraser"
+                  ? .032
+                  : .0052
+            )
+          ),
+
+        points:
+          Array.isArray(
+            rawPoints
+          )
+            ? rawPoints
+                .map(
+                  point => {
+                    if (
+                      Array.isArray(
+                        point
+                      )
+                    ) {
+                      return {
+                        x:
+                          Number(
+                            point[0]
+                          ),
+
+                        y:
+                          Number(
+                            point[1]
+                          ),
+                      };
+                    }
+
+
+                    return {
+                      x:
+                        Number(
+                          point?.x
+                        ),
+
+                      y:
+                        Number(
+                          point?.y
+                        ),
+                    };
+                  }
+                )
+                .filter(
+                  point =>
+                    Number.isFinite(
+                      point.x
+                    ) &&
+                    Number.isFinite(
+                      point.y
+                    )
+                )
+            : [],
+      };
+    }
+  );
+}
+
+
+async function getAdminSubmissionAnnotations(
+  env,
+  submissionNumber
+) {
+  submissionNumber =
+    cleanText(
+      submissionNumber
+    );
+
+
+  const accessToken =
+    await getGoogleAccessToken(
+      env
+    );
+
+
+  const sheetId =
+    getSheetId(
+      env
+    );
+
+
+  const found =
+    await findSubmissionByNumber(
+      accessToken,
+      sheetId,
+      submissionNumber
+    );
+
+
+  if (!found) {
+    throw httpError(
+      404,
+      "Pengajuan tidak ditemukan"
+    );
+  }
+
+
+  const row =
+    found.row;
+
+
+  const submissionId =
+    row[0];
+
+
+  const activeVersion =
+    Number.parseInt(
+      row[9] || "1",
+      10
+    );
+
+
+  const annotations =
+    await readValues(
+      accessToken,
+      sheetId,
+      "ANNOTATIONS!A2:G"
+    );
+
+
+  const pages =
+    annotations
+      .filter(
+        item =>
+          item[1] ===
+            submissionId &&
+          Number(
+            item[2]
+          ) ===
+            activeVersion
+      )
+      .map(
+        item => ({
+          annotationId:
+            item[0] || "",
+
+          pageNumber:
+            Number(
+              item[3]
+            ),
+
+          strokes:
+            expandAnnotationStrokes(
+              item[4]
+            ),
+
+          updatedBy:
+            item[5] || "",
+
+          updatedAt:
+            item[6] || "",
+        })
+      )
+      .filter(
+        item =>
+          Number.isInteger(
+            item.pageNumber
+          ) &&
+          item.pageNumber > 0
+      )
+      .sort(
+        (a, b) =>
+          a.pageNumber -
+          b.pageNumber
+      );
+
+
+  return {
+    submissionNumber,
+
+    versionNumber:
+      activeVersion,
+
+    pages,
+  };
+}
+
+
+async function saveAdminSubmissionAnnotations(
+  env,
+  {
+    submissionNumber,
+    versionNumber,
+    pages,
+    admin,
+  }
+) {
+  submissionNumber =
+    cleanText(
+      submissionNumber
+    );
+
+
+  if (
+    !Array.isArray(pages) ||
+    pages.length === 0
+  ) {
+    throw httpError(
+      400,
+      "Tidak ada halaman anotasi yang dikirim"
+    );
+  }
+
+
+  if (pages.length > 100) {
+    throw httpError(
+      413,
+      "Terlalu banyak halaman dikirim sekaligus"
+    );
+  }
+
+
+  const accessToken =
+    await getGoogleAccessToken(
+      env
+    );
+
+
+  const sheetId =
+    getSheetId(
+      env
+    );
+
+
+  const found =
+    await findSubmissionByNumber(
+      accessToken,
+      sheetId,
+      submissionNumber
+    );
+
+
+  if (!found) {
+    throw httpError(
+      404,
+      "Pengajuan tidak ditemukan"
+    );
+  }
+
+
+  const row =
+    found.row;
+
+
+  const submissionId =
+    row[0];
+
+
+  const currentStatus =
+    row[6];
+
+
+  const activeVersion =
+    Number.parseInt(
+      row[9] || "1",
+      10
+    );
+
+
+  if (
+    currentStatus !==
+    "MENUNGGU_ASISTENSI"
+  ) {
+    throw httpError(
+      409,
+      "Coretan hanya dapat diubah saat pengajuan menunggu asistensi"
+    );
+  }
+
+
+  if (
+    Number(
+      versionNumber
+    ) !==
+    activeVersion
+  ) {
+    throw httpError(
+      409,
+      "Versi dokumen sudah berubah. Muat ulang Workdesk."
+    );
+  }
+
+
+  const existing =
+    await readValues(
+      accessToken,
+      sheetId,
+      "ANNOTATIONS!A2:G"
+    );
+
+
+  const uniquePages =
+    new Map();
+
+
+  for (
+    const page
+    of pages
+  ) {
+    const pageNumber =
+      Number(
+        page?.pageNumber
+      );
+
+
+    if (
+      !Number.isInteger(
+        pageNumber
+      ) ||
+      pageNumber < 1 ||
+      pageNumber > 5000
+    ) {
+      throw httpError(
+        400,
+        "Nomor halaman anotasi tidak valid"
+      );
+    }
+
+
+    const compact =
+      compactAnnotationStrokes(
+        page?.strokes || []
+      );
+
+
+    const strokesJson =
+      JSON.stringify(
+        compact
+      );
+
+
+    /*
+      Google Sheets membatasi
+      isi satu sel sekitar 50 ribu karakter.
+      Kita sisakan margin aman.
+    */
+    if (
+      strokesJson.length >
+      45000
+    ) {
+      throw httpError(
+        413,
+        "Coretan halaman " +
+        pageNumber +
+        " terlalu kompleks. Kurangi jumlah coretan."
+      );
+    }
+
+
+    uniquePages.set(
+      pageNumber,
+      {
+        pageNumber,
+        compact,
+        strokesJson,
+      }
+    );
+  }
+
+
+  const now =
+    new Date()
+      .toISOString();
+
+
+  const actorName =
+    cleanText(
+      admin?.displayName
+    ) ||
+    cleanText(
+      admin?.username
+    ) ||
+    "Admin";
+
+
+  const existingUpdates =
+    [];
+
+
+  const appendRows =
+    [];
+
+
+  let totalStrokes =
+    0;
+
+
+  for (
+    const page
+    of uniquePages.values()
+  ) {
+    totalStrokes +=
+      page.compact.length;
+
+
+    const existingIndex =
+      existing.findIndex(
+        item =>
+          item[1] ===
+            submissionId &&
+          Number(
+            item[2]
+          ) ===
+            activeVersion &&
+          Number(
+            item[3]
+          ) ===
+            page.pageNumber
+      );
+
+
+    const annotationId =
+      existingIndex >= 0
+        ? (
+            existing[
+              existingIndex
+            ][0] ||
+            newId(
+              "ANN"
+            )
+          )
+        : newId(
+            "ANN"
+          );
+
+
+    const values = [
+      annotationId,
+      submissionId,
+      String(
+        activeVersion
+      ),
+      String(
+        page.pageNumber
+      ),
+      page.strokesJson,
+      actorName,
+      now,
+    ];
+
+
+    if (
+      existingIndex >= 0
+    ) {
+      const rowNumber =
+        existingIndex + 2;
+
+
+      existingUpdates.push({
+        range:
+          "ANNOTATIONS!A" +
+          rowNumber +
+          ":G" +
+          rowNumber,
+
+        values: [
+          values
+        ],
+      });
+    }
+    else {
+      appendRows.push(
+        values
+      );
+    }
+  }
+
+
+  if (
+    existingUpdates.length
+  ) {
+    const updateResponse =
+      await fetch(
+        "https://sheets.googleapis.com/v4/spreadsheets/" +
+        sheetId +
+        "/values:batchUpdate",
+        {
+          method:
+            "POST",
+
+          headers: {
+            Authorization:
+              "Bearer " +
+              accessToken,
+
+            "Content-Type":
+              "application/json",
+          },
+
+          body:
+            JSON.stringify({
+              valueInputOption:
+                "RAW",
+
+              data:
+                existingUpdates,
+            }),
+        }
+      );
+
+
+    const updateData =
+      await updateResponse.json();
+
+
+    if (!updateResponse.ok) {
+      throw new Error(
+        updateData?.error?.message ||
+        "Gagal memperbarui anotasi"
+      );
+    }
+  }
+
+
+  if (
+    appendRows.length
+  ) {
+    const appendResponse =
+      await fetch(
+        "https://sheets.googleapis.com/v4/spreadsheets/" +
+        sheetId +
+        "/values/ANNOTATIONS!A:G:append" +
+        "?valueInputOption=RAW" +
+        "&insertDataOption=INSERT_ROWS",
+        {
+          method:
+            "POST",
+
+          headers: {
+            Authorization:
+              "Bearer " +
+              accessToken,
+
+            "Content-Type":
+              "application/json",
+          },
+
+          body:
+            JSON.stringify({
+              values:
+                appendRows,
+            }),
+        }
+      );
+
+
+    const appendData =
+      await appendResponse.json();
+
+
+    if (!appendResponse.ok) {
+      throw new Error(
+        appendData?.error?.message ||
+        "Gagal menambahkan anotasi"
+      );
+    }
+  }
+
+
+  /*
+    Audit sekali per tombol SIMPAN,
+    bukan sekali per garis.
+  */
+  const auditRow =
+    await getNextRow(
+      accessToken,
+      sheetId,
+      "AUDIT_LOG"
+    );
+
+
+  const auditResponse =
+    await fetch(
+      "https://sheets.googleapis.com/v4/spreadsheets/" +
+      sheetId +
+      "/values:batchUpdate",
+      {
+        method:
+          "POST",
+
+        headers: {
+          Authorization:
+            "Bearer " +
+            accessToken,
+
+          "Content-Type":
+            "application/json",
+        },
+
+        body:
+          JSON.stringify({
+            valueInputOption:
+              "RAW",
+
+            data: [
+              {
+                range:
+                  "AUDIT_LOG!A" +
+                  auditRow +
+                  ":G" +
+                  auditRow,
+
+                values: [[
+                  newId(
+                    "LOG"
+                  ),
+
+                  submissionId,
+
+                  "ANNOTATIONS_SAVED",
+
+                  "ADMIN",
+
+                  actorName,
+
+                  JSON.stringify({
+                    submissionNumber,
+                    version:
+                      activeVersion,
+                    pages:
+                      [
+                        ...uniquePages.keys()
+                      ],
+                    strokeCount:
+                      totalStrokes,
+                    adminId:
+                      admin?.adminId ||
+                      admin?.id ||
+                      null,
+                    adminUsername:
+                      admin?.username ||
+                      null,
+                  }),
+
+                  now,
+                ]],
+              },
+            ],
+          }),
+      }
+    );
+
+
+  const auditData =
+    await auditResponse.json();
+
+
+  if (!auditResponse.ok) {
+    throw new Error(
+      auditData?.error?.message ||
+      "Anotasi tersimpan tetapi audit gagal dicatat"
+    );
+  }
+
+
+  return {
+    submissionNumber,
+
+    versionNumber:
+      activeVersion,
+
+    savedPages:
+      uniquePages.size,
+
+    strokeCount:
+      totalStrokes,
+
+    updatedAt:
+      now,
+  };
+}
+
+/* ASBUN_ANNOTATIONS_API_END */
+
 async function getPrivateSubmissionView(
   env,
   privateToken
@@ -2587,6 +3544,81 @@ async function getPrivateSubmissionView(
         })
       );
 
+
+  /* ASBUN_PRIVATE_ANNOTATIONS_START */
+
+  let ownAnnotations = [];
+
+
+  /*
+    Coretan hanya perlu ditampilkan
+    ke pelaku usaha ketika status
+    PERLU_PERBAIKAN.
+
+    Versi lain tetap tersimpan di
+    metadata, tetapi tidak ikut tampil
+    pada dokumen aktif berikutnya.
+  */
+  if (
+    status ===
+    "PERLU_PERBAIKAN"
+  ) {
+    const annotationRows =
+      await readValues(
+        accessToken,
+        sheetId,
+        "ANNOTATIONS!A2:G"
+      );
+
+
+    ownAnnotations =
+      annotationRows
+        .filter(
+          item =>
+            item[1] ===
+              submissionId &&
+            Number(
+              item[2]
+            ) ===
+              activeVersion
+        )
+        .map(
+          item => ({
+            pageNumber:
+              Number(
+                item[3]
+              ),
+
+            strokes:
+              expandAnnotationStrokes(
+                item[4]
+              ),
+
+            updatedBy:
+              item[5] ||
+              "TALING",
+
+            updatedAt:
+              item[6] ||
+              null,
+          })
+        )
+        .filter(
+          item =>
+            Number.isInteger(
+              item.pageNumber
+            ) &&
+            item.pageNumber > 0
+        )
+        .sort(
+          (a, b) =>
+            a.pageNumber -
+            b.pageNumber
+        );
+  }
+
+  /* ASBUN_PRIVATE_ANNOTATIONS_END */
+
   return {
     submissionNumber,
     companyName,
@@ -2609,6 +3641,9 @@ async function getPrivateSubmissionView(
     completedAt,
     notes:
       ownNotes,
+
+    annotations:
+      ownAnnotations,
   };
 }
 
@@ -3318,6 +4353,645 @@ async function loginAdmin(
 }
 
 
+
+
+/* ASBUN_ADMIN_MANAGEMENT_START */
+
+
+async function hashAdminPassword(
+  password
+) {
+  password =
+    String(
+      password || ""
+    );
+
+
+  if (
+    password.length < 8
+  ) {
+    throw httpError(
+      400,
+      "Password minimal 8 karakter"
+    );
+  }
+
+
+  if (
+    password.length > 128
+  ) {
+    throw httpError(
+      400,
+      "Password maksimal 128 karakter"
+    );
+  }
+
+
+  const iterations =
+    100000;
+
+
+  const salt =
+    new Uint8Array(
+      16
+    );
+
+
+  crypto.getRandomValues(
+    salt
+  );
+
+
+  const keyMaterial =
+    await crypto.subtle.importKey(
+      "raw",
+
+      new TextEncoder()
+        .encode(
+          password
+        ),
+
+      "PBKDF2",
+
+      false,
+
+      [
+        "deriveBits",
+      ]
+    );
+
+
+  const derivedHash =
+    new Uint8Array(
+      await crypto.subtle.deriveBits(
+        {
+          name:
+            "PBKDF2",
+
+          hash:
+            "SHA-256",
+
+          salt,
+
+          iterations,
+        },
+
+        keyMaterial,
+
+        256
+      )
+    );
+
+
+  return {
+    passwordHash:
+      "pbkdf2-sha256$" +
+      iterations +
+      "$" +
+      bytesToBase64Url(
+        derivedHash
+      ),
+
+    passwordSalt:
+      bytesToBase64Url(
+        salt
+      ),
+  };
+}
+
+
+async function listAdminAccounts(
+  env,
+  request
+) {
+  const admin =
+    await getAuthenticatedAdmin(
+      env,
+      request
+    );
+
+
+  const accessToken =
+    await getGoogleAccessToken(
+      env
+    );
+
+
+  const rows =
+    await readValues(
+      accessToken,
+      getSheetId(env),
+      "ADMINS!A2:H"
+    );
+
+
+  const items =
+    rows
+      .filter(
+        row =>
+          String(
+            row[0] || ""
+          ).trim()
+      )
+      .map(
+        row => ({
+          adminId:
+            String(
+              row[0] || ""
+            ),
+
+          username:
+            String(
+              row[1] || ""
+            ),
+
+          displayName:
+            String(
+              row[2] || ""
+            ),
+
+          active:
+            String(
+              row[5] || ""
+            )
+              .trim()
+              .toUpperCase() ===
+            "TRUE",
+
+          createdAt:
+            String(
+              row[6] || ""
+            ),
+
+          lastLoginAt:
+            String(
+              row[7] || ""
+            ),
+        })
+      );
+
+
+  return {
+    admin,
+    items,
+  };
+}
+
+
+async function createAdminAccount(
+  env,
+  request,
+  {
+    username,
+    displayName,
+    password,
+  }
+) {
+  const actor =
+    await getAuthenticatedAdmin(
+      env,
+      request
+    );
+
+
+  username =
+    cleanText(
+      username
+    )
+      .toLowerCase();
+
+
+  displayName =
+    cleanText(
+      displayName
+    );
+
+
+  password =
+    String(
+      password || ""
+    );
+
+
+  if (
+    !/^[a-z0-9._-]{3,40}$/
+      .test(
+        username
+      )
+  ) {
+    throw httpError(
+      400,
+      "Username harus 3–40 karakter dan hanya boleh berisi huruf kecil, angka, titik, garis bawah, atau tanda minus"
+    );
+  }
+
+
+  if (
+    displayName.length < 2 ||
+    displayName.length > 80
+  ) {
+    throw httpError(
+      400,
+      "Nama admin harus 2–80 karakter"
+    );
+  }
+
+
+  const accessToken =
+    await getGoogleAccessToken(
+      env
+    );
+
+
+  const sheetId =
+    getSheetId(
+      env
+    );
+
+
+  const rows =
+    await readValues(
+      accessToken,
+      sheetId,
+      "ADMINS!A2:H"
+    );
+
+
+  const duplicate =
+    rows.some(
+      row =>
+        String(
+          row[1] || ""
+        )
+          .trim()
+          .toLowerCase() ===
+        username
+    );
+
+
+  if (duplicate) {
+    throw httpError(
+      409,
+      "Username admin sudah digunakan"
+    );
+  }
+
+
+  const credentials =
+    await hashAdminPassword(
+      password
+    );
+
+
+  const now =
+    new Date()
+      .toISOString();
+
+
+  const adminId =
+    newId(
+      "ADM"
+    );
+
+
+  const adminRow =
+    await getNextRow(
+      accessToken,
+      sheetId,
+      "ADMINS"
+    );
+
+
+  const auditRow =
+    await getNextRow(
+      accessToken,
+      sheetId,
+      "AUDIT_LOG"
+    );
+
+
+  const response =
+    await fetch(
+      "https://sheets.googleapis.com/v4/spreadsheets/" +
+      sheetId +
+      "/values:batchUpdate",
+      {
+        method:
+          "POST",
+
+        headers: {
+          Authorization:
+            "Bearer " +
+            accessToken,
+
+          "Content-Type":
+            "application/json",
+        },
+
+        body:
+          JSON.stringify({
+            valueInputOption:
+              "RAW",
+
+            data: [
+              {
+                range:
+                  "ADMINS!A" +
+                  adminRow +
+                  ":H" +
+                  adminRow,
+
+                values: [[
+                  adminId,
+                  username,
+                  displayName,
+                  credentials.passwordHash,
+                  credentials.passwordSalt,
+                  "TRUE",
+                  now,
+                  "",
+                ]],
+              },
+
+              {
+                range:
+                  "AUDIT_LOG!A" +
+                  auditRow +
+                  ":G" +
+                  auditRow,
+
+                values: [[
+                  newId(
+                    "LOG"
+                  ),
+
+                  "",
+
+                  "ADMIN_CREATED",
+
+                  "ADMIN",
+
+                  actor.displayName ||
+                  actor.username,
+
+                  JSON.stringify({
+                    adminId:
+                      adminId,
+
+                    username:
+                      username,
+
+                    displayName:
+                      displayName,
+
+                    createdByAdminId:
+                      actor.adminId,
+
+                    createdByUsername:
+                      actor.username,
+                  }),
+
+                  now,
+                ]],
+              },
+            ],
+          }),
+      }
+    );
+
+
+  const data =
+    await response.json();
+
+
+  if (!response.ok) {
+    throw new Error(
+      data?.error?.message ||
+      "Gagal membuat akun admin"
+    );
+  }
+
+
+  return {
+    adminId,
+    username,
+    displayName,
+    active:
+      true,
+    createdAt:
+      now,
+    lastLoginAt:
+      "",
+  };
+}
+
+
+async function changeOwnAdminPassword(
+  env,
+  request,
+  {
+    currentPassword,
+    newPassword,
+  }
+) {
+  const actor =
+    await getAuthenticatedAdmin(
+      env,
+      request
+    );
+
+
+  currentPassword =
+    String(
+      currentPassword || ""
+    );
+
+
+  newPassword =
+    String(
+      newPassword || ""
+    );
+
+
+  if (!currentPassword) {
+    throw httpError(
+      400,
+      "Password lama wajib diisi"
+    );
+  }
+
+
+  if (
+    currentPassword ===
+    newPassword
+  ) {
+    throw httpError(
+      400,
+      "Password baru harus berbeda dari password lama"
+    );
+  }
+
+
+  const fullAdmin =
+    await findAdminById(
+      env,
+      actor.adminId
+    );
+
+
+  if (!fullAdmin) {
+    throw httpError(
+      404,
+      "Akun admin tidak ditemukan"
+    );
+  }
+
+
+  const valid =
+    await verifyAdminPassword(
+      currentPassword,
+      fullAdmin.passwordHash,
+      fullAdmin.passwordSalt
+    );
+
+
+  if (!valid) {
+    throw httpError(
+      401,
+      "Password lama tidak sesuai"
+    );
+  }
+
+
+  const credentials =
+    await hashAdminPassword(
+      newPassword
+    );
+
+
+  const accessToken =
+    await getGoogleAccessToken(
+      env
+    );
+
+
+  const sheetId =
+    getSheetId(
+      env
+    );
+
+
+  const auditRow =
+    await getNextRow(
+      accessToken,
+      sheetId,
+      "AUDIT_LOG"
+    );
+
+
+  const now =
+    new Date()
+      .toISOString();
+
+
+  const response =
+    await fetch(
+      "https://sheets.googleapis.com/v4/spreadsheets/" +
+      sheetId +
+      "/values:batchUpdate",
+      {
+        method:
+          "POST",
+
+        headers: {
+          Authorization:
+            "Bearer " +
+            accessToken,
+
+          "Content-Type":
+            "application/json",
+        },
+
+        body:
+          JSON.stringify({
+            valueInputOption:
+              "RAW",
+
+            data: [
+              {
+                range:
+                  "ADMINS!D" +
+                  fullAdmin.rowNumber +
+                  ":E" +
+                  fullAdmin.rowNumber,
+
+                values: [[
+                  credentials.passwordHash,
+                  credentials.passwordSalt,
+                ]],
+              },
+
+              {
+                range:
+                  "AUDIT_LOG!A" +
+                  auditRow +
+                  ":G" +
+                  auditRow,
+
+                values: [[
+                  newId(
+                    "LOG"
+                  ),
+
+                  "",
+
+                  "ADMIN_PASSWORD_CHANGED",
+
+                  "ADMIN",
+
+                  actor.displayName ||
+                  actor.username,
+
+                  JSON.stringify({
+                    adminId:
+                      actor.adminId,
+
+                    username:
+                      actor.username,
+                  }),
+
+                  now,
+                ]],
+              },
+            ],
+          }),
+      }
+    );
+
+
+  const data =
+    await response.json();
+
+
+  if (!response.ok) {
+    throw new Error(
+      data?.error?.message ||
+      "Gagal mengganti password"
+    );
+  }
+
+
+  return {
+    changedAt:
+      now,
+
+    requiresLogin:
+      true,
+  };
+}
+
+
+/* ASBUN_ADMIN_MANAGEMENT_END */
 
 async function getAdminDashboard(
   env,
@@ -4267,6 +5941,133 @@ export default {
       }
     }
 
+    const adminAnnotationsMatch =
+      url.pathname.match(
+        /^\/admin\/submissions\/([^/]+)\/annotations$/
+      );
+
+
+    if (
+      request.method === "GET" &&
+      adminAnnotationsMatch
+    ) {
+      try {
+        await getAuthenticatedAdmin(
+          env,
+          request
+        );
+
+
+        const result =
+          await getAdminSubmissionAnnotations(
+            env,
+            decodeURIComponent(
+              adminAnnotationsMatch[1]
+            )
+          );
+
+
+        return jsonResponse(
+          request,
+          {
+            ok:
+              true,
+
+            annotations:
+              result,
+          }
+        );
+      }
+      catch (error) {
+        return jsonResponse(
+          request,
+          {
+            ok:
+              false,
+
+            error:
+              error.message ||
+              "Gagal membaca anotasi",
+          },
+          error.status ||
+          500
+        );
+      }
+    }
+
+
+    if (
+      request.method === "POST" &&
+      adminAnnotationsMatch
+    ) {
+      try {
+        const admin =
+          await getAuthenticatedAdmin(
+            env,
+            request
+          );
+
+
+        const body =
+          await request
+            .json()
+            .catch(
+              () => ({})
+            );
+
+
+        const result =
+          await saveAdminSubmissionAnnotations(
+            env,
+            {
+              submissionNumber:
+                decodeURIComponent(
+                  adminAnnotationsMatch[1]
+                ),
+
+              versionNumber:
+                body.versionNumber,
+
+              pages:
+                body.pages,
+
+              admin,
+            }
+          );
+
+
+        return jsonResponse(
+          request,
+          {
+            ok:
+              true,
+
+            message:
+              "Coretan berhasil disimpan",
+
+            annotations:
+              result,
+          }
+        );
+      }
+      catch (error) {
+        return jsonResponse(
+          request,
+          {
+            ok:
+              false,
+
+            error:
+              error.message ||
+              "Gagal menyimpan anotasi",
+          },
+          error.status ||
+          500
+        );
+      }
+    }
+
+
     const completeMatch =
       url.pathname.match(
         /^\/admin\/submissions\/([^/]+)\/complete$/
@@ -4456,6 +6257,192 @@ export default {
               "Login admin gagal",
           },
           error.status || 500
+        );
+      }
+    }
+
+    /*
+      ========================================================
+      ADMIN ACCOUNT MANAGEMENT
+      ========================================================
+    */
+
+    if (
+      request.method === "GET" &&
+      url.pathname ===
+        "/admin/admins"
+    ) {
+      try {
+
+        const result =
+          await listAdminAccounts(
+            env,
+            request
+          );
+
+
+        return jsonResponse(
+          request,
+          {
+            ok:
+              true,
+
+            admin:
+              result.admin,
+
+            items:
+              result.items,
+          }
+        );
+
+      }
+      catch (error) {
+
+        return jsonResponse(
+          request,
+          {
+            ok:
+              false,
+
+            error:
+              error.message ||
+              "Gagal membaca daftar admin",
+          },
+
+          error.status ||
+          500
+        );
+      }
+    }
+
+
+    if (
+      request.method === "POST" &&
+      url.pathname ===
+        "/admin/admins"
+    ) {
+      try {
+
+        const body =
+          await request
+            .json()
+            .catch(
+              () => ({})
+            );
+
+
+        const result =
+          await createAdminAccount(
+            env,
+            request,
+            {
+              username:
+                body.username,
+
+              displayName:
+                body.displayName,
+
+              password:
+                body.password,
+            }
+          );
+
+
+        return jsonResponse(
+          request,
+          {
+            ok:
+              true,
+
+            message:
+              "Admin baru berhasil dibuat",
+
+            admin:
+              result,
+          },
+
+          201
+        );
+
+      }
+      catch (error) {
+
+        return jsonResponse(
+          request,
+          {
+            ok:
+              false,
+
+            error:
+              error.message ||
+              "Gagal membuat admin",
+          },
+
+          error.status ||
+          500
+        );
+      }
+    }
+
+
+    if (
+      request.method === "POST" &&
+      url.pathname ===
+        "/admin/password"
+    ) {
+      try {
+
+        const body =
+          await request
+            .json()
+            .catch(
+              () => ({})
+            );
+
+
+        const result =
+          await changeOwnAdminPassword(
+            env,
+            request,
+            {
+              currentPassword:
+                body.currentPassword,
+
+              newPassword:
+                body.newPassword,
+            }
+          );
+
+
+        return jsonResponse(
+          request,
+          {
+            ok:
+              true,
+
+            message:
+              "Password berhasil diganti",
+
+            ...result,
+          }
+        );
+
+      }
+      catch (error) {
+
+        return jsonResponse(
+          request,
+          {
+            ok:
+              false,
+
+            error:
+              error.message ||
+              "Gagal mengganti password",
+          },
+
+          error.status ||
+          500
         );
       }
     }

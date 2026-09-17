@@ -692,7 +692,1541 @@
         height: 520px;
       }
     }
-  </style>
+  
+/* ASBUN_WORKDESK_POLISH_START */
+
+/* ==============================
+   FULLSCREEN SHELL
+   ============================== */
+
+.header-inner,
+main {
+  width: 100%;
+  max-width: none;
+
+  padding-left:
+    clamp(22px, 3vw, 52px);
+
+  padding-right:
+    clamp(22px, 3vw, 52px);
+}
+
+main {
+  padding-top: 24px;
+  padding-bottom: 34px;
+}
+
+
+/* ==============================
+   TOP HERO
+   ============================== */
+
+.topbar {
+  position: relative;
+  overflow: hidden;
+
+  padding: 24px 28px;
+  margin-bottom: 18px;
+
+  border:
+    1px solid
+    rgba(43,105,74,.10);
+
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.98),
+      rgba(235,246,239,.92)
+    );
+
+  box-shadow:
+    0 16px 42px
+    rgba(31,72,49,.055);
+}
+
+.topbar::after {
+  content: "";
+
+  position: absolute;
+
+  width: 165px;
+  height: 165px;
+
+  right: -20px;
+  top: 50%;
+
+  transform:
+    translateY(-50%)
+    rotate(-7deg);
+
+  background:
+    url("assets/brand/asbun-icon.png")
+    center / contain
+    no-repeat;
+
+  opacity: .048;
+
+  pointer-events: none;
+}
+
+.topbar > * {
+  position: relative;
+  z-index: 1;
+}
+
+.topbar h1 {
+  font-size:
+    clamp(27px, 3vw, 38px);
+}
+
+.topbar .subtitle {
+  font-size: 13px;
+}
+
+.topbar .actions .btn {
+  box-shadow:
+    0 8px 20px
+    rgba(31,72,49,.05);
+}
+
+#queueButton::before {
+  content: "←  ";
+}
+
+#dashboardButton::before {
+  content: "⌂  ";
+}
+
+
+/* ==============================
+   WORKSPACE LAYOUT
+   ============================== */
+
+.workspace {
+  grid-template-columns:
+    minmax(0, 1.9fr)
+    minmax(370px, .72fr);
+
+  gap: 18px;
+
+  width: 100%;
+}
+
+.workspace > .panel:first-child {
+  min-width: 0;
+}
+
+.workspace > aside.panel {
+  position: sticky;
+  top: 92px;
+
+  max-height:
+    calc(100vh - 112px);
+
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color:
+    #c8d8ce
+    transparent;
+}
+
+
+/* ==============================
+   PANELS
+   ============================== */
+
+.panel {
+  border:
+    1px solid
+    rgba(48,93,67,.10);
+
+  border-radius: 22px;
+
+  box-shadow:
+    0 14px 38px
+    rgba(31,65,45,.05);
+}
+
+.panel-head {
+  padding:
+    17px 20px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #fff,
+      #fbfdfb
+    );
+
+  border-bottom:
+    1px solid
+    #edf2ee;
+}
+
+.panel-head strong {
+  font-size: 14px;
+}
+
+.panel-head span {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 10px;
+
+  color:
+    #869189;
+}
+
+
+/* ==============================
+   PDF AREA
+   ============================== */
+
+.pdf-wrap {
+  min-height:
+    calc(100vh - 235px);
+
+  background:
+    linear-gradient(
+      135deg,
+      #edf2ef,
+      #e8eeea
+    );
+}
+
+iframe {
+  height:
+    calc(100vh - 235px);
+
+  min-height: 660px;
+
+  background:
+    #f3f5f4;
+}
+
+.pdf-message {
+  min-height:
+    calc(100vh - 235px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+}
+
+.pdf-message::before {
+  content: "";
+
+  width: 26px;
+  height: 26px;
+
+  border:
+    3px solid
+    #d5e2da;
+
+  border-top-color:
+    var(--green);
+
+  border-radius: 999px;
+
+  animation:
+    asbunPdfSpin
+    .78s linear infinite;
+}
+
+@keyframes asbunPdfSpin {
+  to {
+    transform:
+      rotate(360deg);
+  }
+}
+
+
+/* ==============================
+   DETAIL SIDE
+   ============================== */
+
+.details {
+  padding:
+    15px 18px 5px;
+}
+
+.status-line {
+  margin-bottom: 8px;
+}
+
+.badge {
+  padding:
+    6px 10px;
+
+  font-size: 10px;
+}
+
+.detail-card {
+  padding:
+    12px 0;
+}
+
+.label {
+  margin-bottom: 4px;
+
+  font-size: 9px;
+
+  letter-spacing: .055em;
+}
+
+.value {
+  font-size: 13px;
+}
+
+.value.subtle {
+  font-size: 12px;
+
+  color:
+    #526158;
+}
+
+
+/* ==============================
+   DECISION PANEL
+   ============================== */
+
+.decision-panel {
+  position: relative;
+
+  margin: 14px 18px 18px;
+
+  padding: 18px;
+
+  overflow: hidden;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fbfdfb,
+      #f7faf8
+    );
+
+  box-shadow:
+    inset 0 0 0 1px
+    rgba(255,255,255,.65);
+}
+
+.decision-panel::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 4px;
+
+  background:
+    #5e7767;
+}
+
+aside.panel:has(.badge.wait)
+.decision-panel::before {
+  background:
+    var(--blue);
+}
+
+aside.panel:has(.badge.revision)
+.decision-panel::before {
+  background:
+    var(--amber);
+}
+
+aside.panel:has(.badge.final)
+.decision-panel::before {
+  background:
+    var(--green);
+}
+
+aside.panel:has(.badge.done)
+.decision-panel::before {
+  background:
+    #7d8881;
+}
+
+.decision-panel h3 {
+  font-size: 15px;
+}
+
+.decision-panel p {
+  font-size: 11px;
+}
+
+.decision-field textarea {
+  min-height: 135px;
+
+  line-height: 1.55;
+
+  transition:
+    border-color .18s ease,
+    box-shadow .18s ease;
+}
+
+.decision-actions {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 9px;
+}
+
+.revision-btn,
+.final-btn {
+  width: 100%;
+
+  min-height: 44px;
+}
+
+.revision-btn {
+  border:
+    1px solid
+    rgba(154,100,24,.10);
+}
+
+.final-btn {
+  box-shadow:
+    0 8px 18px
+    rgba(35,86,60,.10);
+}
+
+.download-btn {
+  border:
+    1px solid
+    rgba(47,111,78,.10);
+}
+
+.download-btn::before {
+  content: "↓  ";
+}
+
+.complete-btn {
+  box-shadow:
+    0 8px 18px
+    rgba(180,35,24,.09);
+}
+
+
+/* ==============================
+   FINAL / COMPLETE STATES
+   ============================== */
+
+.final-actions {
+  padding-top: 3px;
+}
+
+.final-action-buttons {
+  gap: 9px;
+}
+
+.final-hint {
+  color:
+    #7a867e !important;
+}
+
+
+/* ==============================
+   CONFIRM MODALS
+   ============================== */
+
+.confirm-box,
+.complete-box {
+  border:
+    1px solid
+    rgba(44,89,62,.10);
+
+  box-shadow:
+    0 28px 80px
+    rgba(20,30,24,.24);
+}
+
+.confirm-ok,
+.complete-ok,
+.confirm-cancel,
+.complete-cancel {
+  transition:
+    transform .15s ease,
+    box-shadow .15s ease,
+    background .15s ease;
+}
+
+.confirm-ok:hover,
+.complete-ok:hover {
+  transform:
+    translateY(-1px);
+}
+
+
+/* ==============================
+   MAIN LOADING
+   ============================== */
+
+#loadingState.loading {
+  min-height:
+    calc(100vh - 230px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+}
+
+#loadingState.loading::before {
+  content: "";
+
+  width: 28px;
+  height: 28px;
+
+  border:
+    3px solid
+    #d8e4dc;
+
+  border-top-color:
+    var(--green);
+
+  border-radius: 999px;
+
+  animation:
+    asbunDeskSpin
+    .78s linear infinite;
+}
+
+@keyframes asbunDeskSpin {
+  to {
+    transform:
+      rotate(360deg);
+  }
+}
+
+
+/* ==============================
+   DESKTOP XL
+   ============================== */
+
+@media (
+  min-width: 1500px
+) {
+  .workspace {
+    grid-template-columns:
+      minmax(0, 2fr)
+      minmax(390px, .68fr);
+  }
+
+  .topbar {
+    padding:
+      27px 32px;
+  }
+}
+
+
+/* ==============================
+   TABLET
+   ============================== */
+
+@media (
+  max-width: 1100px
+) {
+  .workspace {
+    grid-template-columns:
+      minmax(0, 1.55fr)
+      minmax(340px, .85fr);
+  }
+}
+
+@media (
+  max-width: 980px
+) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .workspace > aside.panel {
+    position: static;
+
+    max-height: none;
+
+    overflow: visible;
+  }
+
+  iframe,
+  .pdf-message,
+  .pdf-wrap {
+    min-height: 620px;
+    height: 620px;
+  }
+}
+
+
+/* ==============================
+   MOBILE
+   ============================== */
+
+@media (
+  max-width: 640px
+) {
+  .header-inner,
+  main {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  main {
+    padding-top: 16px;
+  }
+
+  .topbar {
+    padding: 21px 18px;
+  }
+
+  .topbar::after {
+    width: 120px;
+    height: 120px;
+
+    right: -38px;
+
+    opacity: .038;
+  }
+
+  .topbar .actions {
+    width: 100%;
+  }
+
+  .topbar .actions .btn {
+    flex: 1;
+  }
+
+  .workspace {
+    gap: 14px;
+  }
+
+  iframe,
+  .pdf-message,
+  .pdf-wrap {
+    min-height: 58vh;
+    height: 58vh;
+  }
+
+  .details {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .decision-panel {
+    margin:
+      12px 16px 16px;
+  }
+
+  .decision-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .confirm-actions,
+  .complete-actions {
+    flex-direction: column-reverse;
+  }
+
+  .confirm-actions button,
+  .complete-actions button {
+    width: 100%;
+  }
+}
+
+/* ASBUN_WORKDESK_POLISH_END */
+
+
+/* ASBUN_PDFJS_VIEWER_START */
+
+.pdf-wrap {
+  position: relative;
+
+  height:
+    calc(100vh - 235px);
+
+  min-height: 660px;
+
+  overflow: auto;
+
+  background:
+    linear-gradient(
+      145deg,
+      #e7ece9,
+      #f0f3f1
+    );
+
+  scrollbar-width: thin;
+  scrollbar-color:
+    #aab7af
+    transparent;
+}
+
+.asbun-pdf-viewer {
+  min-height: 100%;
+
+  padding:
+    22px 18px 34px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 22px;
+}
+
+.asbun-pdf-page {
+  position: relative;
+
+  flex: 0 0 auto;
+
+  max-width: 100%;
+
+  overflow: visible;
+
+  background: white;
+
+  box-shadow:
+    0 10px 30px
+    rgba(17, 28, 21, .14);
+
+  border-radius: 2px;
+}
+
+.asbun-pdf-page-number {
+  position: absolute;
+
+  left: 50%;
+  bottom: -14px;
+
+  z-index: 5;
+
+  transform:
+    translateX(-50%);
+
+  padding:
+    4px 9px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(31,45,36,.82);
+
+  color: white;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  white-space: nowrap;
+
+  pointer-events: none;
+}
+
+.asbun-pdf-canvas {
+  display: block;
+
+  max-width: 100%;
+
+  height: auto;
+}
+
+.asbun-annotation-canvas {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 3;
+
+  width: 100%;
+  height: 100%;
+
+  /*
+    NANTI kita ubah jadi auto ketika
+    mode Pensil / Stabilo aktif.
+  */
+  pointer-events: none;
+
+  touch-action: none;
+}
+
+.asbun-pdf-loading {
+  min-height:
+    240px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  color:
+    var(--muted);
+
+  font-size: 12px;
+}
+
+.asbun-pdf-loading::before {
+  content: "";
+
+  width: 27px;
+  height: 27px;
+
+  border:
+    3px solid
+    #d4dfd8;
+
+  border-top-color:
+    var(--green);
+
+  border-radius: 50%;
+
+  animation:
+    asbunOwnPdfSpin
+    .75s linear infinite;
+}
+
+@keyframes asbunOwnPdfSpin {
+  to {
+    transform:
+      rotate(360deg);
+  }
+}
+
+.pdf-message.static::before {
+  display: none;
+}
+
+
+/* laptop/tablet */
+@media (max-width: 980px) {
+  .pdf-wrap {
+    height: 620px;
+    min-height: 620px;
+  }
+}
+
+
+/* mobile */
+@media (max-width: 640px) {
+  .pdf-wrap {
+    height: 58vh;
+    min-height: 58vh;
+  }
+
+  .asbun-pdf-viewer {
+    padding:
+      14px 8px 28px;
+
+    gap: 18px;
+  }
+}
+
+/* ASBUN_PDFJS_VIEWER_END */
+
+
+/* ASBUN_ANNOTATION_DRAW_START */
+
+.pdf-panel-head {
+  align-items: flex-start;
+}
+
+.pdf-head-copy {
+  flex: 0 0 auto;
+}
+
+.annotation-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+
+  min-width: 0;
+}
+
+.annotation-tools {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 5px;
+
+  border:
+    1px solid
+    #e1e9e4;
+
+  border-radius: 12px;
+
+  background:
+    #f8fbf9;
+}
+
+.annotation-tool,
+.annotation-icon-button {
+  min-height: 34px;
+
+  border-radius: 9px;
+
+  background:
+    transparent;
+
+  color:
+    #526158;
+
+  font-size: 10px;
+  font-weight: 850;
+
+  transition:
+    background .15s ease,
+    color .15s ease,
+    box-shadow .15s ease,
+    transform .15s ease;
+}
+
+.annotation-tool {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 6px;
+
+  padding:
+    0 10px;
+}
+
+.annotation-icon-button {
+  width: 34px;
+  padding: 0;
+
+  display: grid;
+  place-items: center;
+
+  font-size: 16px;
+}
+
+.annotation-tool:hover,
+.annotation-icon-button:hover {
+  background:
+    white;
+
+  box-shadow:
+    0 4px 12px
+    rgba(31,65,45,.06);
+}
+
+.annotation-tool.active {
+  background:
+    white;
+
+  color:
+    #1f2d24;
+
+  box-shadow:
+    0 3px 10px
+    rgba(31,65,45,.08);
+
+  outline:
+    1px solid
+    rgba(47,111,78,.10);
+}
+
+.annotation-tool:disabled,
+.annotation-icon-button:disabled {
+  opacity: .38;
+  cursor: not-allowed;
+
+  box-shadow: none;
+}
+
+.annotation-toolbar.locked
+.annotation-tools {
+  opacity: .70;
+}
+
+.tool-dot {
+  width: 10px;
+  height: 10px;
+
+  display: inline-block;
+
+  border-radius: 999px;
+}
+
+.tool-dot.pen {
+  background:
+    #df3f38;
+}
+
+.tool-dot.highlight {
+  background:
+    rgba(255,205,50,.82);
+
+  border-radius: 3px;
+}
+
+.annotation-divider {
+  width: 1px;
+  height: 21px;
+
+  margin:
+    0 1px;
+
+  background:
+    #dde6e0;
+}
+
+.annotation-icon-button.danger {
+  color:
+    #a73a32;
+}
+
+.annotation-meta {
+  min-width: 92px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  gap: 2px;
+}
+
+.annotation-state {
+  color:
+    #66756c;
+
+  font-size: 9px;
+  font-weight: 850;
+
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+
+.annotation-state.editable {
+  color:
+    var(--green);
+}
+
+.annotation-count {
+  color:
+    #8a958e;
+
+  font-size: 9px;
+}
+
+
+/* Annotation canvas jadi interaktif
+   HANYA ketika workdesk mode edit */
+.annotation-editing
+.asbun-annotation-canvas {
+  pointer-events: auto;
+
+  cursor:
+    crosshair;
+}
+
+.annotation-editing
+.asbun-annotation-canvas[data-tool="eraser"] {
+  cursor:
+    cell;
+}
+
+
+/* Saat menggambar, jangan browser
+   malah select/drag halaman */
+.annotation-editing
+.asbun-pdf-viewer {
+  user-select: none;
+}
+
+
+/* sedikit feedback halaman aktif */
+.asbun-pdf-page.annotation-page-active {
+  box-shadow:
+    0 12px 34px
+    rgba(17,28,21,.18),
+    0 0 0 2px
+    rgba(47,111,78,.16);
+}
+
+
+/* tablet */
+@media (max-width: 1100px) {
+  .pdf-panel-head {
+    flex-direction: column;
+  }
+
+  .annotation-toolbar {
+    width: 100%;
+
+    justify-content:
+      space-between;
+  }
+
+  .annotation-meta {
+    flex: 0 0 auto;
+  }
+}
+
+
+/* mobile */
+@media (max-width: 640px) {
+  .annotation-toolbar {
+    display: block;
+
+    overflow-x: auto;
+
+    padding-bottom: 3px;
+  }
+
+  .annotation-tools {
+    width: max-content;
+  }
+
+  .annotation-meta {
+    width: 100%;
+
+    margin-top: 6px;
+
+    flex-direction: row;
+    align-items: center;
+
+    gap: 8px;
+  }
+
+  .annotation-tool {
+    min-height: 38px;
+
+    padding:
+      0 11px;
+  }
+
+  .annotation-icon-button {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+/* ASBUN_ANNOTATION_DRAW_END */
+
+
+/* ASBUN_PDF_SEARCH_START */
+
+.pdf-panel-head {
+  flex-wrap: wrap;
+}
+
+.pdf-head-copy {
+  margin-right: auto;
+}
+
+.pdf-searchbar {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  min-width: 0;
+}
+
+.pdf-search-input-wrap {
+  position: relative;
+
+  width:
+    clamp(220px, 25vw, 350px);
+}
+
+.pdf-search-input-wrap input {
+  width: 100%;
+  height: 36px;
+
+  padding:
+    0 34px 0 34px;
+
+  border:
+    1px solid
+    #d4dfd8;
+
+  border-radius: 10px;
+
+  outline: none;
+
+  background:
+    #f9fbfa;
+
+  color:
+    var(--text);
+
+  font: inherit;
+  font-size: 11px;
+
+  transition:
+    border-color .15s ease,
+    box-shadow .15s ease,
+    background .15s ease;
+}
+
+.pdf-search-input-wrap input:focus {
+  border-color:
+    var(--green);
+
+  background:
+    white;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(47,111,78,.08);
+}
+
+.pdf-search-icon {
+  position: absolute;
+
+  left: 11px;
+  top: 50%;
+
+  transform:
+    translateY(-50%);
+
+  color:
+    #758078;
+
+  font-size: 16px;
+
+  pointer-events: none;
+}
+
+.pdf-search-status {
+  min-width: 72px;
+
+  color:
+    #7c8880;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  text-align: center;
+
+  white-space: nowrap;
+}
+
+.pdf-search-nav,
+.pdf-search-clear {
+  width: 34px;
+  height: 34px;
+
+  display: grid;
+  place-items: center;
+
+  padding: 0;
+
+  border:
+    1px solid
+    #e0e8e2;
+
+  border-radius: 9px;
+
+  background:
+    #f8fbf9;
+
+  color:
+    #536159;
+
+  font-weight: 900;
+
+  transition:
+    background .15s ease,
+    transform .15s ease,
+    box-shadow .15s ease;
+}
+
+.pdf-search-nav:hover:not(:disabled),
+.pdf-search-clear:hover {
+  background:
+    white;
+
+  transform:
+    translateY(-1px);
+
+  box-shadow:
+    0 4px 12px
+    rgba(31,65,45,.07);
+}
+
+.pdf-search-nav:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+
+
+/* halaman mengandung hasil */
+.asbun-pdf-page.pdf-search-hit {
+  box-shadow:
+    0 10px 30px
+    rgba(17,28,21,.14),
+    0 0 0 2px
+    rgba(225,166,34,.22);
+}
+
+
+/* hasil yang sedang aktif */
+.asbun-pdf-page.pdf-search-current {
+  box-shadow:
+    0 14px 38px
+    rgba(17,28,21,.18),
+    0 0 0 3px
+    rgba(225,166,34,.72);
+}
+
+
+/* badge hasil pada halaman */
+.pdf-search-page-badge {
+  position: absolute;
+
+  top: 10px;
+  right: 10px;
+
+  z-index: 7;
+
+  padding:
+    5px 8px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(255,193,7,.91);
+
+  color:
+    #493706;
+
+  font-size: 9px;
+  font-weight: 900;
+
+  box-shadow:
+    0 4px 12px
+    rgba(67,50,3,.12);
+
+  pointer-events: none;
+}
+
+
+/*
+  Annotation toolbar jadi baris kedua,
+  supaya Search tidak berdesakan.
+*/
+.annotation-toolbar {
+  flex:
+    1 0 100%;
+
+  margin-top: 3px;
+
+  padding-top: 10px;
+
+  border-top:
+    1px solid
+    #edf2ee;
+}
+
+
+/* Tablet */
+@media (max-width: 900px) {
+  .pdf-searchbar {
+    flex:
+      1 0 100%;
+
+    margin-top: 9px;
+  }
+
+  .pdf-search-input-wrap {
+    flex: 1;
+
+    width: auto;
+  }
+}
+
+
+/* HP */
+@media (max-width: 640px) {
+  .pdf-searchbar {
+    display: grid;
+
+    grid-template-columns:
+      minmax(0,1fr)
+      auto
+      auto
+      auto;
+
+    width: 100%;
+  }
+
+  .pdf-search-input-wrap {
+    grid-column:
+      1 / -1;
+
+    width: 100%;
+  }
+
+  .pdf-search-status {
+    justify-self: start;
+
+    min-width: 0;
+
+    padding-left: 2px;
+  }
+}
+
+
+/* ASBUN_PDF_TEXT_HIGHLIGHT_START */
+
+.pdf-search-highlight-layer {
+  position: absolute;
+  inset: 0;
+
+  z-index: 2;
+
+  pointer-events: none;
+
+  overflow: hidden;
+}
+
+.pdf-search-highlight {
+  position: absolute;
+
+  border-radius: 2px;
+
+  background:
+    rgba(255, 215, 55, .43);
+
+  box-shadow:
+    inset 0 0 0 1px
+    rgba(211, 161, 0, .18);
+
+  mix-blend-mode: multiply;
+
+  pointer-events: none;
+}
+
+/* halaman/result yang sedang aktif */
+.asbun-pdf-page.pdf-search-current
+.pdf-search-highlight {
+  background:
+    rgba(255, 170, 25, .58);
+
+  box-shadow:
+    inset 0 0 0 1px
+    rgba(182, 112, 0, .28);
+}
+
+/*
+  PDF render = bawah
+  Search highlight = tengah
+  Coretan admin = atas
+*/
+.asbun-pdf-canvas {
+  position: relative;
+  z-index: 1;
+}
+
+.asbun-annotation-canvas {
+  z-index: 3;
+}
+
+/* ASBUN_PDF_TEXT_HIGHLIGHT_END */
+
+/* ASBUN_PDF_SEARCH_END */
+
+
+/* ASBUN_ANNOTATION_PERSISTENCE_START */
+
+.annotation-save-button {
+  min-height: 34px;
+
+  padding:
+    0 12px;
+
+  border-radius: 9px;
+
+  background:
+    var(--green);
+
+  color:
+    white;
+
+  font-size: 10px;
+  font-weight: 900;
+
+  white-space: nowrap;
+
+  box-shadow:
+    0 5px 14px
+    rgba(47,111,78,.12);
+
+  transition:
+    background .15s ease,
+    transform .15s ease,
+    opacity .15s ease;
+}
+
+.annotation-save-button:hover:not(:disabled) {
+  background:
+    var(--green-dark);
+
+  transform:
+    translateY(-1px);
+}
+
+.annotation-save-button:disabled {
+  opacity: .38;
+
+  cursor: not-allowed;
+
+  box-shadow: none;
+}
+
+.annotation-toolbar.has-dirty
+.annotation-count {
+  color:
+    var(--amber);
+
+  font-weight: 900;
+}
+
+.annotation-toolbar.saving
+.annotation-state {
+  color:
+    var(--blue);
+}
+
+.annotation-toolbar.save-error
+.annotation-state {
+  color:
+    #b42318;
+}
+
+@media(max-width:640px) {
+  .annotation-save-button {
+    min-height: 38px;
+
+    padding:
+      0 13px;
+  }
+}
+
+/* ASBUN_ANNOTATION_PERSISTENCE_END */
+
+</style>
 
 <!-- ASBUN_BRAND_ASSETS_START -->
 <link
@@ -801,10 +2335,146 @@
     style="display:none"
   >
     <section class="panel">
-      <div class="panel-head">
-        <div>
+      <div class="panel-head pdf-panel-head">
+        <div class="pdf-head-copy">
           <strong>Preview PDF Aktif</strong>
           <span id="pdfFileName"></span>
+        </div>
+
+        <div
+          class="pdf-searchbar"
+          id="pdfSearchbar"
+        >
+          <div class="pdf-search-input-wrap">
+            <span class="pdf-search-icon">⌕</span>
+
+            <input
+              id="pdfSearchInput"
+              type="search"
+              placeholder="Cari teks dalam dokumen..."
+              autocomplete="off"
+              spellcheck="false"
+            >
+          </div>
+
+          <span
+            class="pdf-search-status"
+            id="pdfSearchStatus"
+          >
+            Menyiapkan indeks...
+          </span>
+
+          <button
+            class="pdf-search-nav"
+            id="pdfSearchPrevious"
+            type="button"
+            title="Hasil sebelumnya"
+            disabled
+          >
+            ↑
+          </button>
+
+          <button
+            class="pdf-search-nav"
+            id="pdfSearchNext"
+            type="button"
+            title="Hasil berikutnya"
+            disabled
+          >
+            ↓
+          </button>
+
+          <button
+            class="pdf-search-clear"
+            id="pdfSearchClear"
+            type="button"
+            title="Hapus pencarian"
+          >
+            ×
+          </button>
+        </div>
+
+        <div
+          class="annotation-toolbar"
+          id="annotationToolbar"
+        >
+          <div class="annotation-tools">
+            <button
+              type="button"
+              class="annotation-tool active"
+              data-annotation-tool="pen"
+              title="Pensil merah"
+            >
+              <span class="tool-dot pen"></span>
+              Pensil
+            </button>
+
+            <button
+              type="button"
+              class="annotation-tool"
+              data-annotation-tool="highlight"
+              title="Stabilo kuning"
+            >
+              <span class="tool-dot highlight"></span>
+              Stabilo
+            </button>
+
+            <button
+              type="button"
+              class="annotation-tool"
+              data-annotation-tool="eraser"
+              title="Penghapus"
+            >
+              ◇ Penghapus
+            </button>
+
+            <span class="annotation-divider"></span>
+
+            <button
+              type="button"
+              class="annotation-icon-button"
+              id="undoAnnotationButton"
+              title="Batalkan coretan terakhir"
+            >
+              ↶
+            </button>
+
+            <button
+              type="button"
+              class="annotation-icon-button danger"
+              id="clearPageAnnotationButton"
+              title="Hapus semua coretan pada halaman aktif"
+            >
+              🗑
+            </button>
+
+            <span class="annotation-divider"></span>
+
+            <button
+              type="button"
+              class="annotation-save-button"
+              id="saveAnnotationButton"
+              disabled
+            >
+              Simpan Coretan
+            </button>
+          </div>
+
+          <div class="annotation-meta">
+            <span
+              class="annotation-state"
+              id="annotationStateLabel"
+            >
+              Memeriksa status...
+            </span>
+
+            <span
+              class="annotation-count"
+              id="annotationCount"
+            >
+              0 coretan
+            </span>
+          </div>
         </div>
       </div>
 
@@ -1033,6 +2703,76 @@
 
   let pdfObjectUrl = null;
 
+  let currentSubmission = null;
+
+  const annotationState = {
+    tool:
+      "pen",
+
+    canEdit:
+      false,
+
+    pages:
+      new Map(),
+
+    history:
+      [],
+
+    activeStroke:
+      null,
+
+    activePage:
+      null,
+
+    pendingPages:
+      new Set(),
+
+    animationFrame:
+      null,
+
+    dirtyPages:
+      new Set(),
+
+    saving:
+      false,
+
+    loaded:
+      false,
+  };
+
+  const pdfSearchState = {
+    pdf:
+      null,
+
+    pdfjs:
+      null,
+
+    index:
+      [],
+
+    pageMaps:
+      [],
+
+    ready:
+      false,
+
+    indexPromise:
+      null,
+
+    query:
+      "",
+
+    results:
+      [],
+
+    cursor:
+      -1,
+
+    timer:
+      null,
+  };
+
+
   function loadSession() {
     const raw =
       sessionStorage.getItem(
@@ -1146,6 +2886,13 @@
   }
 
   function renderSubmission(submission) {
+    currentSubmission =
+      submission;
+
+    syncAnnotationToolbar(
+      submission
+    );
+
     document.getElementById(
       "submissionTitle"
     ).textContent =
@@ -1317,13 +3064,21 @@
 
     if (!fileAvailable) {
       pdfWrap.innerHTML = `
-        <div class="pdf-message">
+        <div class="pdf-message static">
           Berkas aktif sudah tidak tersedia.
         </div>
       `;
 
       return;
     }
+
+
+    pdfWrap.innerHTML = `
+      <div class="asbun-pdf-loading">
+        Menyiapkan dokumen...
+      </div>
+    `;
+
 
     try {
       const response =
@@ -1343,6 +3098,7 @@
           }
         );
 
+
       if (!response.ok) {
         let message =
           "Gagal membuka PDF.";
@@ -1354,7 +3110,8 @@
           message =
             data.error ||
             message;
-        } catch {
+        }
+        catch {
         }
 
         throw new Error(
@@ -1362,29 +3119,2909 @@
         );
       }
 
-      const blob =
-        await response.blob();
 
-      pdfObjectUrl =
-        URL.createObjectURL(
-          blob
+      const buffer =
+        await response.arrayBuffer();
+
+
+      const pdfjsLib =
+        await import(
+          "./assets/pdfjs/pdf.mjs"
         );
 
+
+      pdfSearchState.pdfjs =
+        pdfjsLib;
+
+      pdfjsLib
+        .GlobalWorkerOptions
+        .workerSrc =
+          "./assets/pdfjs/pdf.worker.mjs";
+
+
+      const loadingTask =
+        pdfjsLib.getDocument({
+          data:
+            buffer,
+
+          cMapUrl:
+            "./assets/pdfjs/cmaps/",
+
+          cMapPacked:
+            true,
+
+          standardFontDataUrl:
+            "./assets/pdfjs/standard_fonts/",
+        });
+
+
+      const pdf =
+        await loadingTask.promise;
+
+
+      pdfSearchState.pdf =
+        pdf;
+
+      pdfSearchState.index =
+        [];
+
+      pdfSearchState.results =
+        [];
+
+      pdfSearchState.cursor =
+        -1;
+
+      pdfSearchState.indexPromise =
+        buildPdfSearchIndex(
+          pdf
+        );
+
+
       pdfWrap.innerHTML = `
-        <iframe
-          title="Preview PDF"
-          src="${pdfObjectUrl}"
-        ></iframe>
+        <div
+          class="asbun-pdf-viewer"
+          id="asbunPdfViewer"
+        ></div>
       `;
-    } catch (error) {
+
+
+      const viewer =
+        document.getElementById(
+          "asbunPdfViewer"
+        );
+
+      viewer.classList.toggle(
+        "annotation-editing",
+        annotationState.canEdit
+      );
+
+
+      const availableWidth =
+        Math.max(
+          300,
+          pdfWrap.clientWidth - 42
+        );
+
+
+      for (
+        let pageNumber = 1;
+        pageNumber <= pdf.numPages;
+        pageNumber++
+      ) {
+        const page =
+          await pdf.getPage(
+            pageNumber
+          );
+
+
+        const baseViewport =
+          page.getViewport({
+            scale: 1,
+          });
+
+
+        /*
+          Hormati ukuran fisik halaman PDF.
+
+          PDF memakai 72 point per inch,
+          sedangkan browser memakai sekitar
+          96 CSS pixel per inch.
+
+          Jadi A4 normal tampil sekitar
+          794 x 1123 px, bukan dipaksa
+          memenuhi seluruh lebar workdesk.
+
+          Kalau layar lebih kecil, halaman
+          otomatis dikecilkan agar tetap muat.
+        */
+        const naturalScale =
+          96 / 72;
+
+        const fitScale =
+          availableWidth /
+          baseViewport.width;
+
+        const scale =
+          Math.min(
+            naturalScale,
+            fitScale
+          );
+
+
+        const viewport =
+          page.getViewport({
+            scale,
+          });
+
+
+        const dpr =
+          Math.min(
+            window.devicePixelRatio ||
+            1,
+            2
+          );
+
+
+        const pageBox =
+          document.createElement(
+            "div"
+          );
+
+        pageBox.className =
+          "asbun-pdf-page";
+
+        pageBox.dataset.page =
+          String(
+            pageNumber
+          );
+
+
+        pageBox.style.width =
+          viewport.width +
+          "px";
+
+        pageBox.style.height =
+          viewport.height +
+          "px";
+
+        pageBox._asbunViewport =
+          viewport;
+
+
+        const renderCanvas =
+          document.createElement(
+            "canvas"
+          );
+
+        renderCanvas.className =
+          "asbun-pdf-canvas";
+
+        renderCanvas.width =
+          Math.floor(
+            viewport.width *
+            dpr
+          );
+
+        renderCanvas.height =
+          Math.floor(
+            viewport.height *
+            dpr
+          );
+
+        renderCanvas.style.width =
+          viewport.width +
+          "px";
+
+        renderCanvas.style.height =
+          viewport.height +
+          "px";
+
+
+        /*
+          Canvas transparan ini belum aktif.
+          PATCH BERIKUTNYA:
+          Pensil/Stabilo/Penghapus memakai ini.
+        */
+        const annotationCanvas =
+          document.createElement(
+            "canvas"
+          );
+
+        annotationCanvas.className =
+          "asbun-annotation-canvas";
+
+        annotationCanvas.dataset.page =
+          String(
+            pageNumber
+          );
+
+        annotationCanvas.width =
+          Math.floor(
+            viewport.width *
+            dpr
+          );
+
+        annotationCanvas.height =
+          Math.floor(
+            viewport.height *
+            dpr
+          );
+
+
+        const searchHighlightLayer =
+          document.createElement(
+            "div"
+          );
+
+        searchHighlightLayer.className =
+          "pdf-search-highlight-layer";
+
+
+        const pageLabel =
+          document.createElement(
+            "div"
+          );
+
+        pageLabel.className =
+          "asbun-pdf-page-number";
+
+        pageLabel.textContent =
+          "Halaman " +
+          pageNumber +
+          " / " +
+          pdf.numPages;
+
+
+        pageBox.appendChild(
+          renderCanvas
+        );
+
+        pageBox.appendChild(
+          searchHighlightLayer
+        );
+
+        pageBox.appendChild(
+          annotationCanvas
+        );
+
+        installAnnotationCanvas(
+          annotationCanvas,
+          pageNumber
+        );
+
+        pageBox.appendChild(
+          pageLabel
+        );
+
+        viewer.appendChild(
+          pageBox
+        );
+
+        applyPdfSearchMarkerForPage(
+          pageNumber,
+          pageBox
+        );
+
+
+        const context =
+          renderCanvas.getContext(
+            "2d",
+            {
+              alpha: false,
+            }
+          );
+
+
+        const transform =
+          dpr !== 1
+            ? [
+                dpr,
+                0,
+                0,
+                dpr,
+                0,
+                0,
+              ]
+            : null;
+
+
+        await page.render({
+          canvasContext:
+            context,
+
+          viewport,
+
+          transform,
+        }).promise;
+      }
+    }
+    catch (error) {
       pdfWrap.innerHTML = `
-        <div class="pdf-message">
-          ${error.message ||
-          "Gagal membuka PDF."}
+        <div class="pdf-message static">
+          ${
+            error.message ||
+            "Gagal membuka PDF."
+          }
         </div>
       `;
     }
   }
+
+
+  function getPageStrokes(
+    pageNumber
+  ) {
+    if (
+      !annotationState.pages.has(
+        pageNumber
+      )
+    ) {
+      annotationState.pages.set(
+        pageNumber,
+        []
+      );
+    }
+
+    return annotationState.pages.get(
+      pageNumber
+    );
+  }
+
+
+  function annotationStrokeCount() {
+    let count = 0;
+
+    for (
+      const strokes
+      of annotationState.pages.values()
+    ) {
+      count +=
+        strokes.length;
+    }
+
+    return count;
+  }
+
+
+  function syncAnnotationMeta() {
+    const count =
+      annotationStrokeCount();
+
+
+    const dirtyCount =
+      annotationState
+        .dirtyPages
+        .size;
+
+
+    const label =
+      document.getElementById(
+        "annotationCount"
+      );
+
+
+    label.textContent =
+      dirtyCount > 0
+        ? (
+            count +
+            " coretan · " +
+            dirtyCount +
+            " hal. berubah"
+          )
+        : (
+            count +
+            " coretan"
+          );
+
+
+    const toolbar =
+      document.getElementById(
+        "annotationToolbar"
+      );
+
+
+    toolbar.classList.toggle(
+      "has-dirty",
+      dirtyCount > 0
+    );
+
+
+    toolbar.classList.toggle(
+      "saving",
+      annotationState.saving
+    );
+
+
+    const undo =
+      document.getElementById(
+        "undoAnnotationButton"
+      );
+
+
+    const clear =
+      document.getElementById(
+        "clearPageAnnotationButton"
+      );
+
+
+    const save =
+      document.getElementById(
+        "saveAnnotationButton"
+      );
+
+
+    undo.disabled =
+      !annotationState.canEdit ||
+      annotationState.saving ||
+      annotationState.history.length === 0;
+
+
+    clear.disabled =
+      !annotationState.canEdit ||
+      annotationState.saving ||
+      !getPageStrokes(
+        getCurrentAnnotationPage()
+      ).length;
+
+
+    save.disabled =
+      !annotationState.canEdit ||
+      annotationState.saving ||
+      dirtyCount === 0;
+
+
+    save.textContent =
+      annotationState.saving
+        ? "Menyimpan..."
+        : "Simpan Coretan";
+  }
+
+  function syncAnnotationToolbar(
+    submission
+  ) {
+    const toolbar =
+      document.getElementById(
+        "annotationToolbar"
+      );
+
+    const stateLabel =
+      document.getElementById(
+        "annotationStateLabel"
+      );
+
+
+    const fileAvailable =
+      Boolean(
+        submission.fileAvailable
+      );
+
+
+    annotationState.canEdit =
+      fileAvailable &&
+      submission.status ===
+        "MENUNGGU_ASISTENSI";
+
+
+    toolbar.style.display =
+      fileAvailable
+        ? "flex"
+        : "none";
+
+
+    toolbar.classList.toggle(
+      "locked",
+      !annotationState.canEdit
+    );
+
+
+    document
+      .querySelectorAll(
+        "[data-annotation-tool]"
+      )
+      .forEach(
+        button => {
+          button.disabled =
+            !annotationState.canEdit;
+        }
+      );
+
+
+    stateLabel.classList.toggle(
+      "editable",
+      annotationState.canEdit
+    );
+
+
+    stateLabel.textContent =
+      annotationState.canEdit
+        ? "Mode anotasi"
+        : "Read-only";
+
+
+    const viewer =
+      document.getElementById(
+        "asbunPdfViewer"
+      );
+
+    if (viewer) {
+      viewer.classList.toggle(
+        "annotation-editing",
+        annotationState.canEdit
+      );
+    }
+
+
+    syncAnnotationMeta();
+  }
+
+
+  function setAnnotationTool(
+    tool
+  ) {
+    annotationState.tool =
+      tool;
+
+
+    document
+      .querySelectorAll(
+        "[data-annotation-tool]"
+      )
+      .forEach(
+        button => {
+          button.classList.toggle(
+            "active",
+            button.dataset.annotationTool ===
+              tool
+          );
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        ".asbun-annotation-canvas"
+      )
+      .forEach(
+        canvas => {
+          canvas.dataset.tool =
+            tool;
+        }
+      );
+  }
+
+
+  function getPointerPoint(
+    event,
+    canvas
+  ) {
+    const rect =
+      canvas.getBoundingClientRect();
+
+
+    return {
+      x:
+        Math.max(
+          0,
+          Math.min(
+            1,
+            (
+              event.clientX -
+              rect.left
+            ) /
+            rect.width
+          )
+        ),
+
+      y:
+        Math.max(
+          0,
+          Math.min(
+            1,
+            (
+              event.clientY -
+              rect.top
+            ) /
+            rect.height
+          )
+        ),
+    };
+  }
+
+
+  function annotationToolStyle(
+    tool
+  ) {
+    if (
+      tool ===
+      "highlight"
+    ) {
+      return {
+        color:
+          "#ffd43b",
+
+        alpha:
+          .34,
+
+        width:
+          .026,
+      };
+    }
+
+
+    if (
+      tool ===
+      "eraser"
+    ) {
+      return {
+        color:
+          "#000000",
+
+        alpha:
+          1,
+
+        width:
+          .032,
+      };
+    }
+
+
+    return {
+      color:
+        "#df3f38",
+
+      alpha:
+        .95,
+
+      width:
+        .0052,
+    };
+  }
+
+
+  function drawAnnotationStroke(
+    context,
+    canvas,
+    stroke
+  ) {
+    const points =
+      stroke.points || [];
+
+    if (!points.length) {
+      return;
+    }
+
+
+    context.save();
+
+
+    context.lineCap =
+      "round";
+
+    context.lineJoin =
+      "round";
+
+
+    context.globalCompositeOperation =
+      stroke.tool ===
+        "eraser"
+          ? "destination-out"
+          : "source-over";
+
+
+    context.globalAlpha =
+      stroke.alpha ?? 1;
+
+
+    context.strokeStyle =
+      stroke.color;
+
+
+    context.lineWidth =
+      Math.max(
+        2,
+        stroke.width *
+        canvas.width
+      );
+
+
+    context.beginPath();
+
+
+    context.moveTo(
+      points[0].x *
+      canvas.width,
+
+      points[0].y *
+      canvas.height
+    );
+
+
+    if (
+      points.length === 1
+    ) {
+      context.lineTo(
+        (
+          points[0].x +
+          .0001
+        ) *
+        canvas.width,
+
+        (
+          points[0].y +
+          .0001
+        ) *
+        canvas.height
+      );
+    }
+    else {
+      for (
+        let i = 1;
+        i < points.length;
+        i++
+      ) {
+        context.lineTo(
+          points[i].x *
+          canvas.width,
+
+          points[i].y *
+          canvas.height
+        );
+      }
+    }
+
+
+    context.stroke();
+
+    context.restore();
+  }
+
+
+  function redrawAnnotationPage(
+    pageNumber
+  ) {
+    const canvas =
+      document.querySelector(
+        '.asbun-annotation-canvas[data-page="' +
+        pageNumber +
+        '"]'
+      );
+
+    if (!canvas) {
+      return;
+    }
+
+
+    const context =
+      canvas.getContext(
+        "2d"
+      );
+
+
+    context.clearRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
+
+    const strokes =
+      getPageStrokes(
+        pageNumber
+      );
+
+
+    for (
+      const stroke
+      of strokes
+    ) {
+      drawAnnotationStroke(
+        context,
+        canvas,
+        stroke
+      );
+    }
+  }
+
+
+  function scheduleAnnotationRedraw(
+    pageNumber
+  ) {
+    annotationState
+      .pendingPages
+      .add(
+        pageNumber
+      );
+
+
+    if (
+      annotationState.animationFrame
+    ) {
+      return;
+    }
+
+
+    annotationState.animationFrame =
+      requestAnimationFrame(
+        () => {
+          for (
+            const page
+            of annotationState.pendingPages
+          ) {
+            redrawAnnotationPage(
+              page
+            );
+          }
+
+          annotationState
+            .pendingPages
+            .clear();
+
+          annotationState.animationFrame =
+            null;
+        }
+      );
+  }
+
+
+  function markActiveAnnotationPage(
+    pageNumber
+  ) {
+    annotationState.activePage =
+      pageNumber;
+
+
+    document
+      .querySelectorAll(
+        ".asbun-pdf-page"
+      )
+      .forEach(
+        page => {
+          page.classList.toggle(
+            "annotation-page-active",
+            Number(
+              page.dataset.page
+            ) ===
+              pageNumber
+          );
+        }
+      );
+
+
+    syncAnnotationMeta();
+  }
+
+
+  function finishAnnotationStroke(
+    event,
+    canvas
+  ) {
+    const active =
+      annotationState.activeStroke;
+
+    if (
+      !active ||
+      active.canvas !== canvas
+    ) {
+      return;
+    }
+
+
+    try {
+      canvas.releasePointerCapture(
+        event.pointerId
+      );
+    }
+    catch {
+    }
+
+
+    annotationState.history.push({
+      type:
+        "stroke",
+
+      page:
+        active.page,
+
+      id:
+        active.stroke.id,
+    });
+
+
+    annotationState
+      .dirtyPages
+      .add(
+        active.page
+      );
+
+
+    annotationState.activeStroke =
+      null;
+
+
+    syncAnnotationMeta();
+  }
+
+
+  function installAnnotationCanvas(
+    canvas,
+    pageNumber
+  ) {
+    canvas.dataset.tool =
+      annotationState.tool;
+
+
+    canvas.addEventListener(
+      "pointerdown",
+      event => {
+        if (
+          !annotationState.canEdit ||
+          annotationState.saving
+        ) {
+          return;
+        }
+
+
+        event.preventDefault();
+
+
+        markActiveAnnotationPage(
+          pageNumber
+        );
+
+
+        const style =
+          annotationToolStyle(
+            annotationState.tool
+          );
+
+
+        const stroke = {
+          id:
+            "STROKE_" +
+            Date.now() +
+            "_" +
+            Math.random()
+              .toString(36)
+              .slice(2,8),
+
+          tool:
+            annotationState.tool,
+
+          color:
+            style.color,
+
+          alpha:
+            style.alpha,
+
+          width:
+            style.width,
+
+          points: [
+            getPointerPoint(
+              event,
+              canvas
+            )
+          ],
+        };
+
+
+        getPageStrokes(
+          pageNumber
+        ).push(
+          stroke
+        );
+
+
+        annotationState.activeStroke = {
+          page:
+            pageNumber,
+
+          canvas,
+
+          stroke,
+        };
+
+
+        canvas.setPointerCapture(
+          event.pointerId
+        );
+
+
+        scheduleAnnotationRedraw(
+          pageNumber
+        );
+      }
+    );
+
+
+    canvas.addEventListener(
+      "pointermove",
+      event => {
+        const active =
+          annotationState.activeStroke;
+
+
+        if (
+          !active ||
+          active.canvas !== canvas
+        ) {
+          return;
+        }
+
+
+        event.preventDefault();
+
+
+        const point =
+          getPointerPoint(
+            event,
+            canvas
+          );
+
+
+        const points =
+          active.stroke.points;
+
+
+        const previous =
+          points[
+            points.length - 1
+          ];
+
+
+        const dx =
+          point.x -
+          previous.x;
+
+        const dy =
+          point.y -
+          previous.y;
+
+
+        if (
+          Math.hypot(
+            dx,
+            dy
+          ) <
+          .0015
+        ) {
+          return;
+        }
+
+
+        points.push(
+          point
+        );
+
+
+        scheduleAnnotationRedraw(
+          pageNumber
+        );
+      }
+    );
+
+
+    canvas.addEventListener(
+      "pointerup",
+      event => {
+        finishAnnotationStroke(
+          event,
+          canvas
+        );
+      }
+    );
+
+
+    canvas.addEventListener(
+      "pointercancel",
+      event => {
+        finishAnnotationStroke(
+          event,
+          canvas
+        );
+      }
+    );
+  }
+
+
+  function getCurrentAnnotationPage() {
+    if (
+      annotationState.activePage
+    ) {
+      return annotationState.activePage;
+    }
+
+
+    const wrap =
+      document.getElementById(
+        "pdfWrap"
+      );
+
+
+    const pages =
+      [
+        ...document.querySelectorAll(
+          ".asbun-pdf-page"
+        )
+      ];
+
+
+    if (!pages.length) {
+      return 1;
+    }
+
+
+    const wrapRect =
+      wrap.getBoundingClientRect();
+
+
+    const center =
+      wrapRect.top +
+      (
+        wrap.clientHeight /
+        2
+      );
+
+
+    let selected =
+      pages[0];
+
+    let selectedDistance =
+      Infinity;
+
+
+    for (
+      const page
+      of pages
+    ) {
+      const rect =
+        page.getBoundingClientRect();
+
+
+      const pageCenter =
+        rect.top +
+        (
+          rect.height /
+          2
+        );
+
+
+      const distance =
+        Math.abs(
+          pageCenter -
+          center
+        );
+
+
+      if (
+        distance <
+        selectedDistance
+      ) {
+        selected =
+          page;
+
+        selectedDistance =
+          distance;
+      }
+    }
+
+
+    return Number(
+      selected.dataset.page
+    ) || 1;
+  }
+
+
+  function undoAnnotation() {
+    if (
+      !annotationState.canEdit ||
+      annotationState.saving
+    ) {
+      return;
+    }
+
+
+    const action =
+      annotationState.history.pop();
+
+
+    if (!action) {
+      return;
+    }
+
+
+    if (
+      action.type ===
+      "stroke"
+    ) {
+      const strokes =
+        getPageStrokes(
+          action.page
+        );
+
+
+      const index =
+        strokes.findIndex(
+          stroke =>
+            stroke.id ===
+            action.id
+        );
+
+
+      if (
+        index >= 0
+      ) {
+        strokes.splice(
+          index,
+          1
+        );
+      }
+
+
+      scheduleAnnotationRedraw(
+        action.page
+      );
+
+
+      markActiveAnnotationPage(
+        action.page
+      );
+    }
+
+
+    if (
+      action.type ===
+      "clear"
+    ) {
+      annotationState.pages.set(
+        action.page,
+        action.strokes
+      );
+
+
+      scheduleAnnotationRedraw(
+        action.page
+      );
+
+
+      markActiveAnnotationPage(
+        action.page
+      );
+    }
+
+
+    annotationState
+      .dirtyPages
+      .add(
+        action.page
+      );
+
+
+    syncAnnotationMeta();
+  }
+
+  function clearCurrentAnnotationPage() {
+    if (
+      !annotationState.canEdit
+    ) {
+      return;
+    }
+
+
+    const page =
+      getCurrentAnnotationPage();
+
+
+    const strokes =
+      getPageStrokes(
+        page
+      );
+
+
+    if (!strokes.length) {
+      return;
+    }
+
+
+    annotationState.history.push({
+      type:
+        "clear",
+
+      page,
+
+      strokes:
+        JSON.parse(
+          JSON.stringify(
+            strokes
+          )
+        ),
+    });
+
+
+    annotationState.pages.set(
+      page,
+      []
+    );
+
+
+    scheduleAnnotationRedraw(
+      page
+    );
+
+
+    markActiveAnnotationPage(
+      page
+    );
+
+
+    annotationState
+      .dirtyPages
+      .add(
+        page
+      );
+
+
+    syncAnnotationMeta();
+  }
+
+
+
+  function cloneAnnotationData(
+    value
+  ) {
+    return JSON.parse(
+      JSON.stringify(
+        value || []
+      )
+    );
+  }
+
+
+  function setAnnotationStatus(
+    text,
+    mode = ""
+  ) {
+    const toolbar =
+      document.getElementById(
+        "annotationToolbar"
+      );
+
+
+    const label =
+      document.getElementById(
+        "annotationStateLabel"
+      );
+
+
+    toolbar.classList.remove(
+      "save-error"
+    );
+
+
+    if (
+      mode ===
+      "error"
+    ) {
+      toolbar.classList.add(
+        "save-error"
+      );
+    }
+
+
+    label.textContent =
+      text;
+  }
+
+
+  async function loadAnnotationsFromServer(
+    submissionNumber,
+    token
+  ) {
+    setAnnotationStatus(
+      "Memuat coretan..."
+    );
+
+
+    try {
+      const response =
+        await fetch(
+          API_BASE +
+          "/admin/submissions/" +
+          encodeURIComponent(
+            submissionNumber
+          ) +
+          "/annotations",
+          {
+            headers: {
+              Authorization:
+                "Bearer " +
+                token,
+            },
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+        if (
+          response.status === 401 ||
+          response.status === 403
+        ) {
+          sessionStorage.removeItem(
+            SESSION_KEY
+          );
+
+          location.href =
+            "admin.html";
+
+          return;
+        }
+
+
+        throw new Error(
+          data.error ||
+          "Gagal memuat coretan."
+        );
+      }
+
+
+      const payload =
+        data.annotations ||
+        {};
+
+
+      if (
+        currentSubmission &&
+        Number(
+          payload.versionNumber
+        ) !==
+        Number(
+          currentSubmission.activeVersion
+        )
+      ) {
+        throw new Error(
+          "Versi anotasi berbeda dengan versi dokumen aktif."
+        );
+      }
+
+
+      annotationState
+        .pages
+        .clear();
+
+
+      for (
+        const page
+        of (
+          payload.pages ||
+          []
+        )
+      ) {
+        const pageNumber =
+          Number(
+            page.pageNumber
+          );
+
+
+        if (
+          !Number.isInteger(
+            pageNumber
+          ) ||
+          pageNumber < 1
+        ) {
+          continue;
+        }
+
+
+        annotationState
+          .pages
+          .set(
+            pageNumber,
+            cloneAnnotationData(
+              page.strokes
+            )
+          );
+      }
+
+
+      annotationState.history =
+        [];
+
+
+      annotationState
+        .dirtyPages
+        .clear();
+
+
+      annotationState.loaded =
+        true;
+
+
+      document
+        .querySelectorAll(
+          ".asbun-annotation-canvas"
+        )
+        .forEach(
+          canvas => {
+            redrawAnnotationPage(
+              Number(
+                canvas.dataset.page
+              )
+            );
+          }
+        );
+
+
+      setAnnotationStatus(
+        annotationState.canEdit
+          ? "Mode anotasi · tersimpan"
+          : "Read-only"
+      );
+
+
+      syncAnnotationMeta();
+    }
+    catch (error) {
+      annotationState.loaded =
+        false;
+
+
+      setAnnotationStatus(
+        "Gagal memuat coretan",
+        "error"
+      );
+
+
+      console.error(
+        "ASBUN annotation load:",
+        error
+      );
+    }
+  }
+
+
+  async function saveAnnotationsToServer() {
+    if (
+      !annotationState.canEdit
+    ) {
+      return true;
+    }
+
+
+    if (
+      annotationState.saving
+    ) {
+      return false;
+    }
+
+
+    const dirtyPages =
+      [
+        ...annotationState
+          .dirtyPages
+      ]
+        .sort(
+          (a, b) =>
+            a - b
+        );
+
+
+    if (
+      dirtyPages.length === 0
+    ) {
+      return true;
+    }
+
+
+    const session =
+      loadSession();
+
+
+    if (
+      !session?.token
+    ) {
+      location.href =
+        "admin.html";
+
+      return false;
+    }
+
+
+    if (
+      !currentSubmission
+    ) {
+      setAnnotationStatus(
+        "Data pengajuan belum siap",
+        "error"
+      );
+
+      return false;
+    }
+
+
+    const pages =
+      dirtyPages.map(
+        pageNumber => ({
+          pageNumber,
+
+          strokes:
+            cloneAnnotationData(
+              getPageStrokes(
+                pageNumber
+              )
+            ),
+        })
+      );
+
+
+    annotationState.saving =
+      true;
+
+
+    setAnnotationStatus(
+      "Menyimpan..."
+    );
+
+
+    syncAnnotationMeta();
+
+
+    try {
+      const response =
+        await fetch(
+          API_BASE +
+          "/admin/submissions/" +
+          encodeURIComponent(
+            currentSubmission
+              .submissionNumber
+          ) +
+          "/annotations",
+          {
+            method:
+              "POST",
+
+            headers: {
+              Authorization:
+                "Bearer " +
+                session.token,
+
+              "Content-Type":
+                "application/json",
+            },
+
+            body:
+              JSON.stringify({
+                versionNumber:
+                  Number(
+                    currentSubmission
+                      .activeVersion
+                  ),
+
+                pages,
+              }),
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+        if (
+          response.status === 401 ||
+          response.status === 403
+        ) {
+          sessionStorage.removeItem(
+            SESSION_KEY
+          );
+
+          location.href =
+            "admin.html";
+
+          return false;
+        }
+
+
+        throw new Error(
+          data.error ||
+          "Gagal menyimpan coretan."
+        );
+      }
+
+
+      for (
+        const pageNumber
+        of dirtyPages
+      ) {
+        annotationState
+          .dirtyPages
+          .delete(
+            pageNumber
+          );
+      }
+
+
+      setAnnotationStatus(
+        "Mode anotasi · tersimpan"
+      );
+
+
+      return true;
+    }
+    catch (error) {
+      setAnnotationStatus(
+        error.message ||
+        "Gagal menyimpan coretan",
+        "error"
+      );
+
+
+      console.error(
+        "ASBUN annotation save:",
+        error
+      );
+
+
+      return false;
+    }
+    finally {
+      annotationState.saving =
+        false;
+
+
+      syncAnnotationMeta();
+    }
+  }
+
+  document
+    .querySelectorAll(
+      "[data-annotation-tool]"
+    )
+    .forEach(
+      button => {
+        button.addEventListener(
+          "click",
+          () => {
+            if (
+              !annotationState.canEdit
+            ) {
+              return;
+            }
+
+          
+  document.getElementById(
+    "saveAnnotationButton"
+  ).addEventListener(
+    "click",
+    async () => {
+      await saveAnnotationsToServer();
+    }
+  );
+
+  setAnnotationTool(
+              button.dataset.annotationTool
+            );
+          }
+        );
+      }
+    );
+
+
+  document.getElementById(
+    "undoAnnotationButton"
+  ).addEventListener(
+    "click",
+    undoAnnotation
+  );
+
+
+  document.getElementById(
+    "clearPageAnnotationButton"
+  ).addEventListener(
+    "click",
+    clearCurrentAnnotationPage
+  );
+
+
+  setAnnotationTool(
+    "pen"
+  );
+
+
+  function normalizePdfSearchText(
+    value
+  ) {
+    return String(
+      value || ""
+    )
+      .toLocaleLowerCase(
+        "id-ID"
+      )
+      .replace(
+        /\s+/g,
+        " "
+      )
+      .trim();
+  }
+
+
+  function setPdfSearchStatus(
+    text
+  ) {
+    document.getElementById(
+      "pdfSearchStatus"
+    ).textContent =
+      text;
+  }
+
+
+  function countPdfMatches(
+    text,
+    query
+  ) {
+    if (
+      !text ||
+      !query
+    ) {
+      return 0;
+    }
+
+    let count = 0;
+    let position = 0;
+
+    while (true) {
+      const found =
+        text.indexOf(
+          query,
+          position
+        );
+
+      if (
+        found === -1
+      ) {
+        break;
+      }
+
+      count++;
+
+      position =
+        found +
+        Math.max(
+          query.length,
+          1
+        );
+    }
+
+    return count;
+  }
+
+
+  function buildPdfPageSearchMap(
+    content
+  ) {
+    const items =
+      content.items || [];
+
+    const ranges = [];
+
+    let pageText =
+      "";
+
+
+    for (
+      let itemIndex = 0;
+      itemIndex < items.length;
+      itemIndex++
+    ) {
+      const item =
+        items[itemIndex];
+
+
+      const text =
+        normalizePdfSearchText(
+          item.str || ""
+        );
+
+
+      if (!text) {
+        continue;
+      }
+
+
+      if (pageText) {
+        pageText +=
+          " ";
+      }
+
+
+      const start =
+        pageText.length;
+
+
+      pageText +=
+        text;
+
+
+      const end =
+        pageText.length;
+
+
+      ranges.push({
+        itemIndex,
+        start,
+        end,
+        text,
+      });
+    }
+
+
+    return {
+      text:
+        pageText,
+
+      items,
+      ranges,
+    };
+  }
+
+
+  async function buildPdfSearchIndex(
+    pdf
+  ) {
+    pdfSearchState.ready =
+      false;
+
+    pdfSearchState.index =
+      new Array(
+        pdf.numPages
+      ).fill("");
+
+    pdfSearchState.pageMaps =
+      new Array(
+        pdf.numPages
+      ).fill(null);
+
+
+    const batchSize =
+      6;
+
+
+    for (
+      let start = 1;
+      start <= pdf.numPages;
+      start += batchSize
+    ) {
+      const end =
+        Math.min(
+          pdf.numPages,
+          start +
+          batchSize -
+          1
+        );
+
+
+      const jobs = [];
+
+
+      for (
+        let pageNumber = start;
+        pageNumber <= end;
+        pageNumber++
+      ) {
+        jobs.push(
+          (
+            async () => {
+              try {
+                const page =
+                  await pdf.getPage(
+                    pageNumber
+                  );
+
+
+                const content =
+                  await page
+                    .getTextContent();
+
+
+                const map =
+                  buildPdfPageSearchMap(
+                    content
+                  );
+
+
+                pdfSearchState.index[
+                  pageNumber - 1
+                ] =
+                  map.text;
+
+
+                pdfSearchState.pageMaps[
+                  pageNumber - 1
+                ] =
+                  map;
+              }
+              catch {
+                pdfSearchState.index[
+                  pageNumber - 1
+                ] =
+                  "";
+
+                pdfSearchState.pageMaps[
+                  pageNumber - 1
+                ] =
+                  null;
+              }
+            }
+          )()
+        );
+      }
+
+
+      await Promise.all(
+        jobs
+      );
+
+
+      setPdfSearchStatus(
+        "Indeks " +
+        end +
+        "/" +
+        pdf.numPages
+      );
+
+
+      await new Promise(
+        resolve =>
+          setTimeout(
+            resolve,
+            0
+          )
+      );
+    }
+
+
+    pdfSearchState.ready =
+      true;
+
+
+    setPdfSearchStatus(
+      "Siap · " +
+      pdf.numPages +
+      " hal."
+    );
+
+
+    /*
+      Kalau user sudah mengetik
+      ketika indexing belum selesai,
+      langsung gambar highlight.
+    */
+    if (
+      pdfSearchState.query
+    ) {
+      applyAllPdfSearchMarkers();
+    }
+
+
+    return true;
+  }
+
+
+  function getPdfPageSearchMatches(
+    pageNumber
+  ) {
+    const query =
+      pdfSearchState.query;
+
+
+    const text =
+      pdfSearchState.index[
+        pageNumber - 1
+      ] || "";
+
+
+    if (
+      !query ||
+      !text
+    ) {
+      return [];
+    }
+
+
+    const matches = [];
+
+    let position = 0;
+
+
+    while (true) {
+      const start =
+        text.indexOf(
+          query,
+          position
+        );
+
+
+      if (
+        start === -1
+      ) {
+        break;
+      }
+
+
+      matches.push({
+        start,
+        end:
+          start +
+          query.length,
+      });
+
+
+      position =
+        start +
+        Math.max(
+          query.length,
+          1
+        );
+    }
+
+
+    return matches;
+  }
+
+
+  function renderPdfTextHighlights(
+    pageNumber
+  ) {
+    const pageElement =
+      document.querySelector(
+        '.asbun-pdf-page[data-page="' +
+        pageNumber +
+        '"]'
+      );
+
+
+    if (!pageElement) {
+      return;
+    }
+
+
+    const layer =
+      pageElement.querySelector(
+        ".pdf-search-highlight-layer"
+      );
+
+
+    if (!layer) {
+      return;
+    }
+
+
+    layer.innerHTML =
+      "";
+
+
+    const query =
+      pdfSearchState.query;
+
+
+    if (!query) {
+      return;
+    }
+
+
+    const map =
+      pdfSearchState.pageMaps[
+        pageNumber - 1
+      ];
+
+
+    const viewport =
+      pageElement._asbunViewport;
+
+
+    const pdfjs =
+      pdfSearchState.pdfjs;
+
+
+    if (
+      !map ||
+      !viewport ||
+      !pdfjs
+    ) {
+      return;
+    }
+
+
+    const matches =
+      getPdfPageSearchMatches(
+        pageNumber
+      );
+
+
+    if (!matches.length) {
+      return;
+    }
+
+
+    for (
+      const match
+      of matches
+    ) {
+      for (
+        const range
+        of map.ranges
+      ) {
+        /*
+          Item teks ini tidak beririsan
+          dengan match.
+        */
+        if (
+          range.end <=
+            match.start ||
+          range.start >=
+            match.end
+        ) {
+          continue;
+        }
+
+
+        const item =
+          map.items[
+            range.itemIndex
+          ];
+
+
+        if (
+          !item ||
+          !item.transform
+        ) {
+          continue;
+        }
+
+
+        const tx =
+          pdfjs.Util.transform(
+            viewport.transform,
+            item.transform
+          );
+
+
+        const fullWidth =
+          Math.abs(
+            Number(
+              item.width || 0
+            ) *
+            viewport.scale
+          );
+
+
+        const fontHeight =
+          Math.max(
+            7,
+            Math.hypot(
+              tx[2],
+              tx[3]
+            )
+          );
+
+
+        if (
+          fullWidth <= 0 ||
+          fontHeight <= 0
+        ) {
+          continue;
+        }
+
+
+        /*
+          Kalau query cuma mengenai sebagian
+          dari satu text item, highlight hanya
+          bagian karakter yang relevan.
+        */
+        const localStart =
+          Math.max(
+            0,
+            match.start -
+            range.start
+          );
+
+
+        const localEnd =
+          Math.min(
+            range.text.length,
+            match.end -
+            range.start
+          );
+
+
+        const textLength =
+          Math.max(
+            range.text.length,
+            1
+          );
+
+
+        const startRatio =
+          localStart /
+          textLength;
+
+
+        const endRatio =
+          Math.max(
+            startRatio +
+            .02,
+            localEnd /
+            textLength
+          );
+
+
+        const highlight =
+          document.createElement(
+            "div"
+          );
+
+
+        highlight.className =
+          "pdf-search-highlight";
+
+
+        highlight.style.left =
+          (
+            tx[4] +
+            (
+              fullWidth *
+              startRatio
+            )
+          ) +
+          "px";
+
+
+        highlight.style.top =
+          (
+            tx[5] -
+            fontHeight *
+            1.02
+          ) +
+          "px";
+
+
+        highlight.style.width =
+          Math.max(
+            3,
+            fullWidth *
+            (
+              endRatio -
+              startRatio
+            )
+          ) +
+          "px";
+
+
+        highlight.style.height =
+          (
+            fontHeight *
+            1.12
+          ) +
+          "px";
+
+
+        layer.appendChild(
+          highlight
+        );
+      }
+    }
+  }
+
+  function clearPdfSearchMarkers() {
+    document
+      .querySelectorAll(
+        ".asbun-pdf-page"
+      )
+      .forEach(
+        page => {
+          page.classList.remove(
+            "pdf-search-hit",
+            "pdf-search-current"
+          );
+
+          const badge =
+            page.querySelector(
+              ".pdf-search-page-badge"
+            );
+
+          if (badge) {
+            badge.remove();
+          }
+
+          const highlightLayer =
+            page.querySelector(
+              ".pdf-search-highlight-layer"
+            );
+
+          if (highlightLayer) {
+            highlightLayer.innerHTML =
+              "";
+          }
+        }
+      );
+  }
+
+
+  function applyPdfSearchMarkerForPage(
+    pageNumber,
+    pageElement
+  ) {
+    const result =
+      pdfSearchState.results.find(
+        item =>
+          item.pageNumber ===
+          pageNumber
+      );
+
+
+    pageElement.classList.remove(
+      "pdf-search-hit",
+      "pdf-search-current"
+    );
+
+
+    const oldBadge =
+      pageElement.querySelector(
+        ".pdf-search-page-badge"
+      );
+
+
+    if (oldBadge) {
+      oldBadge.remove();
+    }
+
+
+    if (!result) {
+      return;
+    }
+
+
+    pageElement.classList.add(
+      "pdf-search-hit"
+    );
+
+
+    const badge =
+      document.createElement(
+        "div"
+      );
+
+
+    badge.className =
+      "pdf-search-page-badge";
+
+
+    badge.textContent =
+      result.count +
+      (
+        result.count === 1
+          ? " hasil"
+          : " hasil"
+      );
+
+
+    pageElement.appendChild(
+      badge
+    );
+
+    renderPdfTextHighlights(
+      pageNumber
+    );
+  }
+
+
+  function applyAllPdfSearchMarkers() {
+    document
+      .querySelectorAll(
+        ".asbun-pdf-page"
+      )
+      .forEach(
+        page => {
+          applyPdfSearchMarkerForPage(
+            Number(
+              page.dataset.page
+            ),
+            page
+          );
+        }
+      );
+  }
+
+
+  async function waitForPdfPage(
+    pageNumber
+  ) {
+    for (
+      let attempt = 0;
+      attempt < 240;
+      attempt++
+    ) {
+      const page =
+        document.querySelector(
+          '.asbun-pdf-page[data-page="' +
+          pageNumber +
+          '"]'
+        );
+
+
+      if (page) {
+        return page;
+      }
+
+
+      await new Promise(
+        resolve =>
+          setTimeout(
+            resolve,
+            50
+          )
+      );
+    }
+
+
+    return null;
+  }
+
+
+  async function goToPdfSearchResult(
+    cursor
+  ) {
+    if (
+      !pdfSearchState.results.length
+    ) {
+      return;
+    }
+
+
+    const total =
+      pdfSearchState.results.length;
+
+
+    cursor =
+      (
+        cursor +
+        total
+      ) %
+      total;
+
+
+    pdfSearchState.cursor =
+      cursor;
+
+
+    document
+      .querySelectorAll(
+        ".asbun-pdf-page"
+      )
+      .forEach(
+        page => {
+          page.classList.remove(
+            "pdf-search-current"
+          );
+        }
+      );
+
+
+    const result =
+      pdfSearchState.results[
+        cursor
+      ];
+
+
+    const page =
+      await waitForPdfPage(
+        result.pageNumber
+      );
+
+
+    if (!page) {
+      return;
+    }
+
+
+    page.classList.add(
+      "pdf-search-current"
+    );
+
+    renderPdfTextHighlights(
+      result.pageNumber
+    );
+
+
+    page.scrollIntoView({
+      behavior:
+        "smooth",
+
+      block:
+        "start",
+    });
+
+
+    setPdfSearchStatus(
+      (cursor + 1) +
+      "/" +
+      total +
+      " · Hal " +
+      result.pageNumber
+    );
+  }
+
+
+  async function runPdfSearch() {
+    const input =
+      document.getElementById(
+        "pdfSearchInput"
+      );
+
+
+    const query =
+      normalizePdfSearchText(
+        input.value
+      );
+
+
+    pdfSearchState.query =
+      query;
+
+
+    clearPdfSearchMarkers();
+
+
+    pdfSearchState.results =
+      [];
+
+    pdfSearchState.cursor =
+      -1;
+
+
+    const previous =
+      document.getElementById(
+        "pdfSearchPrevious"
+      );
+
+    const next =
+      document.getElementById(
+        "pdfSearchNext"
+      );
+
+
+    previous.disabled =
+      true;
+
+    next.disabled =
+      true;
+
+
+    if (!query) {
+      setPdfSearchStatus(
+        pdfSearchState.pdf
+          ? (
+              "Siap · " +
+              pdfSearchState.pdf.numPages +
+              " hal."
+            )
+          : "Siap"
+      );
+
+      return;
+    }
+
+
+    if (
+      pdfSearchState.indexPromise
+    ) {
+      setPdfSearchStatus(
+        "Mencari..."
+      );
+
+      await pdfSearchState
+        .indexPromise;
+    }
+
+
+    for (
+      let i = 0;
+      i <
+      pdfSearchState.index.length;
+      i++
+    ) {
+      const count =
+        countPdfMatches(
+          pdfSearchState.index[i],
+          query
+        );
+
+
+      if (
+        count > 0
+      ) {
+        pdfSearchState
+          .results
+          .push({
+            pageNumber:
+              i + 1,
+
+            count,
+          });
+      }
+    }
+
+
+    if (
+      !pdfSearchState.results.length
+    ) {
+      setPdfSearchStatus(
+        "Tidak ditemukan"
+      );
+
+      return;
+    }
+
+
+    previous.disabled =
+      false;
+
+    next.disabled =
+      false;
+
+
+    applyAllPdfSearchMarkers();
+
+
+    await goToPdfSearchResult(
+      0
+    );
+  }
+
+
+  function clearPdfSearch() {
+    const input =
+      document.getElementById(
+        "pdfSearchInput"
+      );
+
+
+    input.value = "";
+
+
+    pdfSearchState.query =
+      "";
+
+    pdfSearchState.results =
+      [];
+
+    pdfSearchState.cursor =
+      -1;
+
+
+    clearPdfSearchMarkers();
+
+
+    document.getElementById(
+      "pdfSearchPrevious"
+    ).disabled =
+      true;
+
+
+    document.getElementById(
+      "pdfSearchNext"
+    ).disabled =
+      true;
+
+
+    setPdfSearchStatus(
+      pdfSearchState.pdf
+        ? (
+            "Siap · " +
+            pdfSearchState.pdf.numPages +
+            " hal."
+          )
+        : "Siap"
+    );
+
+
+    input.focus();
+  }
+
+
+  document.getElementById(
+    "pdfSearchInput"
+  ).addEventListener(
+    "input",
+    () => {
+      clearTimeout(
+        pdfSearchState.timer
+      );
+
+
+      pdfSearchState.timer =
+        setTimeout(
+          runPdfSearch,
+          350
+        );
+    }
+  );
+
+
+  document.getElementById(
+    "pdfSearchInput"
+  ).addEventListener(
+    "keydown",
+    event => {
+      if (
+        event.key !==
+        "Enter"
+      ) {
+        return;
+      }
+
+
+      event.preventDefault();
+
+
+      if (
+        !pdfSearchState.results.length
+      ) {
+        runPdfSearch();
+
+        return;
+      }
+
+
+      goToPdfSearchResult(
+        pdfSearchState.cursor +
+        (
+          event.shiftKey
+            ? -1
+            : 1
+        )
+      );
+    }
+  );
+
+
+  document.getElementById(
+    "pdfSearchPrevious"
+  ).addEventListener(
+    "click",
+    () => {
+      goToPdfSearchResult(
+        pdfSearchState.cursor -
+        1
+      );
+    }
+  );
+
+
+  document.getElementById(
+    "pdfSearchNext"
+  ).addEventListener(
+    "click",
+    () => {
+      goToPdfSearchResult(
+        pdfSearchState.cursor +
+        1
+      );
+    }
+  );
+
+
+  document.getElementById(
+    "pdfSearchClear"
+  ).addEventListener(
+    "click",
+    clearPdfSearch
+  );
 
   async function boot() {
     const session =
@@ -1478,6 +6115,16 @@
         session.token,
         data.submission.fileAvailable
       );
+
+
+      if (
+        data.submission.fileAvailable
+      ) {
+        await loadAnnotationsFromServer(
+          data.submission.submissionNumber,
+          session.token
+        );
+      }
 
     } catch (error) {
       const loading =
@@ -2195,6 +6842,31 @@
 })();
 
 /* ASBUN_BRAND_ICON_END */
+</script>
+
+<script>
+/* ASBUN_ANNOTATION_UNSAVED_GUARD_START */
+
+window.addEventListener(
+  "beforeunload",
+  event => {
+    if (
+      typeof annotationState !==
+        "undefined" &&
+      annotationState.dirtyPages &&
+      annotationState
+        .dirtyPages
+        .size > 0
+    ) {
+      event.preventDefault();
+
+      event.returnValue =
+        "";
+    }
+  }
+);
+
+/* ASBUN_ANNOTATION_UNSAVED_GUARD_END */
 </script>
 </body>
 </html>

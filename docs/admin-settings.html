@@ -1,0 +1,1625 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>Kelola Admin — ASBUN</title>
+
+  <link
+    rel="icon"
+    href="assets/brand/favicon.ico"
+    sizes="any"
+  >
+
+  <meta
+    name="theme-color"
+    content="#166c4c"
+  >
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f4f7f5;
+      --card: #ffffff;
+      --text: #1f2d24;
+      --muted: #708078;
+      --line: #dfe7e2;
+
+      --green: #176b5b;
+      --green-dark: #105347;
+      --green-soft: #eaf5f1;
+
+      --amber: #9a650d;
+      --amber-soft: #fff6e4;
+
+      --red: #b42318;
+      --red-soft: #fff0ee;
+
+      --shadow:
+        0 18px 44px
+        rgba(31,45,36,.07);
+    }
+
+    body {
+      margin: 0;
+
+      min-height: 100vh;
+
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      color: var(--text);
+
+      background:
+        radial-gradient(
+          circle at top left,
+          #e7f4ef 0,
+          transparent 31%
+        ),
+        var(--bg);
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .app {
+      width:
+        min(
+          calc(100% - 32px),
+          1220px
+        );
+
+      margin: auto;
+
+      padding:
+        26px 0 56px;
+    }
+
+    .topbar {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 18px;
+
+      margin-bottom: 28px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 48px;
+      height: 48px;
+
+      border-radius: 15px;
+
+      overflow: hidden;
+
+      box-shadow:
+        0 9px 24px
+        rgba(23,107,91,.18);
+    }
+
+    .brand-icon img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .brand strong {
+      display: block;
+
+      font-size: 19px;
+    }
+
+    .brand span {
+      display: block;
+
+      margin-top: 3px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 9px;
+    }
+
+    .btn {
+      min-height: 42px;
+
+      border: 0;
+
+      border-radius: 12px;
+
+      padding:
+        10px 15px;
+
+      font-weight: 800;
+
+      transition:
+        transform .15s ease,
+        opacity .15s ease,
+        background .15s ease;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform:
+        translateY(-1px);
+    }
+
+    .btn:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      color: white;
+      background: var(--green);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background:
+        var(--green-dark);
+    }
+
+    .btn-soft {
+      color: var(--green);
+      background: var(--green-soft);
+    }
+
+    .hero {
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: flex-end;
+
+      gap: 20px;
+
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      color: var(--green);
+
+      font-size: 12px;
+
+      font-weight: 900;
+
+      letter-spacing: .09em;
+
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin:
+        7px 0 8px;
+
+      font-size:
+        clamp(
+          30px,
+          4vw,
+          42px
+        );
+
+      letter-spacing:
+        -.045em;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .identity {
+      flex: 0 0 auto;
+
+      min-width: 220px;
+
+      padding:
+        13px 15px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius:
+        15px;
+
+      background:
+        rgba(255,255,255,.8);
+    }
+
+    .identity small {
+      display: block;
+      color: var(--muted);
+    }
+
+    .identity strong {
+      display: block;
+
+      margin-top: 4px;
+    }
+
+    .layout {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0,1fr)
+        minmax(0,1fr);
+
+      gap: 18px;
+    }
+
+    .card {
+      padding: 24px;
+
+      border:
+        1px solid
+        rgba(211,222,216,.9);
+
+      border-radius: 21px;
+
+      background: var(--card);
+
+      box-shadow:
+        var(--shadow);
+    }
+
+    .card h2 {
+      margin:
+        5px 0 7px;
+
+      font-size: 22px;
+
+      letter-spacing:
+        -.025em;
+    }
+
+    .card-copy {
+      margin:
+        0 0 22px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+
+      line-height: 1.6;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+
+      margin-top: 15px;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    input {
+      width: 100%;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 12px;
+
+      padding:
+        12px 13px;
+
+      outline: none;
+
+      background:
+        #fbfcfb;
+
+      color: var(--text);
+    }
+
+    input:focus {
+      border-color:
+        #70aa9e;
+
+      box-shadow:
+        0 0 0 4px
+        rgba(23,107,91,.08);
+    }
+
+    .password-wrap {
+      position: relative;
+    }
+
+    .password-wrap input {
+      padding-right:
+        74px;
+    }
+
+    .toggle-password {
+      position: absolute;
+
+      right: 7px;
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      border: 0;
+
+      border-radius: 8px;
+
+      padding:
+        6px 8px;
+
+      background:
+        transparent;
+
+      color: var(--green);
+
+      font-size: 11px;
+
+      font-weight: 900;
+    }
+
+    .form-action {
+      margin-top: 20px;
+    }
+
+    .message {
+      display: none;
+
+      margin-top: 14px;
+
+      padding:
+        12px 13px;
+
+      border-radius: 11px;
+
+      font-size: 12px;
+
+      line-height: 1.5;
+    }
+
+    .message.show {
+      display: block;
+    }
+
+    .message.success {
+      color: #26663f;
+      background: #eaf6ee;
+    }
+
+    .message.error {
+      color: var(--red);
+      background: var(--red-soft);
+    }
+
+    .admin-list-card {
+      grid-column:
+        1 / -1;
+    }
+
+    .admin-list-head {
+      display: flex;
+
+      justify-content:
+        space-between;
+
+      align-items:
+        center;
+
+      gap: 14px;
+
+      margin-bottom: 16px;
+    }
+
+    .admin-list-head h2 {
+      margin: 0;
+    }
+
+    .admin-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .admin-item {
+      display: grid;
+
+      grid-template-columns:
+        minmax(160px,1.2fr)
+        minmax(130px,.8fr)
+        110px
+        170px;
+
+      gap: 14px;
+
+      align-items: center;
+
+      padding:
+        14px 15px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 14px;
+
+      background:
+        #fbfcfb;
+    }
+
+    .admin-name strong {
+      display: block;
+    }
+
+    .admin-name span,
+    .admin-meta span {
+      display: block;
+
+      margin-top: 3px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+    }
+
+    .badge {
+      display: inline-flex;
+
+      width: max-content;
+
+      border-radius:
+        999px;
+
+      padding:
+        6px 9px;
+
+      font-size: 10px;
+
+      font-weight: 900;
+    }
+
+    .badge.active {
+      color: #24633e;
+      background: #eaf6ee;
+    }
+
+    .badge.off {
+      color: #7a5353;
+      background: #f4ecec;
+    }
+
+    .empty {
+      padding:
+        30px 16px;
+
+      text-align: center;
+
+      color: var(--muted);
+    }
+
+    .loading {
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 24px;
+
+      text-align: center;
+
+      color: #89958e;
+
+      font-size: 11px;
+    }
+
+    @media(max-width:850px) {
+      .layout {
+        grid-template-columns:
+          1fr;
+      }
+
+      .admin-list-card {
+        grid-column: auto;
+      }
+
+      .admin-item {
+        grid-template-columns:
+          1fr 1fr;
+      }
+    }
+
+    @media(max-width:580px) {
+      .app {
+        width:
+          min(
+            calc(100% - 22px),
+            1220px
+          );
+
+        padding-top:
+          16px;
+      }
+
+      .topbar,
+      .hero {
+        align-items:
+          stretch;
+
+        flex-direction:
+          column;
+      }
+
+      .top-actions .btn {
+        flex: 1;
+      }
+
+      .identity {
+        width: 100%;
+      }
+
+      .card {
+        padding: 19px;
+      }
+
+      .admin-item {
+        grid-template-columns:
+          1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="app">
+
+    <header class="topbar">
+
+      <div class="brand">
+
+        <div class="brand-icon">
+          <img
+            src="assets/brand/asbun-icon.png"
+            alt="ASBUN"
+          >
+        </div>
+
+        <div>
+          <strong>ASBUN</strong>
+          <span>Administrasi Workdesk</span>
+        </div>
+
+      </div>
+
+
+      <div class="top-actions">
+
+        <button
+          id="backButton"
+          class="btn btn-soft"
+          type="button"
+        >
+          ← Dashboard
+        </button>
+
+        <button
+          id="logoutButton"
+          class="btn btn-soft"
+          type="button"
+        >
+          Keluar
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <section class="hero">
+
+      <div>
+
+        <div class="eyebrow">
+          Pengaturan Admin
+        </div>
+
+        <h1>
+          Kelola akses ASBUN
+        </h1>
+
+        <p>
+          Tambah admin baru dan kelola keamanan akun Anda.
+        </p>
+
+      </div>
+
+
+      <div class="identity">
+
+        <small>
+          Login sebagai
+        </small>
+
+        <strong id="currentAdmin">
+          Memuat...
+        </strong>
+
+      </div>
+
+    </section>
+
+
+    <div class="layout">
+
+      <section class="card">
+
+        <div class="eyebrow">
+          Akun Saya
+        </div>
+
+        <h2>
+          Ganti password
+        </h2>
+
+        <p class="card-copy">
+          Masukkan password saat ini untuk memastikan
+          perubahan dilakukan oleh pemilik akun.
+        </p>
+
+
+        <form id="passwordForm">
+
+          <div class="field">
+
+            <label for="currentPassword">
+              Password sekarang
+            </label>
+
+            <div class="password-wrap">
+
+              <input
+                id="currentPassword"
+                type="password"
+                autocomplete="current-password"
+                required
+              >
+
+              <button
+                class="toggle-password"
+                type="button"
+                data-target="currentPassword"
+              >
+                Lihat
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="newPassword">
+              Password baru
+            </label>
+
+            <div class="password-wrap">
+
+              <input
+                id="newPassword"
+                type="password"
+                autocomplete="new-password"
+                minlength="8"
+                required
+              >
+
+              <button
+                class="toggle-password"
+                type="button"
+                data-target="newPassword"
+              >
+                Lihat
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="confirmPassword">
+              Ulangi password baru
+            </label>
+
+            <div class="password-wrap">
+
+              <input
+                id="confirmPassword"
+                type="password"
+                autocomplete="new-password"
+                minlength="8"
+                required
+              >
+
+              <button
+                class="toggle-password"
+                type="button"
+                data-target="confirmPassword"
+              >
+                Lihat
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-action">
+
+            <button
+              id="passwordButton"
+              class="btn btn-primary"
+              type="submit"
+            >
+              Ganti Password
+            </button>
+
+          </div>
+
+
+          <div
+            id="passwordMessage"
+            class="message"
+          ></div>
+
+        </form>
+
+      </section>
+
+
+      <section class="card">
+
+        <div class="eyebrow">
+          Admin Baru
+        </div>
+
+        <h2>
+          Tambah akun admin
+        </h2>
+
+        <p class="card-copy">
+          Admin baru langsung aktif dan dapat masuk
+          ke Workdesk menggunakan username serta
+          password yang Anda tentukan.
+        </p>
+
+
+        <form id="adminForm">
+
+          <div class="field">
+
+            <label for="displayName">
+              Nama Tampilan
+            </label>
+
+            <input
+              id="displayName"
+              type="text"
+              maxlength="80"
+              placeholder="Contoh: Kawista"
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="newUsername">
+              Username
+            </label>
+
+            <input
+              id="newUsername"
+              type="text"
+              minlength="3"
+              maxlength="40"
+              autocomplete="off"
+              placeholder="contoh: admin2"
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="adminPassword">
+              Password Awal
+            </label>
+
+            <div class="password-wrap">
+
+              <input
+                id="adminPassword"
+                type="password"
+                minlength="8"
+                autocomplete="new-password"
+                required
+              >
+
+              <button
+                class="toggle-password"
+                type="button"
+                data-target="adminPassword"
+              >
+                Lihat
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="adminPasswordConfirm">
+              Ulangi Password
+            </label>
+
+            <div class="password-wrap">
+
+              <input
+                id="adminPasswordConfirm"
+                type="password"
+                minlength="8"
+                autocomplete="new-password"
+                required
+              >
+
+              <button
+                class="toggle-password"
+                type="button"
+                data-target="adminPasswordConfirm"
+              >
+                Lihat
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-action">
+
+            <button
+              id="adminButton"
+              class="btn btn-primary"
+              type="submit"
+            >
+              Tambah Admin
+            </button>
+
+          </div>
+
+
+          <div
+            id="adminMessage"
+            class="message"
+          ></div>
+
+        </form>
+
+      </section>
+
+
+      <section class="card admin-list-card">
+
+        <div class="admin-list-head">
+
+          <div>
+
+            <div class="eyebrow">
+              Akun
+            </div>
+
+            <h2>
+              Daftar admin
+            </h2>
+
+          </div>
+
+
+          <button
+            id="refreshAdmins"
+            class="btn btn-soft"
+            type="button"
+          >
+            ↻ Refresh
+          </button>
+
+        </div>
+
+
+        <div
+          id="adminList"
+          class="admin-list"
+        >
+          <div class="loading">
+            Memuat daftar admin...
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+
+
+    <footer>
+      ASBUN · Dinas Lingkungan Hidup Kabupaten Mojokerto
+    </footer>
+
+  </main>
+
+
+<script>
+  const API_BASE =
+    "https://asbun-api.sialif.workers.dev";
+
+  const SESSION_KEY =
+    "asbun_admin_session";
+
+
+  function loadSession() {
+    const raw =
+      sessionStorage.getItem(
+        SESSION_KEY
+      );
+
+    if (!raw) {
+      return null;
+    }
+
+    try {
+      return JSON.parse(
+        raw
+      );
+    }
+    catch {
+      sessionStorage.removeItem(
+        SESSION_KEY
+      );
+
+      return null;
+    }
+  }
+
+
+  function logout() {
+    sessionStorage.removeItem(
+      SESSION_KEY
+    );
+
+    location.href =
+      "admin.html";
+  }
+
+
+  function escapeHtml(
+    value
+  ) {
+    return String(
+      value ?? ""
+    )
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#039;");
+  }
+
+
+  function formatDate(
+    value
+  ) {
+    if (!value) {
+      return "Belum pernah";
+    }
+
+    try {
+      return new Intl
+        .DateTimeFormat(
+          "id-ID",
+          {
+            dateStyle:
+              "medium",
+
+            timeStyle:
+              "short",
+          }
+        )
+        .format(
+          new Date(value)
+        );
+    }
+    catch {
+      return value;
+    }
+  }
+
+
+  function showMessage(
+    element,
+    message,
+    type
+  ) {
+    element.className =
+      "message show " +
+      type;
+
+    element.textContent =
+      message;
+  }
+
+
+  async function apiFetch(
+    path,
+    options = {}
+  ) {
+    const session =
+      loadSession();
+
+    if (!session?.token) {
+      logout();
+
+      throw new Error(
+        "Session tidak tersedia"
+      );
+    }
+
+
+    options.headers = {
+      ...(options.headers || {}),
+
+      Authorization:
+        "Bearer " +
+        session.token,
+    };
+
+
+    const response =
+      await fetch(
+        API_BASE +
+        path,
+        options
+      );
+
+
+    let data = {};
+
+    try {
+      data =
+        await response.json();
+    }
+    catch {
+    }
+
+
+    if (
+      response.status === 401 ||
+      response.status === 403
+    ) {
+      logout();
+
+      throw new Error(
+        data.error ||
+        "Session admin berakhir"
+      );
+    }
+
+
+    if (!response.ok) {
+      throw new Error(
+        data.error ||
+        "Permintaan gagal"
+      );
+    }
+
+
+    return data;
+  }
+
+
+  async function loadAdmins() {
+
+    const wrap =
+      document.getElementById(
+        "adminList"
+      );
+
+
+    wrap.innerHTML =
+      '<div class="loading">Memuat daftar admin...</div>';
+
+
+    try {
+
+      const data =
+        await apiFetch(
+          "/admin/admins"
+        );
+
+
+      document.getElementById(
+        "currentAdmin"
+      ).textContent =
+        (
+          data.admin.displayName ||
+          data.admin.username
+        ) +
+        " · @" +
+        data.admin.username;
+
+
+      const items =
+        data.items || [];
+
+
+      if (!items.length) {
+
+        wrap.innerHTML =
+          '<div class="empty">Belum ada akun admin.</div>';
+
+        return;
+      }
+
+
+      wrap.innerHTML =
+        items.map(
+          item => `
+            <article class="admin-item">
+
+              <div class="admin-name">
+
+                <strong>
+                  ${escapeHtml(
+                    item.displayName
+                  )}
+                </strong>
+
+                <span>
+                  @${escapeHtml(
+                    item.username
+                  )}
+                </span>
+
+              </div>
+
+
+              <div class="admin-meta">
+
+                <strong>
+                  Dibuat
+                </strong>
+
+                <span>
+                  ${escapeHtml(
+                    formatDate(
+                      item.createdAt
+                    )
+                  )}
+                </span>
+
+              </div>
+
+
+              <div>
+
+                <span class="badge ${
+                  item.active
+                    ? "active"
+                    : "off"
+                }">
+
+                  ${
+                    item.active
+                      ? "AKTIF"
+                      : "NONAKTIF"
+                  }
+
+                </span>
+
+              </div>
+
+
+              <div class="admin-meta">
+
+                <strong>
+                  Login terakhir
+                </strong>
+
+                <span>
+                  ${escapeHtml(
+                    formatDate(
+                      item.lastLoginAt
+                    )
+                  )}
+                </span>
+
+              </div>
+
+            </article>
+          `
+        ).join("");
+
+    }
+    catch (error) {
+
+      wrap.innerHTML =
+        '<div class="empty">' +
+        escapeHtml(
+          error.message
+        ) +
+        '</div>';
+    }
+  }
+
+
+  document
+    .querySelectorAll(
+      ".toggle-password"
+    )
+    .forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            const input =
+              document.getElementById(
+                button.dataset.target
+              );
+
+
+            const visible =
+              input.type ===
+              "text";
+
+
+            input.type =
+              visible
+                ? "password"
+                : "text";
+
+
+            button.textContent =
+              visible
+                ? "Lihat"
+                : "Sembunyi";
+          }
+        );
+      }
+    );
+
+
+  document.getElementById(
+    "passwordForm"
+  ).addEventListener(
+    "submit",
+    async event => {
+
+      event.preventDefault();
+
+
+      const current =
+        document.getElementById(
+          "currentPassword"
+        ).value;
+
+
+      const next =
+        document.getElementById(
+          "newPassword"
+        ).value;
+
+
+      const confirm =
+        document.getElementById(
+          "confirmPassword"
+        ).value;
+
+
+      const message =
+        document.getElementById(
+          "passwordMessage"
+        );
+
+
+      const button =
+        document.getElementById(
+          "passwordButton"
+        );
+
+
+      if (
+        next !== confirm
+      ) {
+
+        showMessage(
+          message,
+          "Konfirmasi password baru tidak sama.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      button.disabled =
+        true;
+
+      button.textContent =
+        "Mengganti...";
+
+
+      try {
+
+        await apiFetch(
+          "/admin/password",
+          {
+            method:
+              "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
+
+            body:
+              JSON.stringify({
+                currentPassword:
+                  current,
+
+                newPassword:
+                  next,
+              }),
+          }
+        );
+
+
+        showMessage(
+          message,
+          "Password berhasil diganti. Anda akan diminta login kembali.",
+          "success"
+        );
+
+
+        document.getElementById(
+          "passwordForm"
+        ).reset();
+
+
+        setTimeout(
+          logout,
+          1300
+        );
+
+      }
+      catch (error) {
+
+        showMessage(
+          message,
+          error.message,
+          "error"
+        );
+
+      }
+      finally {
+
+        button.disabled =
+          false;
+
+        button.textContent =
+          "Ganti Password";
+      }
+    }
+  );
+
+
+  document.getElementById(
+    "adminForm"
+  ).addEventListener(
+    "submit",
+    async event => {
+
+      event.preventDefault();
+
+
+      const displayName =
+        document.getElementById(
+          "displayName"
+        ).value.trim();
+
+
+      const username =
+        document.getElementById(
+          "newUsername"
+        ).value.trim()
+        .toLowerCase();
+
+
+      const password =
+        document.getElementById(
+          "adminPassword"
+        ).value;
+
+
+      const confirm =
+        document.getElementById(
+          "adminPasswordConfirm"
+        ).value;
+
+
+      const message =
+        document.getElementById(
+          "adminMessage"
+        );
+
+
+      const button =
+        document.getElementById(
+          "adminButton"
+        );
+
+
+      if (
+        password !== confirm
+      ) {
+
+        showMessage(
+          message,
+          "Konfirmasi password tidak sama.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      button.disabled =
+        true;
+
+      button.textContent =
+        "Membuat akun...";
+
+
+      try {
+
+        const data =
+          await apiFetch(
+            "/admin/admins",
+            {
+              method:
+                "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json",
+              },
+
+              body:
+                JSON.stringify({
+                  displayName,
+                  username,
+                  password,
+                }),
+            }
+          );
+
+
+        showMessage(
+          message,
+          "Admin @" +
+          data.admin.username +
+          " berhasil dibuat.",
+          "success"
+        );
+
+
+        document.getElementById(
+          "adminForm"
+        ).reset();
+
+
+        await loadAdmins();
+
+      }
+      catch (error) {
+
+        showMessage(
+          message,
+          error.message,
+          "error"
+        );
+
+      }
+      finally {
+
+        button.disabled =
+          false;
+
+        button.textContent =
+          "Tambah Admin";
+      }
+    }
+  );
+
+
+  document.getElementById(
+    "refreshAdmins"
+  ).addEventListener(
+    "click",
+    loadAdmins
+  );
+
+
+  document.getElementById(
+    "backButton"
+  ).addEventListener(
+    "click",
+    () => {
+      location.href =
+        "admin.html";
+    }
+  );
+
+
+  document.getElementById(
+    "logoutButton"
+  ).addEventListener(
+    "click",
+    logout
+  );
+
+
+  if (!loadSession()?.token) {
+    logout();
+  }
+  else {
+    loadAdmins();
+  }
+</script>
+
+</body>
+</html>

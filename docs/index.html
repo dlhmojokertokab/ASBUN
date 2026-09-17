@@ -526,7 +526,998 @@
         width: 100%;
       }
     }
-  </style>
+  
+/* ASBUN_PRIVATE_PORTAL_POLISH_START */
+
+
+/* =========================================================
+   LAYOUT WIDTH
+========================================================= */
+
+body.public-mode .app {
+  width:
+    min(
+      100%,
+      1080px
+    );
+}
+
+body.private-mode .app {
+  width:
+    min(
+      100%,
+      1500px
+    );
+
+  padding-left:
+    clamp(
+      16px,
+      2.2vw,
+      36px
+    );
+
+  padding-right:
+    clamp(
+      16px,
+      2.2vw,
+      36px
+    );
+}
+
+
+#publicView .hero,
+#publicView #submissionForm {
+  max-width:
+    1000px;
+
+  margin-left:
+    auto;
+
+  margin-right:
+    auto;
+}
+
+
+body.private-mode .brand {
+  margin-bottom:
+    18px;
+}
+
+
+/* =========================================================
+   GENERAL POLISH
+========================================================= */
+
+.hero {
+  position:
+    relative;
+
+  overflow:
+    hidden;
+}
+
+.hero::after {
+  content:
+    "";
+
+  position:
+    absolute;
+
+  width:
+    260px;
+
+  height:
+    260px;
+
+  right:
+    -95px;
+
+  top:
+    -110px;
+
+  border-radius:
+    50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(23,107,91,.08),
+      transparent 68%
+    );
+
+  pointer-events:
+    none;
+}
+
+
+input[type="file"]::file-selector-button {
+  margin-right:
+    12px;
+
+  border:
+    0;
+
+  border-radius:
+    10px;
+
+  padding:
+    9px 12px;
+
+  background:
+    var(--primary-soft);
+
+  color:
+    var(--primary);
+
+  font-weight:
+    800;
+
+  cursor:
+    pointer;
+}
+
+
+.private-hero {
+  padding:
+    22px 24px;
+}
+
+
+.private-hero-top {
+  display:
+    flex;
+
+  justify-content:
+    space-between;
+
+  align-items:
+    flex-start;
+
+  gap:
+    20px;
+}
+
+
+.private-hero-actions {
+  flex:
+    0 0 auto;
+}
+
+
+.private-summary {
+  grid-template-columns:
+    repeat(
+      4,
+      minmax(0,1fr)
+    );
+}
+
+
+.private-workspace {
+  display:
+    grid;
+
+  grid-template-columns:
+    minmax(0,1fr)
+    minmax(320px,400px);
+
+  align-items:
+    start;
+
+  gap:
+    18px;
+
+  margin-top:
+    18px;
+}
+
+
+.private-side {
+  display:
+    grid;
+
+  gap:
+    18px;
+
+  position:
+    sticky;
+
+  top:
+    18px;
+}
+
+
+.private-side .card {
+  margin-top:
+    0;
+}
+
+
+/* =========================================================
+   PDF CARD
+========================================================= */
+
+.private-pdf-card {
+  min-width:
+    0;
+
+  padding:
+    0;
+
+  overflow:
+    hidden;
+}
+
+
+.private-pdf-toolbar {
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    10px;
+
+  flex-wrap:
+    wrap;
+
+  min-height:
+    64px;
+
+  padding:
+    12px 14px;
+
+  border-bottom:
+    1px solid
+    var(--border);
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      .96
+    );
+
+  position:
+    relative;
+
+  z-index:
+    15;
+}
+
+
+.private-pdf-title {
+  min-width:
+    150px;
+
+  margin-right:
+    auto;
+}
+
+
+.private-pdf-title strong {
+  display:
+    block;
+
+  font-size:
+    13px;
+}
+
+
+.private-pdf-title span {
+  display:
+    block;
+
+  margin-top:
+    3px;
+
+  color:
+    var(--muted);
+
+  font-size:
+    10px;
+
+  max-width:
+    280px;
+
+  overflow:
+    hidden;
+
+  text-overflow:
+    ellipsis;
+
+  white-space:
+    nowrap;
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.private-pdf-search {
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    5px;
+}
+
+
+.private-pdf-search-input {
+  width:
+    clamp(
+      190px,
+      22vw,
+      330px
+    );
+
+  height:
+    36px;
+
+  padding:
+    0 12px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    10px;
+
+  outline:
+    none;
+
+  background:
+    #f9fbfa;
+
+  color:
+    var(--text);
+
+  font-size:
+    11px;
+}
+
+
+.private-pdf-search-input:focus {
+  border-color:
+    #6aa99c;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(23,107,91,.08);
+}
+
+
+.private-pdf-search-status {
+  min-width:
+    72px;
+
+  color:
+    var(--muted);
+
+  font-size:
+    9px;
+
+  font-weight:
+    800;
+
+  text-align:
+    center;
+
+  white-space:
+    nowrap;
+}
+
+
+.private-pdf-mini-button {
+  width:
+    34px;
+
+  height:
+    34px;
+
+  display:
+    grid;
+
+  place-items:
+    center;
+
+  padding:
+    0;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    9px;
+
+  background:
+    #f7faf8;
+
+  color:
+    #4e6156;
+
+  font-weight:
+    900;
+}
+
+
+.private-pdf-mini-button:hover:not(:disabled) {
+  background:
+    white;
+}
+
+
+.private-pdf-mini-button:disabled {
+  opacity:
+    .35;
+
+  cursor:
+    not-allowed;
+}
+
+
+/* =========================================================
+   ZOOM
+========================================================= */
+
+.private-pdf-zoom {
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    5px;
+
+  padding-left:
+    8px;
+
+  border-left:
+    1px solid
+    var(--border);
+}
+
+
+.private-pdf-zoom-label {
+  width:
+    46px;
+
+  color:
+    #526158;
+
+  font-size:
+    10px;
+
+  font-weight:
+    900;
+
+  text-align:
+    center;
+}
+
+
+/* =========================================================
+   ANNOTATION NOTICE
+========================================================= */
+
+.private-annotation-notice {
+  display:
+    flex;
+
+  gap:
+    11px;
+
+  align-items:
+    flex-start;
+
+  margin:
+    12px 14px 0;
+
+  padding:
+    11px 13px;
+
+  border:
+    1px solid
+    #f0d68f;
+
+  border-radius:
+    12px;
+
+  background:
+    #fff9e8;
+
+  color:
+    #725214;
+
+  font-size:
+    11px;
+
+  line-height:
+    1.5;
+}
+
+
+.private-annotation-notice strong {
+  display:
+    block;
+
+  margin-bottom:
+    2px;
+}
+
+
+/* =========================================================
+   PDF VIEWPORT
+========================================================= */
+
+.private-pdf-wrap {
+  position:
+    relative;
+
+  height:
+    calc(
+      100vh - 210px
+    );
+
+  min-height:
+    720px;
+
+  overflow:
+    auto;
+
+  background:
+    linear-gradient(
+      145deg,
+      #e5eae7,
+      #f0f3f1
+    );
+
+  scrollbar-width:
+    thin;
+
+  scrollbar-color:
+    #aeb9b2
+    transparent;
+}
+
+
+.private-pdf-pages {
+  min-height:
+    100%;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  gap:
+    24px;
+
+  padding:
+    24px 22px
+    38px;
+}
+
+
+.private-pdf-page-shell {
+  position:
+    relative;
+
+  flex:
+    0 0 auto;
+
+  max-width:
+    none;
+
+  background:
+    white;
+
+  box-shadow:
+    0 10px 30px
+    rgba(18,31,23,.14);
+}
+
+
+.private-pdf-placeholder {
+  position:
+    absolute;
+
+  inset:
+    0;
+
+  display:
+    grid;
+
+  place-items:
+    center;
+
+  color:
+    #8a9690;
+
+  font-size:
+    10px;
+
+  font-weight:
+    800;
+}
+
+
+.private-pdf-render-canvas {
+  display:
+    block;
+
+  position:
+    relative;
+
+  z-index:
+    1;
+}
+
+
+.private-pdf-search-layer,
+.private-pdf-annotation-layer {
+  position:
+    absolute;
+
+  inset:
+    0;
+
+  width:
+    100%;
+
+  height:
+    100%;
+
+  pointer-events:
+    none;
+}
+
+
+.private-pdf-search-layer {
+  z-index:
+    2;
+}
+
+
+.private-pdf-annotation-layer {
+  z-index:
+    3;
+}
+
+
+.private-pdf-search-highlight {
+  position:
+    absolute;
+
+  border-radius:
+    2px;
+
+  background:
+    rgba(
+      255,
+      215,
+      55,
+      .45
+    );
+
+  box-shadow:
+    inset 0 0 0 1px
+    rgba(196,143,0,.16);
+
+  mix-blend-mode:
+    multiply;
+}
+
+
+.private-pdf-page-shell.search-hit {
+  box-shadow:
+    0 10px 30px
+    rgba(18,31,23,.14),
+    0 0 0 2px
+    rgba(217,164,34,.22);
+}
+
+
+.private-pdf-page-shell.search-current {
+  box-shadow:
+    0 14px 38px
+    rgba(18,31,23,.18),
+    0 0 0 3px
+    rgba(217,164,34,.72);
+}
+
+
+.private-pdf-page-label {
+  position:
+    absolute;
+
+  left:
+    50%;
+
+  bottom:
+    -15px;
+
+  transform:
+    translateX(-50%);
+
+  z-index:
+    7;
+
+  padding:
+    4px 9px;
+
+  border-radius:
+    999px;
+
+  background:
+    rgba(31,45,36,.84);
+
+  color:
+    white;
+
+  font-size:
+    9px;
+
+  font-weight:
+    800;
+
+  white-space:
+    nowrap;
+}
+
+
+.private-pdf-loading {
+  min-height:
+    300px;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap:
+    12px;
+
+  color:
+    var(--muted);
+
+  font-size:
+    12px;
+}
+
+
+.private-pdf-loading::before {
+  content:
+    "";
+
+  width:
+    28px;
+
+  height:
+    28px;
+
+  border:
+    3px solid
+    #d4dfd8;
+
+  border-top-color:
+    var(--primary);
+
+  border-radius:
+    50%;
+
+  animation:
+    spin .75s
+    linear infinite;
+}
+
+
+.private-pdf-error {
+  margin:
+    24px;
+
+  padding:
+    18px;
+
+  border-radius:
+    14px;
+
+  background:
+    var(--danger-soft);
+
+  color:
+    var(--danger);
+
+  text-align:
+    center;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (
+  max-width: 1180px
+) {
+
+  .private-summary {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0,1fr)
+      );
+  }
+
+
+  .private-workspace {
+    grid-template-columns:
+      minmax(0,1fr)
+      330px;
+  }
+
+
+  .private-pdf-search-input {
+    width:
+      190px;
+  }
+}
+
+
+@media (
+  max-width: 980px
+) {
+
+  body.private-mode .app {
+    width:
+      min(
+        100%,
+        920px
+      );
+  }
+
+
+  .private-workspace {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .private-side {
+    position:
+      static;
+
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0,1fr)
+      );
+  }
+
+
+  .private-pdf-wrap {
+    height:
+      72vh;
+
+    min-height:
+      620px;
+  }
+}
+
+
+@media (
+  max-width: 680px
+) {
+
+  .private-hero-top {
+    flex-direction:
+      column;
+  }
+
+
+  .private-hero-actions,
+  .private-hero-actions .btn {
+    width:
+      100%;
+  }
+
+
+  .private-summary {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .private-side {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .private-pdf-toolbar {
+    align-items:
+      stretch;
+  }
+
+
+  .private-pdf-title {
+    flex:
+      1 0 100%;
+  }
+
+
+  .private-pdf-search {
+    width:
+      100%;
+
+    flex-wrap:
+      wrap;
+  }
+
+
+  .private-pdf-search-input {
+    flex:
+      1 0 100%;
+
+    width:
+      100%;
+  }
+
+
+  .private-pdf-search-status {
+    margin-right:
+      auto;
+  }
+
+
+  .private-pdf-zoom {
+    margin-left:
+      auto;
+  }
+
+
+  .private-pdf-wrap {
+    height:
+      65vh;
+
+    min-height:
+      520px;
+  }
+
+
+  .private-pdf-pages {
+    padding:
+      16px 10px
+      30px;
+
+    gap:
+      20px;
+  }
+}
+
+/* ASBUN_PRIVATE_PORTAL_POLISH_END */
+
+</style>
 
 <!-- ASBUN_BRAND_ASSETS_START -->
 <link
@@ -752,7 +1743,7 @@
     </section>
 
 
-    <!-- ==================================================
+        <!-- ==================================================
          PRIVATE PORTAL
     ================================================== -->
 
@@ -761,34 +1752,55 @@
       class="hidden"
     >
 
-      <div class="card hero">
+      <div class="card private-hero">
 
-        <p class="eyebrow">
-          Portal Pengajuan
-        </p>
+        <div class="private-hero-top">
 
-        <div class="status-wrap">
+          <div>
 
-          <h2 id="privateNumber">
-            -
-          </h2>
+            <p class="eyebrow">
+              Portal Pengajuan
+            </p>
 
-          <span
-            id="statusBadge"
-            class="status-badge"
-          >
-            -
-          </span>
+            <div class="status-wrap">
+
+              <h2 id="privateNumber">
+                -
+              </h2>
+
+              <span
+                id="statusBadge"
+                class="status-badge"
+              >
+                -
+              </span>
+
+            </div>
+
+            <p
+              id="statusDescription"
+              class="lead"
+            ></p>
+
+          </div>
+
+
+          <div class="private-hero-actions">
+
+            <button
+              id="refreshButton"
+              class="btn btn-light"
+              type="button"
+            >
+              ↻ Refresh Status
+            </button>
+
+          </div>
 
         </div>
 
-        <p
-          id="statusDescription"
-          class="lead"
-        ></p>
 
-
-        <div class="summary-grid">
+        <div class="summary-grid private-summary">
 
           <div class="summary-item">
 
@@ -855,118 +1867,245 @@
 
         </div>
 
-
-        <div class="actions">
-
-          <button
-            id="viewPdfButton"
-            class="btn btn-secondary"
-            type="button"
-          >
-            Lihat PDF Aktif
-          </button>
-
-          <button
-            id="refreshButton"
-            class="btn btn-light"
-            type="button"
-          >
-            Refresh Status
-          </button>
-
-        </div>
-
       </div>
 
 
-      <section
-        id="notesCard"
-        class="card hidden"
-      >
+      <div class="private-workspace">
 
-        <p class="eyebrow">
-          Catatan Asistensi
-        </p>
+        <section
+          id="privatePdfCard"
+          class="card private-pdf-card hidden"
+        >
 
-        <h2 style="font-size:21px">
-          Perbaikan yang perlu diperhatikan
-        </h2>
+          <div class="private-pdf-toolbar">
 
-        <div
-          id="notesList"
-          class="notes"
-        ></div>
+            <div class="private-pdf-title">
 
-      </section>
+              <strong>
+                Dokumen Asistensi
+              </strong>
 
+              <span id="privatePdfTitle">
+                -
+              </span>
 
-      <section
-        id="revisionCard"
-        class="card hidden"
-      >
-
-        <p class="eyebrow">
-          Upload Perbaikan
-        </p>
-
-        <h2 style="font-size:21px">
-          Kirim versi terbaru
-        </h2>
-
-        <p class="lead">
-          Setelah versi baru berhasil tersimpan,
-          file versi sebelumnya akan dihapus otomatis.
-          Histori versinya tetap tercatat di ASBUN.
-        </p>
+            </div>
 
 
-        <form id="revisionForm">
+            <div class="private-pdf-search">
+
+              <input
+                id="privatePdfSearchInput"
+                class="private-pdf-search-input"
+                type="search"
+                placeholder="Cari dalam dokumen..."
+                autocomplete="off"
+                spellcheck="false"
+              >
+
+              <span
+                id="privatePdfSearchStatus"
+                class="private-pdf-search-status"
+              >
+                Menyiapkan...
+              </span>
+
+              <button
+                id="privatePdfSearchPrev"
+                class="private-pdf-mini-button"
+                type="button"
+                title="Hasil sebelumnya"
+                disabled
+              >
+                ↑
+              </button>
+
+              <button
+                id="privatePdfSearchNext"
+                class="private-pdf-mini-button"
+                type="button"
+                title="Hasil berikutnya"
+                disabled
+              >
+                ↓
+              </button>
+
+              <button
+                id="privatePdfSearchClear"
+                class="private-pdf-mini-button"
+                type="button"
+                title="Hapus pencarian"
+              >
+                ×
+              </button>
+
+            </div>
+
+
+            <div class="private-pdf-zoom">
+
+              <button
+                id="privatePdfZoomOut"
+                class="private-pdf-mini-button"
+                type="button"
+                title="Perkecil"
+              >
+                −
+              </button>
+
+              <span
+                id="privatePdfZoomLabel"
+                class="private-pdf-zoom-label"
+              >
+                100%
+              </span>
+
+              <button
+                id="privatePdfZoomIn"
+                class="private-pdf-mini-button"
+                type="button"
+                title="Perbesar"
+              >
+                +
+              </button>
+
+            </div>
+
+          </div>
+
 
           <div
-            class="field"
-            style="margin-top:18px"
+            id="privateAnnotationNotice"
+            class="private-annotation-notice hidden"
           >
 
-            <label for="revisionProposal">
-              Proposal PDF terbaru
-            </label>
+            <div>
+              ✎
+            </div>
 
-            <input
-              id="revisionProposal"
-              type="file"
-              accept="application/pdf,.pdf"
-              required
-            >
+            <div>
 
-          </div>
+              <strong>
+                Dokumen memiliki catatan visual dari TALING
+              </strong>
 
+              <span id="privateAnnotationCount">
+                Area yang diberi tanda merupakan bagian
+                yang perlu diperhatikan.
+              </span>
 
-          <div class="actions">
-
-            <button
-              id="revisionButton"
-              class="btn btn-primary"
-              type="submit"
-            >
-              Upload Versi Perbaikan
-            </button>
+            </div>
 
           </div>
 
 
           <div
-            id="revisionResult"
-            class="result-box"
-          ></div>
+            id="privatePdfWrap"
+            class="private-pdf-wrap"
+          >
 
-        </form>
+            <div class="private-pdf-loading">
+              Menyiapkan dokumen...
+            </div>
 
-      </section>
+          </div>
+
+        </section>
+
+
+        <aside class="private-side">
+
+          <section
+            id="notesCard"
+            class="card hidden"
+          >
+
+            <p class="eyebrow">
+              Catatan Asistensi
+            </p>
+
+            <h2 style="font-size:21px">
+              Perbaikan yang perlu diperhatikan
+            </h2>
+
+            <div
+              id="notesList"
+              class="notes"
+            ></div>
+
+          </section>
+
+
+          <section
+            id="revisionCard"
+            class="card hidden"
+          >
+
+            <p class="eyebrow">
+              Upload Perbaikan
+            </p>
+
+            <h2 style="font-size:21px">
+              Kirim versi terbaru
+            </h2>
+
+            <p class="lead">
+              Setelah versi baru berhasil tersimpan,
+              file versi sebelumnya akan dihapus otomatis.
+              Histori versinya tetap tercatat di ASBUN.
+            </p>
+
+
+            <form id="revisionForm">
+
+              <div
+                class="field"
+                style="margin-top:18px"
+              >
+
+                <label for="revisionProposal">
+                  Proposal PDF terbaru
+                </label>
+
+                <input
+                  id="revisionProposal"
+                  type="file"
+                  accept="application/pdf,.pdf"
+                  required
+                >
+
+              </div>
+
+
+              <div class="actions">
+
+                <button
+                  id="revisionButton"
+                  class="btn btn-primary"
+                  type="submit"
+                >
+                  Upload Versi Perbaikan
+                </button>
+
+              </div>
+
+
+              <div
+                id="revisionResult"
+                class="result-box"
+              ></div>
+
+            </form>
+
+          </section>
+
+        </aside>
+
+      </div>
 
     </section>
 
-
-    <!-- ==================================================
+<!-- ==================================================
          ERROR
     ================================================== -->
 
@@ -1059,6 +2198,22 @@
       view.classList.remove(
         "hidden"
       );
+
+
+      document.body
+        .classList
+        .toggle(
+          "public-mode",
+          view === publicView
+        );
+
+
+      document.body
+        .classList
+        .toggle(
+          "private-mode",
+          view === privateView
+        );
     }
 
 
@@ -1378,6 +2533,1947 @@
     // PRIVATE VIEW
     // ==============================================
 
+
+    /* ASBUN_PRIVATE_PDF_ENGINE_START */
+
+    let currentPrivateSubmission =
+      null;
+
+
+    const privatePdfState = {
+      pdf:
+        null,
+
+      pdfjs:
+        null,
+
+      zoom:
+        1,
+
+      loadId:
+        0,
+
+      observer:
+        null,
+
+      index:
+        [],
+
+      pageMaps:
+        [],
+
+      indexPromise:
+        null,
+
+      query:
+        "",
+
+      results:
+        [],
+
+      cursor:
+        -1,
+
+      timer:
+        null,
+    };
+
+
+    function normalizePrivatePdfText(
+      value
+    ) {
+
+      return String(
+        value || ""
+      )
+        .toLocaleLowerCase(
+          "id-ID"
+        )
+        .replace(
+          /\s+/g,
+          " "
+        )
+        .trim();
+    }
+
+
+    function setPrivatePdfSearchStatus(
+      text
+    ) {
+
+      const element =
+        document.getElementById(
+          "privatePdfSearchStatus"
+        );
+
+
+      if (element) {
+        element.textContent =
+          text;
+      }
+    }
+
+
+    function resetPrivatePdfState() {
+
+      privatePdfState.loadId++;
+
+
+      if (
+        privatePdfState.observer
+      ) {
+
+        privatePdfState
+          .observer
+          .disconnect();
+      }
+
+
+      privatePdfState.pdf =
+        null;
+
+      privatePdfState.pdfjs =
+        null;
+
+      privatePdfState.zoom =
+        1;
+
+      privatePdfState.index =
+        [];
+
+      privatePdfState.pageMaps =
+        [];
+
+      privatePdfState.indexPromise =
+        null;
+
+      privatePdfState.query =
+        "";
+
+      privatePdfState.results =
+        [];
+
+      privatePdfState.cursor =
+        -1;
+
+
+      const input =
+        document.getElementById(
+          "privatePdfSearchInput"
+        );
+
+
+      if (input) {
+        input.value =
+          "";
+      }
+
+
+      const zoomLabel =
+        document.getElementById(
+          "privatePdfZoomLabel"
+        );
+
+
+      if (zoomLabel) {
+        zoomLabel.textContent =
+          "100%";
+      }
+    }
+
+
+    function buildPrivatePdfPageMap(
+      content
+    ) {
+
+      const items =
+        content.items ||
+        [];
+
+
+      const ranges =
+        [];
+
+
+      let pageText =
+        "";
+
+
+      for (
+        let itemIndex = 0;
+        itemIndex < items.length;
+        itemIndex++
+      ) {
+
+        const item =
+          items[
+            itemIndex
+          ];
+
+
+        const text =
+          normalizePrivatePdfText(
+            item.str ||
+            ""
+          );
+
+
+        if (!text) {
+          continue;
+        }
+
+
+        if (pageText) {
+          pageText +=
+            " ";
+        }
+
+
+        const start =
+          pageText.length;
+
+
+        pageText +=
+          text;
+
+
+        ranges.push({
+          itemIndex,
+
+          start,
+
+          end:
+            pageText.length,
+
+          text,
+        });
+      }
+
+
+      return {
+        text:
+          pageText,
+
+        items,
+
+        ranges,
+      };
+    }
+
+
+    async function buildPrivatePdfSearchIndex(
+      pdf,
+      loadId
+    ) {
+
+      privatePdfState.index =
+        new Array(
+          pdf.numPages
+        ).fill("");
+
+
+      privatePdfState.pageMaps =
+        new Array(
+          pdf.numPages
+        ).fill(null);
+
+
+      const batchSize =
+        6;
+
+
+      for (
+        let start = 1;
+        start <= pdf.numPages;
+        start += batchSize
+      ) {
+
+        if (
+          loadId !==
+          privatePdfState.loadId
+        ) {
+          return;
+        }
+
+
+        const end =
+          Math.min(
+            pdf.numPages,
+            start +
+            batchSize -
+            1
+          );
+
+
+        const jobs =
+          [];
+
+
+        for (
+          let pageNumber = start;
+          pageNumber <= end;
+          pageNumber++
+        ) {
+
+          jobs.push(
+            (
+              async () => {
+
+                try {
+
+                  const page =
+                    await pdf.getPage(
+                      pageNumber
+                    );
+
+
+                  const content =
+                    await page
+                      .getTextContent();
+
+
+                  const map =
+                    buildPrivatePdfPageMap(
+                      content
+                    );
+
+
+                  privatePdfState.index[
+                    pageNumber - 1
+                  ] =
+                    map.text;
+
+
+                  privatePdfState.pageMaps[
+                    pageNumber - 1
+                  ] =
+                    map;
+
+                } catch {
+
+                  privatePdfState.index[
+                    pageNumber - 1
+                  ] =
+                    "";
+
+                }
+
+              }
+            )()
+          );
+        }
+
+
+        await Promise.all(
+          jobs
+        );
+
+
+        setPrivatePdfSearchStatus(
+          "Indeks " +
+          end +
+          "/" +
+          pdf.numPages
+        );
+
+
+        await new Promise(
+          resolve =>
+            setTimeout(
+              resolve,
+              0
+            )
+        );
+      }
+
+
+      if (
+        loadId !==
+        privatePdfState.loadId
+      ) {
+        return;
+      }
+
+
+      setPrivatePdfSearchStatus(
+        "Siap · " +
+        pdf.numPages +
+        " hal."
+      );
+
+
+      if (
+        privatePdfState.query
+      ) {
+        runPrivatePdfSearch();
+      }
+    }
+
+
+    function getPrivateAnnotationStrokes(
+      pageNumber
+    ) {
+
+      const annotations =
+        Array.isArray(
+          currentPrivateSubmission
+            ?.annotations
+        )
+          ? currentPrivateSubmission
+              .annotations
+          : [];
+
+
+      const page =
+        annotations.find(
+          item =>
+            Number(
+              item.pageNumber
+            ) ===
+            pageNumber
+        );
+
+
+      return Array.isArray(
+        page?.strokes
+      )
+        ? page.strokes
+        : [];
+    }
+
+
+    function drawPrivateAnnotationStroke(
+      context,
+      canvas,
+      stroke
+    ) {
+
+      const points =
+        stroke.points ||
+        [];
+
+
+      if (!points.length) {
+        return;
+      }
+
+
+      context.save();
+
+
+      context.lineCap =
+        "round";
+
+      context.lineJoin =
+        "round";
+
+
+      context.globalCompositeOperation =
+        stroke.tool ===
+          "eraser"
+            ? "destination-out"
+            : "source-over";
+
+
+      context.globalAlpha =
+        Number(
+          stroke.alpha ??
+          1
+        );
+
+
+      context.strokeStyle =
+        stroke.color ||
+        "#df3f38";
+
+
+      context.lineWidth =
+        Math.max(
+          2,
+          Number(
+            stroke.width ||
+            .0052
+          ) *
+          canvas.width
+        );
+
+
+      context.beginPath();
+
+
+      context.moveTo(
+        points[0].x *
+        canvas.width,
+
+        points[0].y *
+        canvas.height
+      );
+
+
+      if (
+        points.length ===
+        1
+      ) {
+
+        context.lineTo(
+          (
+            points[0].x +
+            .0001
+          ) *
+          canvas.width,
+
+          (
+            points[0].y +
+            .0001
+          ) *
+          canvas.height
+        );
+
+      }
+      else {
+
+        for (
+          let i = 1;
+          i < points.length;
+          i++
+        ) {
+
+          context.lineTo(
+            points[i].x *
+            canvas.width,
+
+            points[i].y *
+            canvas.height
+          );
+        }
+      }
+
+
+      context.stroke();
+
+      context.restore();
+    }
+
+
+    function drawPrivateAnnotations(
+      pageNumber,
+      canvas
+    ) {
+
+      const context =
+        canvas.getContext(
+          "2d"
+        );
+
+
+      context.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+
+      const strokes =
+        getPrivateAnnotationStrokes(
+          pageNumber
+        );
+
+
+      for (
+        const stroke
+        of strokes
+      ) {
+
+        drawPrivateAnnotationStroke(
+          context,
+          canvas,
+          stroke
+        );
+      }
+    }
+
+
+    function getPrivatePdfMatches(
+      pageNumber
+    ) {
+
+      const query =
+        privatePdfState.query;
+
+
+      const text =
+        privatePdfState.index[
+          pageNumber - 1
+        ] ||
+        "";
+
+
+      if (
+        !query ||
+        !text
+      ) {
+        return [];
+      }
+
+
+      const matches =
+        [];
+
+
+      let position =
+        0;
+
+
+      while (true) {
+
+        const start =
+          text.indexOf(
+            query,
+            position
+          );
+
+
+        if (
+          start === -1
+        ) {
+          break;
+        }
+
+
+        matches.push({
+          start,
+
+          end:
+            start +
+            query.length,
+        });
+
+
+        position =
+          start +
+          Math.max(
+            query.length,
+            1
+          );
+      }
+
+
+      return matches;
+    }
+
+
+    function renderPrivateSearchHighlights(
+      pageNumber,
+      shell
+    ) {
+
+      const layer =
+        shell.querySelector(
+          ".private-pdf-search-layer"
+        );
+
+
+      if (!layer) {
+        return;
+      }
+
+
+      layer.innerHTML =
+        "";
+
+
+      if (
+        !privatePdfState.query
+      ) {
+        return;
+      }
+
+
+      const map =
+        privatePdfState.pageMaps[
+          pageNumber - 1
+        ];
+
+
+      const viewport =
+        shell._asbunViewport;
+
+
+      const pdfjs =
+        privatePdfState.pdfjs;
+
+
+      if (
+        !map ||
+        !viewport ||
+        !pdfjs
+      ) {
+        return;
+      }
+
+
+      const matches =
+        getPrivatePdfMatches(
+          pageNumber
+        );
+
+
+      for (
+        const match
+        of matches
+      ) {
+
+        for (
+          const range
+          of map.ranges
+        ) {
+
+          if (
+            range.end <=
+              match.start ||
+            range.start >=
+              match.end
+          ) {
+            continue;
+          }
+
+
+          const item =
+            map.items[
+              range.itemIndex
+            ];
+
+
+          if (
+            !item ||
+            !item.transform
+          ) {
+            continue;
+          }
+
+
+          const tx =
+            pdfjs.Util
+              .transform(
+                viewport.transform,
+                item.transform
+              );
+
+
+          const fullWidth =
+            Math.abs(
+              Number(
+                item.width ||
+                0
+              ) *
+              viewport.scale
+            );
+
+
+          const fontHeight =
+            Math.max(
+              7,
+              Math.hypot(
+                tx[2],
+                tx[3]
+              )
+            );
+
+
+          if (
+            fullWidth <= 0
+          ) {
+            continue;
+          }
+
+
+          const localStart =
+            Math.max(
+              0,
+              match.start -
+              range.start
+            );
+
+
+          const localEnd =
+            Math.min(
+              range.text.length,
+              match.end -
+              range.start
+            );
+
+
+          const textLength =
+            Math.max(
+              range.text.length,
+              1
+            );
+
+
+          const startRatio =
+            localStart /
+            textLength;
+
+
+          const endRatio =
+            Math.max(
+              startRatio +
+              .02,
+              localEnd /
+              textLength
+            );
+
+
+          const highlight =
+            document.createElement(
+              "div"
+            );
+
+
+          highlight.className =
+            "private-pdf-search-highlight";
+
+
+          highlight.style.left =
+            (
+              tx[4] +
+              fullWidth *
+              startRatio
+            ) +
+            "px";
+
+
+          highlight.style.top =
+            (
+              tx[5] -
+              fontHeight *
+              1.02
+            ) +
+            "px";
+
+
+          highlight.style.width =
+            Math.max(
+              3,
+              fullWidth *
+              (
+                endRatio -
+                startRatio
+              )
+            ) +
+            "px";
+
+
+          highlight.style.height =
+            (
+              fontHeight *
+              1.12
+            ) +
+            "px";
+
+
+          layer.appendChild(
+            highlight
+          );
+        }
+      }
+    }
+
+
+    async function renderPrivatePdfPage(
+      pageNumber,
+      shell,
+      loadId
+    ) {
+
+      if (
+        loadId !==
+        privatePdfState.loadId
+      ) {
+        return;
+      }
+
+
+      if (
+        shell.dataset.rendered ===
+        "1" ||
+        shell.dataset.rendering ===
+        "1"
+      ) {
+        return;
+      }
+
+
+      shell.dataset.rendering =
+        "1";
+
+
+      try {
+
+        const page =
+          await privatePdfState
+            .pdf
+            .getPage(
+              pageNumber
+            );
+
+
+        const viewport =
+          page.getViewport({
+            scale:
+              shell
+                ._asbunScale,
+          });
+
+
+        shell._asbunViewport =
+          viewport;
+
+
+        const dpr =
+          Math.min(
+            window.devicePixelRatio ||
+            1,
+            2
+          );
+
+
+        const renderCanvas =
+          document.createElement(
+            "canvas"
+          );
+
+
+        renderCanvas.className =
+          "private-pdf-render-canvas";
+
+
+        renderCanvas.width =
+          Math.floor(
+            viewport.width *
+            dpr
+          );
+
+
+        renderCanvas.height =
+          Math.floor(
+            viewport.height *
+            dpr
+          );
+
+
+        renderCanvas.style.width =
+          viewport.width +
+          "px";
+
+
+        renderCanvas.style.height =
+          viewport.height +
+          "px";
+
+
+        const searchLayer =
+          document.createElement(
+            "div"
+          );
+
+
+        searchLayer.className =
+          "private-pdf-search-layer";
+
+
+        const annotationCanvas =
+          document.createElement(
+            "canvas"
+          );
+
+
+        annotationCanvas.className =
+          "private-pdf-annotation-layer";
+
+
+        annotationCanvas.width =
+          Math.floor(
+            viewport.width *
+            dpr
+          );
+
+
+        annotationCanvas.height =
+          Math.floor(
+            viewport.height *
+            dpr
+          );
+
+
+        const pageLabel =
+          document.createElement(
+            "div"
+          );
+
+
+        pageLabel.className =
+          "private-pdf-page-label";
+
+
+        pageLabel.textContent =
+          "Halaman " +
+          pageNumber +
+          " / " +
+          privatePdfState
+            .pdf
+            .numPages;
+
+
+        shell.innerHTML =
+          "";
+
+
+        shell.appendChild(
+          renderCanvas
+        );
+
+
+        shell.appendChild(
+          searchLayer
+        );
+
+
+        shell.appendChild(
+          annotationCanvas
+        );
+
+
+        shell.appendChild(
+          pageLabel
+        );
+
+
+        const context =
+          renderCanvas.getContext(
+            "2d",
+            {
+              alpha:
+                false,
+            }
+          );
+
+
+        await page.render({
+          canvasContext:
+            context,
+
+          viewport,
+
+          transform:
+            dpr !== 1
+              ? [
+                  dpr,
+                  0,
+                  0,
+                  dpr,
+                  0,
+                  0,
+                ]
+              : null,
+        }).promise;
+
+
+        drawPrivateAnnotations(
+          pageNumber,
+          annotationCanvas
+        );
+
+
+        renderPrivateSearchHighlights(
+          pageNumber,
+          shell
+        );
+
+
+        shell.dataset.rendered =
+          "1";
+
+      }
+      catch (error) {
+
+        shell.innerHTML =
+          `
+            <div class="private-pdf-error">
+              Halaman ${pageNumber}
+              gagal dirender.
+            </div>
+          `;
+
+      }
+      finally {
+
+        delete shell.dataset.rendering;
+      }
+    }
+
+
+    async function buildPrivatePdfShells(
+      focusPage = 1
+    ) {
+
+      const pdf =
+        privatePdfState.pdf;
+
+
+      if (!pdf) {
+        return;
+      }
+
+
+      const wrap =
+        document.getElementById(
+          "privatePdfWrap"
+        );
+
+
+      if (
+        privatePdfState.observer
+      ) {
+
+        privatePdfState
+          .observer
+          .disconnect();
+      }
+
+
+      wrap.innerHTML =
+        "";
+
+
+      const pagesContainer =
+        document.createElement(
+          "div"
+        );
+
+
+      pagesContainer.className =
+        "private-pdf-pages";
+
+
+      wrap.appendChild(
+        pagesContainer
+      );
+
+
+      const availableWidth =
+        Math.max(
+          280,
+          wrap.clientWidth -
+          52
+        );
+
+
+      const loadId =
+        privatePdfState.loadId;
+
+
+      const shells =
+        [];
+
+
+      for (
+        let pageNumber = 1;
+        pageNumber <= pdf.numPages;
+        pageNumber++
+      ) {
+
+        const page =
+          await pdf.getPage(
+            pageNumber
+          );
+
+
+        if (
+          loadId !==
+          privatePdfState.loadId
+        ) {
+          return;
+        }
+
+
+        const baseViewport =
+          page.getViewport({
+            scale:
+              1,
+          });
+
+
+        const naturalScale =
+          96 / 72;
+
+
+        const fitScale =
+          availableWidth /
+          baseViewport.width;
+
+
+        const baseScale =
+          Math.min(
+            naturalScale,
+            fitScale
+          );
+
+
+        const scale =
+          baseScale *
+          privatePdfState.zoom;
+
+
+        const viewport =
+          page.getViewport({
+            scale,
+          });
+
+
+        const shell =
+          document.createElement(
+            "div"
+          );
+
+
+        shell.className =
+          "private-pdf-page-shell";
+
+
+        shell.dataset.page =
+          String(
+            pageNumber
+          );
+
+
+        shell._asbunScale =
+          scale;
+
+
+        shell.style.width =
+          viewport.width +
+          "px";
+
+
+        shell.style.height =
+          viewport.height +
+          "px";
+
+
+        shell.innerHTML =
+          `
+            <div class="private-pdf-placeholder">
+              Halaman ${pageNumber}
+            </div>
+          `;
+
+
+        pagesContainer
+          .appendChild(
+            shell
+          );
+
+
+        shells.push(
+          shell
+        );
+      }
+
+
+      privatePdfState.observer =
+        new IntersectionObserver(
+          entries => {
+
+            for (
+              const entry
+              of entries
+            ) {
+
+              if (
+                !entry.isIntersecting
+              ) {
+                continue;
+              }
+
+
+              const shell =
+                entry.target;
+
+
+              renderPrivatePdfPage(
+                Number(
+                  shell.dataset.page
+                ),
+                shell,
+                loadId
+              );
+
+
+              privatePdfState
+                .observer
+                .unobserve(
+                  shell
+                );
+            }
+          },
+          {
+            root:
+              wrap,
+
+            rootMargin:
+              "1200px 0px",
+          }
+        );
+
+
+      for (
+        const shell
+        of shells
+      ) {
+
+        privatePdfState
+          .observer
+          .observe(
+            shell
+          );
+      }
+
+
+      applyPrivatePdfSearchMarkers();
+
+
+      const focus =
+        pagesContainer
+          .querySelector(
+            '[data-page="' +
+            focusPage +
+            '"]'
+          );
+
+
+      if (
+        focus &&
+        focusPage > 1
+      ) {
+
+        requestAnimationFrame(
+          () => {
+
+            focus.scrollIntoView({
+              block:
+                "start",
+            });
+          }
+        );
+      }
+    }
+
+
+    async function loadPrivatePdf(
+      submission
+    ) {
+
+      resetPrivatePdfState();
+
+
+      currentPrivateSubmission =
+        submission;
+
+
+      const wrap =
+        document.getElementById(
+          "privatePdfWrap"
+        );
+
+
+      wrap.innerHTML =
+        `
+          <div class="private-pdf-loading">
+            Menyiapkan dokumen...
+          </div>
+        `;
+
+
+      const loadId =
+        privatePdfState.loadId;
+
+
+      try {
+
+        const response =
+          await fetch(
+            API_BASE +
+            "/private/file?t=" +
+            encodeURIComponent(
+              privateToken
+            )
+          );
+
+
+        if (!response.ok) {
+
+          let message =
+            "Gagal membuka PDF.";
+
+
+          try {
+
+            const data =
+              await response.json();
+
+
+            message =
+              data.error ||
+              message;
+
+          } catch {
+          }
+
+
+          throw new Error(
+            message
+          );
+        }
+
+
+        const buffer =
+          await response
+            .arrayBuffer();
+
+
+        const pdfjsLib =
+          await import(
+            "./assets/pdfjs/pdf.mjs"
+          );
+
+
+        pdfjsLib
+          .GlobalWorkerOptions
+          .workerSrc =
+            "./assets/pdfjs/pdf.worker.mjs";
+
+
+        privatePdfState.pdfjs =
+          pdfjsLib;
+
+
+        const loadingTask =
+          pdfjsLib.getDocument({
+            data:
+              buffer,
+
+            cMapUrl:
+              "./assets/pdfjs/cmaps/",
+
+            cMapPacked:
+              true,
+
+            standardFontDataUrl:
+              "./assets/pdfjs/standard_fonts/",
+          });
+
+
+        const pdf =
+          await loadingTask.promise;
+
+
+        if (
+          loadId !==
+          privatePdfState.loadId
+        ) {
+          return;
+        }
+
+
+        privatePdfState.pdf =
+          pdf;
+
+
+        await buildPrivatePdfShells(
+          1
+        );
+
+
+        privatePdfState.indexPromise =
+          buildPrivatePdfSearchIndex(
+            pdf,
+            loadId
+          );
+
+      }
+      catch (error) {
+
+        wrap.innerHTML =
+          `
+            <div class="private-pdf-error">
+              ${
+                escapeHtml(
+                  error.message ||
+                  "Gagal membuka dokumen."
+                )
+              }
+            </div>
+          `;
+
+
+        setPrivatePdfSearchStatus(
+          "Gagal"
+        );
+      }
+    }
+
+
+    function countPrivatePdfMatches(
+      text,
+      query
+    ) {
+
+      let count =
+        0;
+
+
+      let position =
+        0;
+
+
+      while (
+        text &&
+        query
+      ) {
+
+        const found =
+          text.indexOf(
+            query,
+            position
+          );
+
+
+        if (
+          found === -1
+        ) {
+          break;
+        }
+
+
+        count++;
+
+
+        position =
+          found +
+          Math.max(
+            query.length,
+            1
+          );
+      }
+
+
+      return count;
+    }
+
+
+    function applyPrivatePdfSearchMarkers() {
+
+      const shells =
+        document.querySelectorAll(
+          ".private-pdf-page-shell"
+        );
+
+
+      shells.forEach(
+        shell => {
+
+          shell.classList.remove(
+            "search-hit",
+            "search-current"
+          );
+
+
+          const pageNumber =
+            Number(
+              shell.dataset.page
+            );
+
+
+          const result =
+            privatePdfState
+              .results
+              .find(
+                item =>
+                  item.pageNumber ===
+                  pageNumber
+              );
+
+
+          if (result) {
+
+            shell.classList.add(
+              "search-hit"
+            );
+          }
+
+
+          if (
+            shell.dataset.rendered ===
+            "1"
+          ) {
+
+            renderPrivateSearchHighlights(
+              pageNumber,
+              shell
+            );
+          }
+        }
+      );
+    }
+
+
+    async function goToPrivatePdfSearchResult(
+      cursor
+    ) {
+
+      const total =
+        privatePdfState
+          .results
+          .length;
+
+
+      if (!total) {
+        return;
+      }
+
+
+      cursor =
+        (
+          cursor +
+          total
+        ) %
+        total;
+
+
+      privatePdfState.cursor =
+        cursor;
+
+
+      document
+        .querySelectorAll(
+          ".private-pdf-page-shell"
+        )
+        .forEach(
+          shell =>
+            shell.classList.remove(
+              "search-current"
+            )
+        );
+
+
+      const result =
+        privatePdfState
+          .results[
+            cursor
+          ];
+
+
+      const shell =
+        document.querySelector(
+          '.private-pdf-page-shell[data-page="' +
+          result.pageNumber +
+          '"]'
+        );
+
+
+      if (!shell) {
+        return;
+      }
+
+
+      shell.classList.add(
+        "search-current"
+      );
+
+
+      shell.scrollIntoView({
+        behavior:
+          "smooth",
+
+        block:
+          "start",
+      });
+
+
+      await renderPrivatePdfPage(
+        result.pageNumber,
+        shell,
+        privatePdfState.loadId
+      );
+
+
+      renderPrivateSearchHighlights(
+        result.pageNumber,
+        shell
+      );
+
+
+      setPrivatePdfSearchStatus(
+        (cursor + 1) +
+        "/" +
+        total +
+        " · Hal " +
+        result.pageNumber
+      );
+    }
+
+
+    async function runPrivatePdfSearch() {
+
+      const input =
+        document.getElementById(
+          "privatePdfSearchInput"
+        );
+
+
+      const query =
+        normalizePrivatePdfText(
+          input.value
+        );
+
+
+      privatePdfState.query =
+        query;
+
+
+      privatePdfState.results =
+        [];
+
+
+      privatePdfState.cursor =
+        -1;
+
+
+      const previous =
+        document.getElementById(
+          "privatePdfSearchPrev"
+        );
+
+
+      const next =
+        document.getElementById(
+          "privatePdfSearchNext"
+        );
+
+
+      previous.disabled =
+        true;
+
+      next.disabled =
+        true;
+
+
+      applyPrivatePdfSearchMarkers();
+
+
+      if (!query) {
+
+        setPrivatePdfSearchStatus(
+          privatePdfState.pdf
+            ? (
+                "Siap · " +
+                privatePdfState
+                  .pdf
+                  .numPages +
+                " hal."
+              )
+            : "Siap"
+        );
+
+        return;
+      }
+
+
+      if (
+        privatePdfState.indexPromise
+      ) {
+
+        setPrivatePdfSearchStatus(
+          "Mencari..."
+        );
+
+
+        await privatePdfState
+          .indexPromise;
+      }
+
+
+      for (
+        let i = 0;
+        i <
+        privatePdfState.index.length;
+        i++
+      ) {
+
+        const count =
+          countPrivatePdfMatches(
+            privatePdfState.index[i],
+            query
+          );
+
+
+        if (
+          count > 0
+        ) {
+
+          privatePdfState
+            .results
+            .push({
+              pageNumber:
+                i + 1,
+
+              count,
+            });
+        }
+      }
+
+
+      applyPrivatePdfSearchMarkers();
+
+
+      if (
+        !privatePdfState
+          .results
+          .length
+      ) {
+
+        setPrivatePdfSearchStatus(
+          "Tidak ditemukan"
+        );
+
+        return;
+      }
+
+
+      previous.disabled =
+        false;
+
+      next.disabled =
+        false;
+
+
+      await goToPrivatePdfSearchResult(
+        0
+      );
+    }
+
+
+    async function changePrivatePdfZoom(
+      delta
+    ) {
+
+      if (
+        !privatePdfState.pdf
+      ) {
+        return;
+      }
+
+
+      const currentShells =
+        [
+          ...document.querySelectorAll(
+            ".private-pdf-page-shell"
+          )
+        ];
+
+
+      const wrap =
+        document.getElementById(
+          "privatePdfWrap"
+        );
+
+
+      const wrapRect =
+        wrap.getBoundingClientRect();
+
+
+      const center =
+        wrapRect.top +
+        wrapRect.height /
+        2;
+
+
+      let focusPage =
+        1;
+
+
+      let closest =
+        Infinity;
+
+
+      for (
+        const shell
+        of currentShells
+      ) {
+
+        const rect =
+          shell.getBoundingClientRect();
+
+
+        const distance =
+          Math.abs(
+            (
+              rect.top +
+              rect.height /
+              2
+            ) -
+            center
+          );
+
+
+        if (
+          distance <
+          closest
+        ) {
+
+          closest =
+            distance;
+
+
+          focusPage =
+            Number(
+              shell.dataset.page
+            ) ||
+            1;
+        }
+      }
+
+
+      privatePdfState.zoom =
+        Math.max(
+          .70,
+          Math.min(
+            2,
+            privatePdfState.zoom +
+            delta
+          )
+        );
+
+
+      document.getElementById(
+        "privatePdfZoomLabel"
+      ).textContent =
+        Math.round(
+          privatePdfState.zoom *
+          100
+        ) +
+        "%";
+
+
+      await buildPrivatePdfShells(
+        focusPage
+      );
+    }
+
+    /* ASBUN_PRIVATE_PDF_ENGINE_END */
+
     async function loadPrivateSubmission() {
 
       showOnly(
@@ -1413,6 +4509,10 @@
         }
 
 
+        currentPrivateSubmission =
+          data.submission;
+
+
         renderPrivateSubmission(
           data.submission
         );
@@ -1422,7 +4522,24 @@
           privateView
         );
 
-      } catch (error) {
+
+        if (
+          data.submission
+            .fileAvailable
+        ) {
+
+          await loadPrivatePdf(
+            data.submission
+          );
+
+        }
+        else {
+
+          resetPrivatePdfState();
+        }
+
+      }
+      catch (error) {
 
         showError(
           error.message
@@ -1430,10 +4547,13 @@
       }
     }
 
-
     function renderPrivateSubmission(
       submission
     ) {
+
+      currentPrivateSubmission =
+        submission;
+
 
       const meta =
         getStatusMeta(
@@ -1494,29 +4614,84 @@
         "Berkas sudah tidak tersedia";
 
 
-      const pdfButton =
+      document.getElementById(
+        "privatePdfTitle"
+      ).textContent =
+        submission.activeFileName ||
+        "-";
+
+
+      const pdfCard =
         document.getElementById(
-          "viewPdfButton"
+          "privatePdfCard"
         );
 
 
-      pdfButton.classList.toggle(
+      pdfCard.classList.toggle(
         "hidden",
         !submission.fileAvailable
       );
 
 
-      const privateActions =
-        pdfButton.closest(
-          ".actions"
+      const annotations =
+        Array.isArray(
+          submission.annotations
+        )
+          ? submission.annotations
+          : [];
+
+
+      const annotationNotice =
+        document.getElementById(
+          "privateAnnotationNotice"
         );
 
 
-      privateActions.classList.toggle(
-        "hidden",
-        submission.status === "FINAL" ||
-        submission.status === "SELESAI"
-      );
+      const showAnnotations =
+        submission.status ===
+          "PERLU_PERBAIKAN" &&
+        annotations.length > 0;
+
+
+      annotationNotice
+        .classList
+        .toggle(
+          "hidden",
+          !showAnnotations
+        );
+
+
+      if (
+        showAnnotations
+      ) {
+
+        const strokeCount =
+          annotations.reduce(
+            (
+              total,
+              page
+            ) =>
+              total +
+              (
+                Array.isArray(
+                  page.strokes
+                )
+                  ? page.strokes.length
+                  : 0
+              ),
+            0
+          );
+
+
+        document.getElementById(
+          "privateAnnotationCount"
+        ).textContent =
+          annotations.length +
+          " halaman memiliki tanda visual (" +
+          strokeCount +
+          " coretan). " +
+          "Gunakan tanda tersebut bersama catatan TALING sebagai acuan perbaikan.";
+      }
 
 
       const notesCard =
@@ -1540,7 +4715,8 @@
           submission.notes
         ) &&
         submission.notes.length &&
-        submission.status === "PERLU_PERBAIKAN"
+        submission.status ===
+          "PERLU_PERBAIKAN"
       ) {
 
         notesCard.classList.remove(
@@ -1602,7 +4778,8 @@
             }
           );
 
-      } else {
+      }
+      else {
 
         notesCard.classList.add(
           "hidden"
@@ -1622,35 +4799,185 @@
       );
     }
 
-
     document.getElementById(
-      "viewPdfButton"
+      "refreshButton"
     ).addEventListener(
       "click",
+      loadPrivateSubmission
+    );
+
+
+    document.getElementById(
+      "privatePdfSearchInput"
+    ).addEventListener(
+      "input",
       () => {
 
-        const url =
-          API_BASE +
-          "/private/file?t=" +
-          encodeURIComponent(
-            privateToken
+        clearTimeout(
+          privatePdfState.timer
+        );
+
+
+        privatePdfState.timer =
+          setTimeout(
+            runPrivatePdfSearch,
+            320
           );
+      }
+    );
 
 
-        window.open(
-          url,
-          "_blank",
-          "noopener,noreferrer"
+    document.getElementById(
+      "privatePdfSearchInput"
+    ).addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key !==
+          "Enter"
+        ) {
+          return;
+        }
+
+
+        event.preventDefault();
+
+
+        if (
+          !privatePdfState
+            .results
+            .length
+        ) {
+
+          runPrivatePdfSearch();
+
+          return;
+        }
+
+
+        goToPrivatePdfSearchResult(
+          privatePdfState.cursor +
+          (
+            event.shiftKey
+              ? -1
+              : 1
+          )
         );
       }
     );
 
 
     document.getElementById(
-      "refreshButton"
+      "privatePdfSearchPrev"
     ).addEventListener(
       "click",
-      loadPrivateSubmission
+      () => {
+
+        goToPrivatePdfSearchResult(
+          privatePdfState.cursor -
+          1
+        );
+      }
+    );
+
+
+    document.getElementById(
+      "privatePdfSearchNext"
+    ).addEventListener(
+      "click",
+      () => {
+
+        goToPrivatePdfSearchResult(
+          privatePdfState.cursor +
+          1
+        );
+      }
+    );
+
+
+    document.getElementById(
+      "privatePdfSearchClear"
+    ).addEventListener(
+      "click",
+      () => {
+
+        const input =
+          document.getElementById(
+            "privatePdfSearchInput"
+          );
+
+
+        input.value =
+          "";
+
+
+        privatePdfState.query =
+          "";
+
+        privatePdfState.results =
+          [];
+
+        privatePdfState.cursor =
+          -1;
+
+
+        document.getElementById(
+          "privatePdfSearchPrev"
+        ).disabled =
+          true;
+
+
+        document.getElementById(
+          "privatePdfSearchNext"
+        ).disabled =
+          true;
+
+
+        applyPrivatePdfSearchMarkers();
+
+
+        setPrivatePdfSearchStatus(
+          privatePdfState.pdf
+            ? (
+                "Siap · " +
+                privatePdfState
+                  .pdf
+                  .numPages +
+                " hal."
+              )
+            : "Siap"
+        );
+
+
+        input.focus();
+      }
+    );
+
+
+    document.getElementById(
+      "privatePdfZoomOut"
+    ).addEventListener(
+      "click",
+      () => {
+
+        changePrivatePdfZoom(
+          -.10
+        );
+      }
+    );
+
+
+    document.getElementById(
+      "privatePdfZoomIn"
+    ).addEventListener(
+      "click",
+      () => {
+
+        changePrivatePdfZoom(
+          .10
+        );
+      }
     );
 
 

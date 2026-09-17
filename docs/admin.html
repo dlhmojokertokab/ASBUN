@@ -625,6 +625,816 @@
       }
     }
   
+
+
+/* ASBUN_DASHBOARD_FULLSCREEN_START */
+
+body.asbun-dashboard-full .header-inner,
+body.asbun-dashboard-full main {
+  width: 100%;
+  max-width: none;
+
+  padding-left:
+    clamp(22px, 3vw, 52px);
+
+  padding-right:
+    clamp(22px, 3vw, 52px);
+}
+
+body.asbun-dashboard-full main {
+  box-sizing: border-box;
+}
+
+body.asbun-dashboard-full .dashboard {
+  width: 100%;
+  max-width: none;
+}
+
+body.asbun-dashboard-full .hero,
+body.asbun-dashboard-full .stats,
+body.asbun-dashboard-full .grid {
+  width: 100%;
+}
+
+body.asbun-dashboard-full .grid {
+  grid-template-columns:
+    minmax(0, 1.65fr)
+    minmax(360px, .85fr);
+}
+
+/* sedikit lebih lega di monitor besar */
+@media (min-width: 1500px) {
+  body.asbun-dashboard-full .dashboard .hero {
+    padding:
+      30px 34px;
+  }
+
+  body.asbun-dashboard-full .stat-card {
+    min-height: 140px;
+  }
+
+  body.asbun-dashboard-full .grid {
+    gap: 22px;
+  }
+}
+
+@media (max-width: 980px) {
+  body.asbun-dashboard-full .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  body.asbun-dashboard-full .header-inner,
+  body.asbun-dashboard-full main {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+/* ASBUN_DASHBOARD_FULLSCREEN_END */
+
+/* ASBUN_DASHBOARD_POLISH_START */
+
+/* ==============================
+   HERO
+   ============================== */
+
+.dashboard .hero {
+  position: relative;
+  overflow: hidden;
+
+  padding: 26px 28px;
+  margin-bottom: 22px;
+
+  border:
+    1px solid
+    rgba(43, 105, 74, .10);
+
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.98),
+      rgba(235,246,239,.92)
+    );
+
+  box-shadow:
+    0 16px 42px
+    rgba(31, 72, 49, .055);
+}
+
+.dashboard .hero::after {
+  content: "";
+
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  right: -25px;
+  top: 50%;
+
+  transform:
+    translateY(-50%)
+    rotate(-6deg);
+
+  background:
+    url("assets/brand/asbun-icon.png")
+    center / contain
+    no-repeat;
+
+  opacity: .055;
+
+  pointer-events: none;
+}
+
+.dashboard .hero-copy,
+.dashboard .hero-actions {
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard .hero-copy h1 {
+  max-width: 680px;
+}
+
+.dashboard .hero-copy p {
+  font-size: 13px;
+}
+
+.dashboard .hero-actions button {
+  box-shadow:
+    0 8px 20px
+    rgba(34, 77, 53, .055);
+}
+
+#queueButton::after {
+  content: "  →";
+}
+
+#refreshButton::before {
+  content: "↻  ";
+}
+
+
+/* ==============================
+   STAT CARDS
+   ============================== */
+
+.dashboard .stats {
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.dashboard .stat-card {
+  position: relative;
+  overflow: hidden;
+
+  min-height: 132px;
+
+  padding:
+    19px 18px 17px;
+
+  border-radius: 20px;
+
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease,
+    border-color .18s ease;
+}
+
+.dashboard .stat-card:hover {
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    0 15px 34px
+    rgba(31, 65, 45, .075);
+
+  border-color:
+    rgba(49, 104, 74, .15);
+}
+
+.dashboard .stat-card::before {
+  position: absolute;
+
+  right: 15px;
+  top: 14px;
+
+  width: 34px;
+  height: 34px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 11px;
+
+  font-size: 18px;
+  font-weight: 900;
+
+  background:
+    rgba(255,255,255,.72);
+
+  box-shadow:
+    inset 0 0 0 1px
+    rgba(255,255,255,.72);
+}
+
+.dashboard .stat-card::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 4px;
+
+  opacity: .8;
+}
+
+.dashboard .stat-total::before {
+  content: "≡";
+  color: var(--green-dark);
+}
+
+.dashboard .stat-wait::before {
+  content: "…";
+  color: var(--blue);
+}
+
+.dashboard .stat-revision::before {
+  content: "!";
+  color: var(--amber);
+}
+
+.dashboard .stat-final::before {
+  content: "✓";
+  color: var(--green-dark);
+}
+
+.dashboard .stat-done::before {
+  content: "●";
+  color: var(--gray);
+  font-size: 13px;
+}
+
+.dashboard .stat-total::after {
+  background:
+    #30805b;
+}
+
+.dashboard .stat-wait::after {
+  background:
+    #447aa8;
+}
+
+.dashboard .stat-revision::after {
+  background:
+    #c68b2b;
+}
+
+.dashboard .stat-final::after {
+  background:
+    #2d7b55;
+}
+
+.dashboard .stat-done::after {
+  background:
+    #84918a;
+}
+
+.dashboard .stat-card span {
+  max-width: 70%;
+  line-height: 1.35;
+}
+
+.dashboard .stat-card strong {
+  margin-top: 15px;
+
+  font-size: 38px;
+  line-height: 1;
+}
+
+
+/* ==============================
+   MAIN GRID + PANELS
+   ============================== */
+
+.dashboard .grid {
+  grid-template-columns:
+    minmax(0, 1.55fr)
+    minmax(320px, .85fr);
+
+  gap: 18px;
+  align-items: start;
+}
+
+.dashboard .panel {
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(48, 93, 67, .10);
+
+  border-radius: 22px;
+
+  background:
+    rgba(255,255,255,.97);
+
+  box-shadow:
+    0 13px 36px
+    rgba(31, 65, 45, .045);
+}
+
+.dashboard .panel-head {
+  padding:
+    19px 20px 17px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff,
+      #fbfdfb
+    );
+
+  border-bottom:
+    1px solid
+    #edf2ee;
+}
+
+.dashboard .panel-head h2 {
+  margin-bottom: 4px;
+
+  font-size: 16px;
+  letter-spacing: -.015em;
+}
+
+.dashboard .panel-head span {
+  color: #849089;
+  font-size: 11px;
+}
+
+
+/* ==============================
+   RECENT TABLE
+   ============================== */
+
+.dashboard table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dashboard thead {
+  background:
+    #fafcfb;
+}
+
+.dashboard th {
+  padding:
+    11px 15px;
+
+  color: #748078;
+
+  font-size: 10px;
+  font-weight: 900;
+
+  letter-spacing: .055em;
+  text-transform: uppercase;
+
+  border-bottom:
+    1px solid
+    #edf2ee;
+}
+
+.dashboard td {
+  padding:
+    15px;
+
+  border-bottom:
+    1px solid
+    #f0f3f1;
+
+  vertical-align: middle;
+}
+
+.dashboard tbody tr {
+  transition:
+    background .16s ease;
+}
+
+.dashboard tbody tr:hover {
+  background:
+    #f8fbf9;
+}
+
+.dashboard tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.dashboard .submission-number {
+  font-size: 12px;
+  font-weight: 900;
+
+  color: var(--text);
+}
+
+.dashboard .company {
+  margin-top: 3px;
+
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.dashboard .badge {
+  padding:
+    5px 9px;
+
+  border-radius: 999px;
+
+  font-size: 10px;
+}
+
+
+/* ==============================
+   ACTIVITY TIMELINE
+   ============================== */
+
+.dashboard .activity-list {
+  position: relative;
+
+  padding:
+    7px 0;
+
+  max-height: 470px;
+  overflow-y: auto;
+}
+
+.dashboard .activity {
+  position: relative;
+
+  display: grid;
+  grid-template-columns:
+    38px
+    minmax(0,1fr);
+
+  gap: 12px;
+
+  padding:
+    14px 18px;
+
+  border-bottom:
+    1px solid
+    #edf2ee;
+}
+
+.dashboard .activity:last-child {
+  border-bottom: 0;
+}
+
+.activity-icon {
+  width: 38px;
+  height: 38px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 12px;
+
+  font-size: 15px;
+  font-weight: 1000;
+
+  background:
+    #eef4f0;
+
+  color:
+    #4a6e58;
+}
+
+.activity-icon.revision {
+  background:
+    var(--amber-soft);
+
+  color:
+    var(--amber);
+}
+
+.activity-icon.final {
+  background:
+    var(--green-soft);
+
+  color:
+    var(--green-dark);
+}
+
+.activity-icon.complete {
+  background:
+    #edf3ef;
+
+  color:
+    #4d6858;
+}
+
+.activity-copy {
+  min-width: 0;
+}
+
+.activity-copy strong {
+  display: block;
+
+  margin: 1px 0 5px;
+
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.activity-copy p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 5px;
+
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.activity-ref {
+  display: inline-flex;
+
+  padding:
+    3px 7px;
+
+  border-radius: 7px;
+
+  background:
+    #f0f5f2;
+
+  color:
+    #356348;
+
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.activity-desc {
+  color:
+    #748078;
+}
+
+.dashboard .activity time {
+  display: block;
+
+  margin-top: 7px;
+
+  color:
+    #929c96;
+
+  font-size: 10px;
+}
+
+
+/* ==============================
+   LOADING + EMPTY
+   ============================== */
+
+.dashboard .loading {
+  min-height: 120px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  font-size: 12px;
+}
+
+.dashboard .loading::before {
+  content: "";
+
+  width: 16px;
+  height: 16px;
+
+  border:
+    2px solid
+    #dbe6df;
+
+  border-top-color:
+    #347c59;
+
+  border-radius: 999px;
+
+  animation:
+    asbunDashSpin
+    .75s linear infinite;
+}
+
+@keyframes asbunDashSpin {
+  to {
+    transform:
+      rotate(360deg);
+  }
+}
+
+.dashboard .empty {
+  padding:
+    38px 24px;
+
+  color:
+    #78857d;
+
+  background:
+    linear-gradient(
+      180deg,
+      #fff,
+      #fbfdfb
+    );
+}
+
+
+/* ==============================
+   RESPONSIVE
+   ============================== */
+
+@media (
+  max-width: 980px
+) {
+  .dashboard .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard .activity-list {
+    max-height: none;
+  }
+}
+
+@media (
+  max-width: 640px
+) {
+  .dashboard .hero {
+    padding: 22px 18px;
+  }
+
+  .dashboard .hero::after {
+    width: 130px;
+    height: 130px;
+
+    right: -40px;
+
+    opacity: .045;
+  }
+
+  .dashboard .stat-card {
+    min-height: 112px;
+  }
+
+  .dashboard .stat-card::before {
+    width: 30px;
+    height: 30px;
+
+    font-size: 15px;
+  }
+
+  .dashboard .stat-card strong {
+    font-size: 31px;
+  }
+
+  .dashboard td,
+  .dashboard th {
+    padding-left: 11px;
+    padding-right: 11px;
+  }
+
+  .dashboard .activity {
+    padding:
+      13px 14px;
+  }
+}
+
+/* ASBUN_DASHBOARD_POLISH_END */
+
+
+/* ASBUN_LOGIN_FULLSCREEN_START */
+
+/*
+  Fullscreen hanya untuk KANVAS login.
+  Card/form login tetap compact.
+*/
+
+body.asbun-login-polish {
+  min-height: 100dvh;
+}
+
+body.asbun-login-polish .header-inner,
+body.asbun-login-polish main {
+  width: 100%;
+  max-width: none;
+
+  box-sizing: border-box;
+
+  padding-left:
+    clamp(22px, 3vw, 52px);
+
+  padding-right:
+    clamp(22px, 3vw, 52px);
+}
+
+body.asbun-login-polish main {
+  min-height:
+    calc(100dvh - 86px);
+
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+body.asbun-login-polish #loginView {
+  width: 100%;
+  min-height:
+    calc(100dvh - 134px);
+
+  box-sizing: border-box;
+
+  place-items: center;
+}
+
+/*
+  Card tidak ikut melebar.
+  Form tetap fokus di tengah.
+*/
+body.asbun-login-polish #loginView > * {
+  position: relative;
+  z-index: 2;
+}
+
+/*
+  Dekorasi benar-benar pakai viewport penuh,
+  bukan mengikuti container main.
+*/
+body.asbun-login-polish #asbunLoginBackdrop {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+}
+
+/* Lebih terasa di monitor lebar */
+@media (min-width: 1400px) {
+  body.asbun-login-polish
+  .asbun-leaf-cluster.left {
+    left: 7%;
+    bottom: 4%;
+    transform:
+      rotate(-13deg)
+      scale(1.12);
+  }
+
+  body.asbun-login-polish
+  .asbun-leaf-cluster.right {
+    right: 7%;
+    top: 12%;
+    transform:
+      rotate(16deg)
+      scale(.96);
+  }
+
+  body.asbun-login-polish
+  .asbun-doc.one {
+    left: 12%;
+    top: 20%;
+  }
+
+  body.asbun-login-polish
+  .asbun-doc.two {
+    right: 12%;
+    bottom: 12%;
+  }
+}
+
+@media (max-width: 640px) {
+  body.asbun-login-polish .header-inner,
+  body.asbun-login-polish main {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  body.asbun-login-polish main {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  body.asbun-login-polish #loginView {
+    min-height:
+      calc(100dvh - 108px);
+  }
+}
+
+/* ASBUN_LOGIN_FULLSCREEN_END */
+
 /* ASBUN_LOGIN_POLISH_START */
 
 /* Background hanya aktif ketika form login sedang terlihat */
@@ -1224,6 +2034,13 @@ form:has(input[type="password"]) {
 
           <button
             class="ghost"
+            id="settingsButton"
+            type="button"
+          >
+            Kelola Admin
+          </button>
+          <button
+            class="ghost"
             id="refreshButton"
             type="button"
           >
@@ -1296,7 +2113,7 @@ form:has(input[type="password"]) {
             <div>
               <h2>Aktivitas Admin</h2>
               <span>
-                Aktivitas terbaru
+                Jejak keputusan dan tindakan terbaru
               </span>
             </div>
           </div>
@@ -1401,6 +2218,10 @@ form:has(input[type="password"]) {
     }
 
     function showLogin() {
+      document.body.classList.remove(
+        "asbun-dashboard-full"
+      );
+
       bootView.style.display =
         "none";
 
@@ -1415,6 +2236,10 @@ form:has(input[type="password"]) {
     }
 
     function showDashboard() {
+      document.body.classList.add(
+        "asbun-dashboard-full"
+      );
+
       bootView.style.display =
         "none";
 
@@ -1675,6 +2500,173 @@ form:has(input[type="password"]) {
       `;
     }
 
+    function parseActivityDetail(
+      detail
+    ) {
+      if (!detail) {
+        return {};
+      }
+
+      if (
+        typeof detail ===
+        "object"
+      ) {
+        return detail;
+      }
+
+      try {
+        return JSON.parse(
+          detail
+        );
+      }
+      catch {
+        return {};
+      }
+    }
+
+
+    function getActivityView(
+      item
+    ) {
+      const detail =
+        parseActivityDetail(
+          item.detail
+        );
+
+      const version =
+        Number(
+          detail.version ||
+          0
+        );
+
+      const versionText =
+        version > 0
+          ? "V" + version
+          : "";
+
+      const action =
+        String(
+          item.action ||
+          ""
+        );
+
+      const actor =
+        item.actorName ||
+        "Admin";
+
+
+      if (
+        action ===
+        "MARKED_NEEDS_REVISION"
+      ) {
+        return {
+          tone:
+            "revision",
+
+          icon:
+            "!",
+
+          title:
+            actor +
+            " meminta perbaikan dokumen",
+
+          description:
+            [
+              versionText,
+              "Catatan perbaikan dikirim ke PIC",
+            ]
+              .filter(Boolean)
+              .join(" · "),
+        };
+      }
+
+
+      if (
+        action ===
+        "MARKED_FINAL"
+      ) {
+        return {
+          tone:
+            "final",
+
+          icon:
+            "✓",
+
+          title:
+            actor +
+            " menetapkan pengajuan sebagai FINAL",
+
+          description:
+            [
+              versionText,
+              "Dokumen ditetapkan sebagai berkas final",
+            ]
+              .filter(Boolean)
+              .join(" · "),
+        };
+      }
+
+
+      if (
+        action ===
+        "SUBMISSION_COMPLETED_FILE_DELETED"
+      ) {
+        return {
+          tone:
+            "complete",
+
+          icon:
+            "✓",
+
+          title:
+            actor +
+            " menyelesaikan pengajuan",
+
+          description:
+            [
+              versionText,
+              "Berkas final dihapus dari penyimpanan transit",
+            ]
+              .filter(Boolean)
+              .join(" · "),
+        };
+      }
+
+
+      const readableAction =
+        action
+          .replace(
+            /_/g,
+            " "
+          )
+          .toLowerCase()
+          .replace(
+            /\b\w/g,
+            (letter) =>
+              letter.toUpperCase()
+          );
+
+      return {
+        tone:
+          "",
+
+        icon:
+          "•",
+
+        title:
+          actor +
+          " · " +
+          (
+            readableAction ||
+            "Aktivitas Admin"
+          ),
+
+        description:
+          versionText,
+      };
+    }
+
+
     function renderActivity(items) {
       const wrap =
         document.getElementById(
@@ -1689,51 +2681,75 @@ form:has(input[type="password"]) {
           <div class="empty">
             Belum ada aktivitas admin yang tercatat.
             <br>
-            Aktivitas baru akan muncul setelah
-            workdesk admin mulai digunakan.
+            Aktivitas akan muncul setelah ada
+            keputusan atau tindakan di Workdesk.
           </div>
         `;
 
         return;
       }
 
+
       wrap.innerHTML =
         items.map(
-          (item) => `
-            <article class="activity">
-              <strong>
-                ${escapeHtml(
-                  item.actorName ||
-                  "Admin"
-                )}
-                ·
-                ${escapeHtml(
-                  item.action
-                )}
-              </strong>
+          (item) => {
+            const view =
+              getActivityView(
+                item
+              );
 
-              <p>
-                ${escapeHtml(
-                  item.submissionNumber
-                )}
-                ${item.detail
-                  ? " — " +
-                    escapeHtml(
-                      item.detail
-                    )
-                  : ""
-                }
-              </p>
+            return `
+              <article class="activity">
+                <div
+                  class="activity-icon ${escapeHtml(
+                    view.tone
+                  )}"
+                  aria-hidden="true"
+                >
+                  ${escapeHtml(
+                    view.icon
+                  )}
+                </div>
 
-              <time>
-                ${escapeHtml(
-                  formatDate(
-                    item.createdAt
-                  )
-                )}
-              </time>
-            </article>
-          `
+                <div class="activity-copy">
+                  <strong>
+                    ${escapeHtml(
+                      view.title
+                    )}
+                  </strong>
+
+                  <p>
+                    <span class="activity-ref">
+                      ${escapeHtml(
+                        item.submissionNumber ||
+                        "-"
+                      )}
+                    </span>
+
+                    ${
+                      view.description
+                        ? `
+                          <span class="activity-desc">
+                            ${escapeHtml(
+                              view.description
+                            )}
+                          </span>
+                        `
+                        : ""
+                    }
+                  </p>
+
+                  <time>
+                    ${escapeHtml(
+                      formatDate(
+                        item.createdAt
+                      )
+                    )}
+                  </time>
+                </div>
+              </article>
+            `;
+          }
         ).join("");
     }
 
@@ -1900,6 +2916,16 @@ form:has(input[type="password"]) {
         loginForm.reset();
         clearLoginError();
         showLogin();
+      }
+    );
+
+    document.getElementById(
+      "settingsButton"
+    ).addEventListener(
+      "click",
+      () => {
+        location.href =
+          "admin-settings.html";
       }
     );
 
